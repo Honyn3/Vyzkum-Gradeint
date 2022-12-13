@@ -1,0 +1,441 @@
+/* image 1 */
+@font-face {
+    font-family: Bahnschrift;
+    src: url(bahnschrift.ttf);
+}
+
+body {
+    background-image: url(img/background.png);
+    background-size: 1920px 1080px;
+    background-color: rgba(18, 18, 18, 0.89);
+    padding: 0;
+    margin: 0;
+    font-family: 'Bahnschrift', sans-serif;
+}
+
+#slider {
+    color: red;
+    --sliderColor: #A1A1A1;
+    --border: 2px solid #ffffff;
+    --borderRadius: 40px;
+}
+
+#slider:hover {
+    --border: 2px solid #000000;
+}
+
+#sliderDiv {
+    text-align: center;
+}
+
+#gradient {
+    width: 60%;
+    height: 70px;
+    background: linear-gradient(to right, #A1A1A1, #A1A1A1 100%);
+    margin: auto;
+    padding: 10px;
+    border: #000000 solid 1px;
+    border-radius: 4px;
+}
+
+#colorButtonRight {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    border-style: solid;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+}
+
+#colorButtonRight:hover {
+    border-color: black;
+}
+
+#colorButtonRight:active {
+    border-color: rgb(169, 169, 169);
+}
+
+#colorButtonLeft {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    border-style: solid;
+    transition: 0.3s ease;
+}
+
+#colorButtonLeft:hover {
+    border-color: black;
+}
+
+#colorButtonLeft:active {
+    border-color: rgb(169, 169, 169);
+}
+
+#buttons {
+    display: flex;
+    height: 50px;
+    width: 63%;
+    margin: auto;
+    align-items: center;
+    background-color: #ffffff00;
+
+}
+
+#colorDiv {
+    width: 200px;
+    transition: 0.3s ease;
+    margin-left: 10%;
+}
+
+#colorUpDiv {
+    width: 100%;
+    position: absolute;
+    margin: auto;
+}
+
+#lineUp {
+    border-left: 6px solid green;
+    height: 10%;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 40%;
+}
+
+input[type=range] {
+    height: 37px;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 10px 0;
+    width: 100%;
+    background-color: #ffffff00;
+
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 1px;
+    cursor: pointer;
+}
+
+#slider::-webkit-slider-thumb {
+    border: var(--border);
+    height: 40px;
+    width: 40px;
+    border-radius: var(--borderRadius);
+    background-color: var(--sliderColor);
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -20px;
+    transition: 0.3s ease;
+
+}
+
+#scaleLi {
+    /*
+    */
+    display: inline-flex;
+    font-size: 35px;
+    color: white;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+}
+
+#scales {
+    /*
+
+    */
+    margin: auto;
+    margin-top: 200px;
+
+    width: 70%;
+    height: 60px;
+}
+
+#scale1 {
+    width: 20%;
+    text-align: center;
+
+}
+
+#scale2 {
+    width: 20%;
+    text-align: center;
+
+}
+
+#scale3 {
+    width: 20%;
+    text-align: center;
+
+}
+
+#scale4 {
+    width: 20%;
+    text-align: center;
+
+}
+
+#scale5 {
+    width: 20%;
+    text-align: center;
+
+}
+
+#colorPicker {
+    width: 100px;
+    height: 100px;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+
+    border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+
+#preset {
+    list-style-type: none;
+    background-color: #acbdba6e;
+    width: 230px;
+    height: 123px;
+    padding: 0px;
+    border-radius: 5px;
+    border: solid #616161;
+    text-align: center;
+}
+
+.button {
+    border-radius: 50%;
+    padding: 12px;
+    margin: 5px;
+
+    border-width: 1px;
+    width: 1px;
+}
+
+
+.button1 {
+    background-color: red;
+}
+
+.button2 {
+    background-color: orange;
+}
+
+.button3 {
+    background-color: yellow;
+}
+
+.button4 {
+    background-color: #48e817;
+}
+
+.button5 {
+    background-color: #17c2e8;
+}
+
+.button6 {
+    background-color: #0b21e3;
+}
+
+.button7 {
+    background-color: purple;
+}
+
+.button8 {
+    background-color: pink;
+}
+
+.button9 {
+    background-color: white;
+}
+
+.button10 {
+    background-color: brown;
+}
+#barvyText{
+    text-align: center;
+    font-size: 25px;
+    width: 100%;
+    color: white;
+}
+
+#colorText {
+    padding-top: 4px;
+    color: white;
+}
+
+input[type='color'] {
+    width: 230px;
+    padding: 0px;
+    border-color: rgb(105, 105, 105);
+    background-color: rgb(105, 105, 105);
+}
+
+#switch {
+    margin: auto;
+    position: inherit;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    margin-top: -10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    height: 34px;
+    width: 60px;
+    text-align: center;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.sliderSwitch.round {
+    border-radius: 34px;
+}
+
+.sliderSwitch.round:before {
+    border-radius: 50%;
+}
+
+.sliderSwitch {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    width: 60px;
+}
+
+#dolniButtony {
+    display: inline-flex;
+    width: 100%;
+}
+
+#dolniButtonyUp {
+    width: 70%;
+    margin: auto;
+}
+
+.sliderSwitch:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.sliderSwitch {
+    background-color: #2CB9F1;
+}
+
+input:focus+.sliderSwitch {
+    box-shadow: 0 0 1px #2CB9F1;
+}
+
+input:checked+.sliderSwitch:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/*ADAM*/
+.prepinace {
+    cursor: pointer;
+    background: #2CB9F1;
+    border-radius: 7px;
+    border: 0px;
+    color: white;
+    font-weight: bold;
+    padding: 0.7%;
+    font-size: 20px;
+    width: 100px;
+
+}
+
+#celydalsi {
+    margin-bottom: 2%;
+    right: 0px;
+    left: auto;
+}
+
+#dalsi {
+    height: 50px;
+    margin-bottom: 2%;
+    right: 0px;
+    left: auto;
+}
+
+#zpatky {
+    margin-bottom: 2%;
+    height: 53px;
+    left: 0;
+}
+
+#cislostranky {
+    padding-top: 10%;
+
+    width: 85%;
+    text-align: right;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+#stranka {
+    display: none;
+}
+
+#buttonstart {
+    display: absolute;
+    position: fixed;
+    bottom: 50%;
+    left: 46%;
+    font-size: 2em;
+}
+
+#konec {
+    display: none;
+    position: fixed;
+    bottom: 50%;
+    left: 30%;
+    font-size: 2em;
+    color: white;
+}
