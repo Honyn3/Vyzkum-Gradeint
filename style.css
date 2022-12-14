@@ -52,6 +52,26 @@ body {
     margin: auto;
 }
 
+#disableMiddleButton{
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    border-style: solid;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin: auto;
+    position: fixed;left: 52%;
+}
+#disableMiddleButton:hover{
+    border-color: black;
+}
+#disableMiddleButton:active{
+    border-color: rgb(169, 169, 169);
+}
+
 #colorButtonMiddle:hover {
     border-color: black;
 }

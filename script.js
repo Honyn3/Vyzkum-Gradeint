@@ -35,6 +35,11 @@ function MiddleButtonPressed() {
     ChangeActive();
 
 }
+function DisableMiddleButton() {
+    MiddleColor = "null";
+    middleButton.style.backgroundColor = "#00000000";
+    MoveGradient();
+}
 function RightButtonPressed() {
     colorPicker.style.marginLeft = rightButton.getBoundingClientRect().x - colorWidthHalf + "px";
     btnIndex = 2;
@@ -111,7 +116,7 @@ function GradientAdjust(x) {
     return y;
 }
 
-function Checkbox() {
+/*function Checkbox() {
     if (middleSwitch.checked == true) {
         middleButton.style.backgroundColor = MiddleColor;
     }
@@ -122,7 +127,7 @@ function Checkbox() {
     }
     MoveGradient();
 
-}
+}*/
 
 let pocetstranek = 1;
 let soupisotazek = [["skvělé", "dobré", "neutrální", "špatné", "příšerné"], ["nádherné", "hezké", "neutrální", "ošklivé", "ohavné"], ["rychlé", "svižné", "neutrální", "zvolna", "pomalé"], ["biologie", "programování", "chemie", "němčina"]] //slova nad sliderem (budou v budoucnu přicházet ze serveru)
