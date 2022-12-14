@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="buttonStyle.css">
     <title>Výzkum: Škály a Gradienty</title>
 </head>
 
-<body>
+<body onresize="MoveToButtonIndex()">
     <button class="prepinace" id="buttonstart" onclick="start()">Začít</button>
     <p id="konec">Děkujeme za účast v průzkumu</p>
     <div id="stranka" onclick="hideColor()">
@@ -32,52 +33,62 @@
 
                 <ul id="preset">
                     <li>
-                        <button class="button button1" onclick="Barvy('#FF0000')"></button>
-                        <button class="button button2" onclick="Barvy('Orange')"></button>
-                        <button class="button button3" onclick="Barvy('Yellow')"></button>
-                        <button class="button button4" onclick="Barvy('#48e817')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
+                        <button class="button button1" onclick="Barvy(this)"></button>
+                        <button class="button button2" onclick="Barvy(this)"></button>
+                        <button class="button button3" onclick="Barvy(this)"></button>
+                        <button class="button button4" onclick="Barvy(this)"></button>
+                        <button class="button button5" onclick="Barvy(this)"></button>
+                        <button class="button button6" onclick="Barvy(this)"></button>
+                        <button class="button button7" onclick="Barvy(this)"></button>
 
                     </li>
                     <li>
-                        <button class="button button6" onclick="Barvy('#0b21e3')"></button>
-                        <button class="button button7" onclick="Barvy('Purple')"></button>
-                        <button class="button button8" onclick="Barvy('Pink')"></button>
-                        <button class="button button9" onclick="Barvy('White')"></button>
-                        <button class="button button10" onclick="Barvy('Brown')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
-                        <button class="button button10" onclick="Barvy('Brown')"></button>
-                    </li>
-                    <li>
-                        <button class="button button6" onclick="Barvy('#0b21e3')"></button>
-                        <button class="button button7" onclick="Barvy('Purple')"></button>
-                        <button class="button button8" onclick="Barvy('Pink')"></button>
-                        <button class="button button9" onclick="Barvy('White')"></button>
-                        <button class="button button10" onclick="Barvy('Brown')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
+                        <button class="button button8" onclick="Barvy(this)"></button>
+                        <button class="button button9" onclick="Barvy(this)"></button>
+                        <button class="button button10" onclick="Barvy(this)"></button>
+                        <button class="button button11" onclick="Barvy(this)"></button>
+                        <button class="button button12" onclick="Barvy(this)"></button>
+                        <button class="button button13" onclick="Barvy(this)"></button>
+                        <button class="button button14" onclick="Barvy(this)"></button>
 
                     </li>
                     <li>
-                        <button class="button button6" onclick="Barvy('#0b21e3')"></button>
-                        <button class="button button7" onclick="Barvy('Purple')"></button>
-                        <button class="button button8" onclick="Barvy('Pink')"></button>
-                        <button class="button button9" onclick="Barvy('White')"></button>
-                        <button class="button button10" onclick="Barvy('Brown')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
+                        <button class="button button15" onclick="Barvy(this)"></button>
+                        <button class="button button16" onclick="Barvy(this)"></button>
+                        <button class="button button17" onclick="Barvy(this)"></button>
+                        <button class="button button18" onclick="Barvy(this)"></button>
+                        <button class="button button19" onclick="Barvy(this)"></button>
+                        <button class="button button20" onclick="Barvy(this)"></button>
+                        <button class="button button21" onclick="Barvy(this)"></button>
+                    </li>
+                    <li>
+                        <button class="button button22" onclick="Barvy(this)"></button>
+                        <button class="button button23" onclick="Barvy(this)"></button>
+                        <button class="button button24" onclick="Barvy(this)"></button>
+                        <button class="button button25" onclick="Barvy(this)"></button>
+                        <button class="button button26" onclick="Barvy(this)"></button>
+                        <button class="button button27" onclick="Barvy(this)"></button>
+                        <button class="button button28" onclick="Barvy(this)"></button>
 
                     </li>
                     <li>
-                        <button class="button button6" onclick="Barvy('#0b21e3')"></button>
-                        <button class="button button7" onclick="Barvy('Purple')"></button>
-                        <button class="button button8" onclick="Barvy('Pink')"></button>
-                        <button class="button button9" onclick="Barvy('White')"></button>
-                        <button class="button button10" onclick="Barvy('Brown')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
-                        <button class="button button5" onclick="Barvy('#17c2e8')"></button>
+                        <button class="button button29" onclick="Barvy(this)"></button>
+                        <button class="button button30" onclick="Barvy(this)"></button>
+                        <button class="button button31" onclick="Barvy(this)"></button>
+                        <button class="button button32" onclick="Barvy(this)"></button>
+                        <button class="button button33" onclick="Barvy(this)"></button>
+                        <button class="button button34" onclick="Barvy(this)"></button>
+                        <button class="button button35" onclick="Barvy(this)"></button>
+
+                    </li>
+                    <li>
+                        <button class="button button36" onclick="Barvy(this)"></button>
+                        <button class="button button37" onclick="Barvy(this)"></button>
+                        <button class="button button38" onclick="Barvy(this)"></button>
+                        <button class="button button39" onclick="Barvy(this)"></button>
+                        <button class="button button40" onclick="Barvy(this)"></button>
+                        <button class="button button41" onclick="Barvy(this)"></button>
+                        <button class="button button42" onclick="Barvy(this)"></button>
 
                     </li>
                 </ul>
