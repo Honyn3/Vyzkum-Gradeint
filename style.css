@@ -1,8 +1,4 @@
-/* image 1 */
-@font-face {
-    font-family: Bahnschrift;
-    src: url(bahnschrift.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Mukta&family=Nunito&family=Roboto&display=swap');
 
 body {
     background-image: url(img/background.png);
@@ -10,27 +6,12 @@ body {
     background-color: rgba(18, 18, 18, 0.89);
     padding: 0;
     margin: 0;
-    font-family: 'Bahnschrift', sans-serif;
-}
-
-#slider {
-    color: red;
-    --sliderColor: #A1A1A1;
-    --border: 2px solid #ffffff;
-    --borderRadius: 40px;
-}
-
-#slider:hover {
-    --border: 2px solid #000000;
-}
-
-#sliderDiv {
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 #gradient {
     width: 60%;
-    height: 70px;
+    height: 55px;
     background: linear-gradient(to right, #A1A1A1, #A1A1A1 100%);
     margin: auto;
     padding: 10px;
@@ -56,6 +37,26 @@ body {
 }
 
 #colorButtonRight:active {
+    border-color: rgb(169, 169, 169);
+}
+#colorButtonMiddle {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    border-style: solid;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin: auto;
+}
+
+#colorButtonMiddle:hover {
+    border-color: black;
+}
+
+#colorButtonMiddle:active {
     border-color: rgb(169, 169, 169);
 }
 
@@ -90,9 +91,11 @@ body {
 }
 
 #colorDiv {
-    width: 200px;
+    width: 300px;
     transition: 0.3s ease;
     margin-left: 10%;
+    display:none;
+    
 }
 
 #colorUpDiv {
@@ -147,7 +150,7 @@ input[type=range]::-webkit-slider-runnable-track {
     /*
     */
     display: inline-flex;
-    font-size: 35px;
+    font-size: 30px;
     color: white;
     list-style: none;
     margin: 0;
@@ -163,7 +166,7 @@ input[type=range]::-webkit-slider-runnable-track {
     margin: auto;
     margin-top: 200px;
 
-    width: 70%;
+    width: 76%;
     height: 60px;
 }
 
@@ -219,22 +222,26 @@ input[type="color"]::-webkit-color-swatch {
 
 #preset {
     list-style-type: none;
-    background-color: #acbdba6e;
+    background-color: #9f9f9f81;
     width: 230px;
-    height: 123px;
+    height: 151px;
     padding: 0px;
     border-radius: 5px;
     border: solid #616161;
     text-align: center;
+    
 }
 
 .button {
     border-radius: 50%;
-    padding: 12px;
-    margin: 5px;
+    padding: 11px;
+    margin: 2px;
 
-    border-width: 1px;
+    border-width: 0;
     width: 1px;
+}
+.button:hover{
+    box-shadow: 2px 2px rgba(41, 41, 41, 0.547)
 }
 
 

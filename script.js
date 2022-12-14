@@ -3,53 +3,76 @@ let slider = document.getElementById("slider");
 let rightButton = document.getElementById("colorButtonRight");
 let leftButton = document.getElementById("colorButtonLeft");
 let gradient = document.getElementById("gradient");
-let middleButton = document.getElementById("slider");
+let middleButton = document.getElementById("colorButtonMiddle");
 let middleSwitch = document.getElementById("checkbox");
 
 let btnIndex = 0;
-let colorWidthHalf = 100;
+let colorWidthHalf = 95;
 
 let LeftColor = "#A1A1A1";
 let RightColor = "#A1A1A1";
 let MiddleColor = null;
-let prevMiddleColor = "#A1A1A1";
 
+function hideColor(){
+    
+    ChangeActive();    
+}
 
 function LeftButtonPressed() {
     colorPicker.style.marginLeft = leftButton.getBoundingClientRect().x - colorWidthHalf + "px";
     btnIndex = 0;
+    colorPicker.style.display = "inherit";
     ChangeActive();
 }
 function MiddleButtonPressed() {
-    let pos = slider.getBoundingClientRect().x + (slider.value / 100 * slider.offsetWidth) - slider.value / 2.8 - 100;
-    colorPicker.style.marginLeft = pos + "px";
+    colorPicker.style.marginLeft = middleButton.getBoundingClientRect().x - colorWidthHalf + "px";
+    middleButton.style.backgroundColor = odpovedi[pocetstranek-1][1];
+    middleSwitch = true;
     btnIndex = 1;
-    MoveGradient();
+    console.log(btnIndex);
+    colorPicker.style.display = "inherit";
+
     ChangeActive();
 
 }
 function RightButtonPressed() {
     colorPicker.style.marginLeft = rightButton.getBoundingClientRect().x - colorWidthHalf + "px";
     btnIndex = 2;
+    colorPicker.style.display = "inherit";
+
     ChangeActive();
 
 }
 function ChangeActive() {
+    console.log(btnIndex);
     switch (btnIndex) {
         case 0:
+            leftButton.style.borderWidth = '4px';
+            rightButton.style.borderWidth = '2px';
+            middleButton.style.borderWidth = '2px';
+
             leftButton.style.borderRadius = '10px';
             rightButton.style.borderRadius = '1000px';
-            middleButton.style.setProperty('--borderRadius', '40px');
+            middleButton.style.borderRadius = '1000px';
+
             break;
         case 1:
+            leftButton.style.borderWidth = '2px';
+            rightButton.style.borderWidth = '2px';
+            middleButton.style.borderWidth = '4px';
+
             leftButton.style.borderRadius = '1000px';
             rightButton.style.borderRadius = '1000px';
-            middleButton.style.setProperty('--borderRadius', '10px');
+            middleButton.style.borderRadius = '10px';
             break;
         case 2:
+            leftButton.style.borderWidth = '2px';
+            rightButton.style.borderWidth = '4px';
+            middleButton.style.borderWidth = '2px';
+
             leftButton.style.borderRadius = '1000px';
             rightButton.style.borderRadius = '10px';
-            middleButton.style.setProperty('--borderRadius', '40px');
+            middleButton.style.borderRadius = '1000px';
             break;
     }
 }
@@ -61,7 +84,8 @@ function Barvy(barva) {
             break;
         case 1:
             MiddleColor = barva;
-            middleButton.style.setProperty('--sliderColor', barva);
+            middleButton.style.backgroundColor = barva;
+
             middleSwitch.checked = true;
             break;
         case 2:
@@ -74,7 +98,7 @@ function Barvy(barva) {
 }
 function MoveGradient() {
     if (MiddleColor != "null") {
-        let col = "linear-gradient(to right, " + LeftColor + " , " + MiddleColor + " " + (GradientAdjust((slider.value + 10) / 100)) + "%, " + RightColor + " )";
+        let col = "linear-gradient(to right, " + LeftColor + " , " + MiddleColor + " , " + RightColor + " )";
         gradient.style.background = col;
     }
     else {
@@ -86,19 +110,15 @@ function GradientAdjust(x) {
     y = 0.8 * (x - 50) + 50;
     return y;
 }
-LeftButtonPressed();
 
 function Checkbox() {
     if (middleSwitch.checked == true) {
-        MiddleColor = prevMiddleColor;
-        middleButton.style.setProperty('--sliderColor', MiddleColor);
-
+        middleButton.style.backgroundColor = MiddleColor;
     }
     else {
-        prevMiddleColor = MiddleColor;
 
         MiddleColor = "null";
-        middleButton.style.setProperty('--sliderColor', MiddleColor);
+        middleButton.style.backgroundColor = "#00000000";
     }
     MoveGradient();
 
@@ -140,10 +160,10 @@ function start() {
         MiddleColor = odpovedi[0][1];
         RightColor = odpovedi[0][2];
         leftButton.style.backgroundColor = odpovedi[0][0];
-        if (odpovedi[0][1] != null) {
-            middleButton.style.setProperty('--sliderColor', odpovedi[0][1]);
+        if (odpovedi[0][1] != "null") {
+            middleButton.style.background = odpovedi[0][1];
         } else {
-            middleButton.style.setProperty('--sliderColor', "#A1A1A1");
+            middleButton.style.background = "#A1A1A100";
         }
         rightButton.style.backgroundColor = odpovedi[0][2];
         document.getElementById("buttonstart").style.display = "none";
@@ -182,7 +202,11 @@ function dalsi() {
             middleSwitch.checked = true;
         }
         leftButton.style.backgroundColor = odpovedi[pocetstranek][0];
-        middleButton.style.setProperty('--sliderColor', odpovedi[pocetstranek][1]);
+        if (odpovedi[pocetstranek][1] == "null") {
+            middleButton.style.backgroundColor = "#00000000";
+
+        } else
+            middleButton.style.backgroundColor = odpovedi[pocetstranek][1];
         rightButton.style.backgroundColor = odpovedi[pocetstranek][2];
 
         document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
@@ -221,7 +245,12 @@ function zpatky() {
             middleSwitch.checked = true;
         }
         leftButton.style.backgroundColor = odpovedi[pocetstranek - 1][0];
-        middleButton.style.setProperty('--sliderColor', odpovedi[pocetstranek - 1][1]);
+        if (odpovedi[pocetstranek-1][1] == "null") {
+            middleButton.style.backgroundColor = "#00000000";
+
+        } else
+            middleButton.style.backgroundColor = odpovedi[pocetstranek-1][1];
+
         rightButton.style.backgroundColor = odpovedi[pocetstranek - 1][2];
         document.getElementById("cislostranky").innerHTML = pocetstranek + "/" + celkovypocetotazek;
 
