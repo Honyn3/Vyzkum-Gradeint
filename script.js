@@ -13,9 +13,10 @@ let LeftColor = "#A1A1A1";
 let RightColor = "#A1A1A1";
 let MiddleColor = null;
 
-function hideColor(){
-    
-    ChangeActive();    
+
+function hideColor() {
+
+    ChangeActive();
 }
 
 function LeftButtonPressed() {
@@ -26,10 +27,9 @@ function LeftButtonPressed() {
 }
 function MiddleButtonPressed() {
     colorPicker.style.marginLeft = middleButton.getBoundingClientRect().x - colorWidthHalf + "px";
-    middleButton.style.backgroundColor = odpovedi[pocetstranek-1][1];
+    middleButton.style.backgroundColor = odpovedi[pocetstranek - 1][1];
     middleSwitch = true;
     btnIndex = 1;
-    console.log(btnIndex);
     colorPicker.style.display = "inherit";
 
     ChangeActive();
@@ -42,6 +42,14 @@ function RightButtonPressed() {
 
     ChangeActive();
 
+}
+function MoveToButtonIndex() {
+    if (btnIndex == 0)
+        LeftButtonPressed();
+    else if (btnIndex == 1)
+        MiddleButtonPressed();
+    else if (btnIndex == 2)
+        RightButtonPressed();
 }
 function ChangeActive() {
     console.log(btnIndex);
@@ -76,7 +84,8 @@ function ChangeActive() {
             break;
     }
 }
-function Barvy(barva) {
+function Barvy(button) {
+    let barva = window.getComputedStyle(button).backgroundColor;
     switch (btnIndex) {
         case 0:
             LeftColor = barva;
@@ -245,11 +254,11 @@ function zpatky() {
             middleSwitch.checked = true;
         }
         leftButton.style.backgroundColor = odpovedi[pocetstranek - 1][0];
-        if (odpovedi[pocetstranek-1][1] == "null") {
+        if (odpovedi[pocetstranek - 1][1] == "null") {
             middleButton.style.backgroundColor = "#00000000";
 
         } else
-            middleButton.style.backgroundColor = odpovedi[pocetstranek-1][1];
+            middleButton.style.backgroundColor = odpovedi[pocetstranek - 1][1];
 
         rightButton.style.backgroundColor = odpovedi[pocetstranek - 1][2];
         document.getElementById("cislostranky").innerHTML = pocetstranek + "/" + celkovypocetotazek;
