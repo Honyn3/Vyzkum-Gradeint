@@ -134,3 +134,99 @@
 .button42{
     background-color: rgb(240, 123, 240);
 }
+
+#colorButtonRight {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    border-style: solid;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+}
+
+#colorButtonRight:hover {
+    border-color: black;
+}
+
+#colorButtonRight:active {
+    border-color: rgb(169, 169, 169);
+}
+#colorButtonMiddle {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    border-style: solid;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin: auto;
+}
+
+#disableMiddleButton{
+    background-color: #ff0000;
+    border-color: #ffffff;
+    border-radius: 10px;
+    border-style: solid;
+    height: 30px;
+    width: 31px;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin: auto;
+    position: fixed;
+    left: 52%;
+    background-image: url(img/redX.png);
+    background-repeat: no-repeat;
+    background-position: center ;
+    background-size: contain;
+}
+#disableMiddleButton:hover{
+    border-color: black;
+}
+#disableMiddleButton:active{
+    border-color: rgb(169, 169, 169);
+}
+
+#colorButtonMiddle:hover {
+    border-color: black;
+}
+
+#colorButtonMiddle:active {
+    border-color: rgb(169, 169, 169);
+}
+
+#colorButtonLeft {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    border-style: solid;
+    transition: 0.3s ease;
+}
+
+#colorButtonLeft:hover {
+    border-color: black;
+}
+
+#colorButtonLeft:active {
+    border-color: rgb(169, 169, 169);
+}
+
+#buttons {
+    display: flex;
+    height: 50px;
+    width: 63%;
+    margin: auto;
+    align-items: center;
+    background-color: #ffffff00;
+
+}

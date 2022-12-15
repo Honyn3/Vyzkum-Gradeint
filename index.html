@@ -8,7 +8,7 @@
     <title>Výzkum: Škály a Gradienty</title>
 </head>
 
-<body onresize="MoveToButtonIndex()">
+<body onresize="MoveToButtonIndex()" onclick="backgroundClicked()">
     <button class="prepinace" id="buttonstart" onclick="start()">Začít</button>
     <p id="konec">Děkujeme za účast v průzkumu</p>
     <div id="stranka" onclick="hideColor()">
@@ -95,17 +95,10 @@
             </div>
         </div>
         <p id="cislostranky">1/10</p>
-        <p id="barvyText">Barvy</p>
         <div id="dolniButtonyUp">
             <div id="dolniButtony">
                 <button class="prepinace" id="zpatky" onclick="zpatky()">Zpátky</button>
                 <div id="switch">
-                    2
-                    <label class="switch">
-                        <input type="checkbox" id="checkbox" onclick="Checkbox()">
-                        <span class="sliderSwitch round"></span>
-                    </label>
-                    3
                 </div>
                 <button class="prepinace" id="dalsi" onclick="dalsi()" class="prepinace">Další <svg width="24"
                         height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">

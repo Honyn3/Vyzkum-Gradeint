@@ -12,17 +12,19 @@ let colorWidthHalf = 95;
 let LeftColor = "#A1A1A1";
 let RightColor = "#A1A1A1";
 let MiddleColor = null;
+let checked;
+let backgroundClick = false;
 
 
 function hideColor() {
 
     ChangeActive();
 }
-
 function LeftButtonPressed() {
     colorPicker.style.marginLeft = leftButton.getBoundingClientRect().x - colorWidthHalf + "px";
     btnIndex = 0;
     colorPicker.style.display = "inherit";
+    backgroundClick = true;
     ChangeActive();
 }
 function MiddleButtonPressed() {
@@ -31,6 +33,7 @@ function MiddleButtonPressed() {
     middleSwitch = true;
     btnIndex = 1;
     colorPicker.style.display = "inherit";
+    backgroundClick = true;
 
     ChangeActive();
 
@@ -38,15 +41,27 @@ function MiddleButtonPressed() {
 function DisableMiddleButton() {
     MiddleColor = "null";
     middleButton.style.backgroundColor = "#00000000";
+    backgroundClick = true;
+
     MoveGradient();
 }
 function RightButtonPressed() {
     colorPicker.style.marginLeft = rightButton.getBoundingClientRect().x - colorWidthHalf + "px";
     btnIndex = 2;
     colorPicker.style.display = "inherit";
+    backgroundClick = true;
 
     ChangeActive();
 
+}
+function backgroundClicked(){
+    if(!backgroundClick){
+    colorPicker.style.display = "none";
+    btnIndex = -1;
+    ChangeActive();
+    }
+
+    backgroundClick = false;
 }
 function MoveToButtonIndex() {
     if (btnIndex == 0)
@@ -86,11 +101,22 @@ function ChangeActive() {
             leftButton.style.borderRadius = '1000px';
             rightButton.style.borderRadius = '10px';
             middleButton.style.borderRadius = '1000px';
+        break;
+        case -1:
+            leftButton.style.borderWidth = '2px';
+            rightButton.style.borderWidth = '2px';
+            middleButton.style.borderWidth = '2px';
+
+            leftButton.style.borderRadius = '1000px';
+            rightButton.style.borderRadius = '1000px';
+            middleButton.style.borderRadius = '1000px';
             break;
     }
 }
 function Barvy(button) {
     let barva = window.getComputedStyle(button).backgroundColor;
+    backgroundClick = true;
+
     switch (btnIndex) {
         case 0:
             LeftColor = barva;
@@ -100,7 +126,7 @@ function Barvy(button) {
             MiddleColor = barva;
             middleButton.style.backgroundColor = barva;
 
-            middleSwitch.checked = true;
+            checked = true;
             break;
         case 2:
             RightColor = barva;
@@ -124,19 +150,6 @@ function GradientAdjust(x) {
     y = 0.8 * (x - 50) + 50;
     return y;
 }
-
-/*function Checkbox() {
-    if (middleSwitch.checked == true) {
-        middleButton.style.backgroundColor = MiddleColor;
-    }
-    else {
-
-        MiddleColor = "null";
-        middleButton.style.backgroundColor = "#00000000";
-    }
-    MoveGradient();
-
-}*/
 
 let pocetstranek = 1;
 let soupisotazek = [["skvělé", "dobré", "neutrální", "špatné", "příšerné"], ["nádherné", "hezké", "neutrální", "ošklivé", "ohavné"], ["rychlé", "svižné", "neutrální", "zvolna", "pomalé"], ["biologie", "programování", "chemie", "němčina"]] //slova nad sliderem (budou v budoucnu přicházet ze serveru)
@@ -164,11 +177,11 @@ function start() {
         console.log(odpovedi[0][1]);
         if (odpovedi[0][1] == "null") {
             gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + ", " + odpovedi[0][2] + " 100%)";
-            middleSwitch.checked = false;
+            checked = false;
         }
         else {
             gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + "," + odpovedi[0][1] + "," + odpovedi[0][2] + " 100%)";
-            middleSwitch.checked = true;
+            checked = true;
         }
         LeftColor = odpovedi[0][0];
         MiddleColor = odpovedi[0][1];
@@ -209,11 +222,11 @@ function dalsi() {
         RightColor = odpovedi[pocetstranek][2];
         if (odpovedi[pocetstranek][1] == "null") {
             gradient.style.background = "linear-gradient(to right, " + odpovedi[pocetstranek][0] + ", " + odpovedi[pocetstranek][2] + " 100%)";
-            middleSwitch.checked = false;
+            checked = false;
         }
         else {
             gradient.style.background = "linear-gradient(to right, " + odpovedi[pocetstranek][0] + "," + odpovedi[pocetstranek][1] + "," + odpovedi[pocetstranek][2] + " 100%)";
-            middleSwitch.checked = true;
+            checked = true;
         }
         leftButton.style.backgroundColor = odpovedi[pocetstranek][0];
         if (odpovedi[pocetstranek][1] == "null") {
@@ -237,8 +250,6 @@ function dalsi() {
         }
     }
 }
-
-
 function zpatky() {
     if ((pocetstranek - 2) >= 0) {
         odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
@@ -252,11 +263,11 @@ function zpatky() {
         RightColor = odpovedi[pocetstranek - 1][2];
         if (odpovedi[pocetstranek - 1][1] == "null") {
             gradient.style.background = "linear-gradient(to right, " + odpovedi[pocetstranek - 1][0] + ", " + odpovedi[pocetstranek - 1][2] + " 100%)";
-            middleSwitch.checked = false;
+            checked = false;
         }
         else {
             gradient.style.background = "linear-gradient(to right, " + odpovedi[pocetstranek - 1][0] + "," + odpovedi[pocetstranek - 1][1] + "," + odpovedi[pocetstranek - 1][2] + " 100%)";
-            middleSwitch.checked = true;
+            checked = true;
         }
         leftButton.style.backgroundColor = odpovedi[pocetstranek - 1][0];
         if (odpovedi[pocetstranek - 1][1] == "null") {
