@@ -34,9 +34,10 @@ function MiddleButtonPressed() {
     btnIndex = 1;
     colorPicker.style.display = "inherit";
     backgroundClick = true;
+    MiddleColor = odpovedi[pocetstranek - 1][1];
 
     ChangeActive();
-
+    MoveGradient();
 }
 function DisableMiddleButton() {
     MiddleColor = "null";

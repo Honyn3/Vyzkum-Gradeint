@@ -68,7 +68,7 @@
 
 
 .button22 {
-    background-color: rgb(255, 67, 67);
+    background-color: rgb(199, 54, 54);
 }
 .button23 {
     background-color: rgb(251, 197, 61);
@@ -133,6 +133,29 @@
 }
 .button42{
     background-color: rgb(240, 123, 240);
+}
+
+
+.button43 {
+    background-color: rgb(255, 205, 205);
+}
+.button44 {
+    background-color: rgb(255, 230, 192);
+}
+.button45{
+    background-color: #fffebf;
+}
+.button46{
+    background-color: #c8feb4;
+}
+.button47{
+    background-color: #b1fafb;
+}
+.button48{
+    background-color: rgb(176, 198, 255);
+}
+.button49{
+    background-color: rgb(255, 183, 255);
 }
 
 #colorButtonRight {
