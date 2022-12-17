@@ -9,11 +9,12 @@
 </head>
 
 <body onresize="MoveToButtonIndex()" onclick="backgroundClicked()">
-    <button class="prepinace" id="buttonstart" onclick="start()">Začít</button>
+    <button class="prepinace" id="buttonstart" onclick="start()">Začít test</button>
     <p id="konec">Děkujeme za účast v průzkumu</p>
+    <svg id="cursortutorial" fill="#3F6078" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 4.702z"/></svg>
     <div id="stranka" onclick="hideColor()">
         <div id="scales">
-            <ul id="scaleLi">adam</ul>
+            <ul id="scaleLi">ADAM</ul>
         </div>
         <div id="gradient">
         </div>
@@ -22,10 +23,10 @@
             <input type="button" value="" onclick="LeftButtonPressed()" id="colorButtonLeft">
 
             <input type="button" value="" id="colorButtonMiddle" onclick="MiddleButtonPressed()">
-
+            <input type="button" value="" id="disableMiddleButton" onclick="DisableMiddleButton()">
             <input type="button" value="" onclick="RightButtonPressed()" id="colorButtonRight">
                 
-            <input type="button" value="" id="disableMiddleButton" onclick="DisableMiddleButton()">
+           
         </div>
 
         <div id="colorUpDiv">
@@ -36,14 +37,14 @@
                         <button class="button button1" onclick="Barvy(this)"></button>
                         <button class="button button2" onclick="Barvy(this)"></button>
                         <button class="button button3" onclick="Barvy(this)"></button>
-                        <button class="button button4" onclick="Barvy(this)"></button>
+                        <button class="button button4" id="button4" onclick="Barvy(this)"></button>
                         <button class="button button5" onclick="Barvy(this)"></button>
                         <button class="button button6" onclick="Barvy(this)"></button>
-                        <button class="button button7" onclick="Barvy(this)"></button>
+                        <button class="button button7" id="button7" onclick="Barvy(this)"></button>
 
                     </li>
                     <li>
-                        <button class="button button8" onclick="Barvy(this)"></button>
+                        <button class="button button8" id="button8" onclick="Barvy(this)"></button>
                         <button class="button button9" onclick="Barvy(this)"></button>
                         <button class="button button10" onclick="Barvy(this)"></button>
                         <button class="button button11" onclick="Barvy(this)"></button>
@@ -58,7 +59,7 @@
                         <button class="button button17" onclick="Barvy(this)"></button>
                         <button class="button button18" onclick="Barvy(this)"></button>
                         <button class="button button19" onclick="Barvy(this)"></button>
-                        <button class="button button20" onclick="Barvy(this)"></button>
+                        <button class="button button20" id="button20" onclick="Barvy(this)"></button>
                         <button class="button button21" onclick="Barvy(this)"></button>
                     </li>
                     <li>
