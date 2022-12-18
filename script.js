@@ -383,7 +383,6 @@ function movesofcursor() {
     dalsiButton.onclick = function () { dalsi() }
     dalsiButton.innerHTML = "Přeskočit";
     tutorialBool = true;
-    dalsiButton.style.marginTop = '36%';
 }
 function GetElementX(nameOfElement) {
     return Number(document.getElementById(nameOfElement).getBoundingClientRect().x.toFixed()) + 10 + 'px';
@@ -539,6 +538,8 @@ function EndOfAnim() {
                 document.getElementById("preset").getElementsByTagName("button")[i].onclick = function () { Barvy(this); };
             }
             document.getElementById("dalsi").style.marginTop = '';
+            document.getElementById("dalsi").innerHTML = 'Další <svg width="24" height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path fill="white" d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>';
+
             document.getElementById("dalsi").style.display = "block";
             document.getElementById("zpatky").style.display = "block";
             document.getElementById("cislostranky").style.display = "block";
