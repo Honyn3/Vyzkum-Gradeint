@@ -70,7 +70,7 @@ body {
 
 #preset {
     list-style-type: none;
-    background-color: #9f9f9f81;
+    background-color: #afafaf81;
     width: 230px;
     height: 205px;
     padding: 0px;
@@ -141,6 +141,10 @@ body {
     padding: 0.7%;
     font-size: 20px;
     width: 100px;
+    transition: 0.3s ease;
+}
+.prepinace:hover{
+    background-color: #249ac9;
 }
 
 #celydalsi {
@@ -238,5 +242,11 @@ body {
 #tutorialbutton{
     font-size: 1.3em;
     background:red;
-    
+}
+#tutorialbutton:hover{
+    font-size: 1.3em;
+    background:rgb(221, 0, 0);
+    border-color: #000000;
+    border-width: 2px;
+    cursor: pointer;
 }
