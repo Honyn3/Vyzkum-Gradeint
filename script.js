@@ -7,7 +7,6 @@ let middleButton = document.getElementById("colorButtonMiddle");
 let middleSwitch = document.getElementById("checkbox");
 let stranka = document.getElementById("stranka");
 let page = document.getElementById("stranka");
-let disableMiddleButton  = document.getElementById("disableMiddleButton");
 let bodyContent = document.getElementById("bodyContent");
 var store = document.querySelector(':root')
 
@@ -47,13 +46,6 @@ function MiddleButtonPressed() {
 
     ChangeActive();
 
-}
-function DisableMiddleButton() {
-    MiddleColor = "null";
-    middleButton.style.backgroundColor = "#00000000";
-    backgroundClick = true;
-
-    MoveGradient();
 }
 function RightButtonPressed() {
     colorPicker.style.marginLeft = (rightButton.getBoundingClientRect().x - colorWidthHalf - stranka.offsetLeft) + "px";
@@ -143,10 +135,20 @@ function Barvy(button) {
             leftButton.style.backgroundColor = barva;
             break;
         case 1:
-            MiddleColor = barva;
-            middleButton.style.backgroundColor = barva;
+            if(barva == "rgb(160, 160, 160)"){
+                MiddleColor = "null";
+                middleButton.style.backgroundColor = "#00000000";
+                backgroundClick = true;
 
-            checked = true;
+                MoveGradient();                
+            }
+            else{
+                MiddleColor = barva;
+                middleButton.style.backgroundColor = barva;
+
+                checked = true;
+            }
+            
             break;
         case 2:
             RightColor = barva;
@@ -363,7 +365,6 @@ function movesofcursor() {
     for (let i = 0; i < document.getElementsByTagName("input").length; i++) {
         document.getElementsByTagName("input")[i].onclick = "";
     }
-    DisableMiddleButton();
     // create tutorial pop up
     const tutorialrealtext = document.createTextNode("Budeme mít za úkol přiřadit barvy ke slovům nad nimi, můžete přiřadit 2 nebo 3 barvy jak uvidíte v následující animaci.");
     tutorialtext.appendChild(tutorialrealtext);
@@ -465,7 +466,6 @@ function sixthmove() {
 }
 function sevethmove() {
     ResetRootProperties();
-    SetNextCoordinates("disableMiddleButton");
     Intervals(eighthmove);
 }
 function eighthmove() {
@@ -505,7 +505,6 @@ function ForceEndOfAnim() {
         rightButton.onclick = function () { RightButtonPressed() }
         leftButton.onclick = function () { LeftButtonPressed() }
         middleButton.onclick = function () { MiddleButtonPressed() }
-        disableMiddleButton.onclick = function () { DisableMiddleButton() }
         page.onclick = function () { hideColor() }
         document.body.onclick = function () { backgroundClicked() }
         document.getElementById("dalsi").onclick = function () { dalsi() }
@@ -545,7 +544,6 @@ function EndOfAnim() {
             rightButton.onclick = function () { RightButtonPressed() }
             leftButton.onclick = function () { LeftButtonPressed() }
             middleButton.onclick = function () { MiddleButtonPressed() }
-            disableMiddleButton.onclick = function () { DisableMiddleButton() }
             page.onclick = function () { hideColor() }
             document.body.onclick = function () { backgroundClicked() }
             document.getElementById("dalsi").onclick = function () { dalsi() }
@@ -587,7 +585,6 @@ function tutorialclick() {
 
         setTimeout(Barvy(document.getElementById("button4")), 1000);
     } else if (move == 7) {
-        DisableMiddleButton();
     } else if (move == 8) {
         backgroundClickedtutorial();
     }
