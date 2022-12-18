@@ -134,8 +134,7 @@ function Barvy(button) {
     let barva = window.getComputedStyle(button).backgroundColor;
     backgroundClick = true;
     setTransitionDelay1();
-    bodyContent.style.backgroundImage = "radial-gradient(circle," + barva + "0%, rgba(0,0,0,0) 100%)";
-    
+    bodyContent.style.backgroundColor = barva.replace(')', ', 0.1)');
 
 
     switch (btnIndex) {
@@ -156,17 +155,17 @@ function Barvy(button) {
 
     }
     MoveGradient();
-    delay(200).then(() => setTransitionDelay2());
-    delay(800).then(() => bodyContent.style.background = "radial-gradient(circle, rgba(0,0,0,0.861) 0%, rgba(0,0,0,0) 100%)");
+    delay(50).then(() => setTransitionDelay2());
+    delay(600).then(() => bodyContent.style.backgroundColor = "rgba(0,0,0,0.0)");
 }
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
 function setTransitionDelay1(){
-    store.style.setProperty('--transition-delay', '200ms');
+    store.style.setProperty('--transition-delay', '50ms');
 }
 function setTransitionDelay2(){
-    store.style.setProperty('--transition-delay', '1000ms');
+    store.style.setProperty('--transition-delay', '600ms');
 }
 function MoveGradient() {
     if (MiddleColor != "null") {

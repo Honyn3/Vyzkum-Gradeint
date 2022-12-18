@@ -27,7 +27,11 @@ body {
 }
 #bodyContent{
     transition: var(--transition-delay);
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.861) 0%, rgba(0,0,0,0) 100%);   
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0) 10%, rgba(72, 72, 72, 0.593) 90%);
+    -webkit-transition: var(--transition-delay);
+    -moz-transition: var(--transition-delay);
+    -o-transition: var(--transition-delay);
+    -ms-transition: var(--transition-delay);
 }
 
 
