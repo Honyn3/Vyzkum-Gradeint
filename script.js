@@ -386,11 +386,15 @@ function GetElementX(nameOfElement) {
     return Number(document.getElementById(nameOfElement).getBoundingClientRect().x.toFixed()) + 10 + 'px';
 }
 function GetElementY(nameOfElement) {
-    return Number(document.getElementById(nameOfElement).getBoundingClientRect().top.toFixed()) + 10 + 'px'
+    return Number(document.getElementById(nameOfElement).getBoundingClientRect().top.toFixed()) + 10 + 'px';
 }
 function SetNextCoordinates(nameOfElement) {
     r.style.setProperty('--secondleft', GetElementX(nameOfElement));
+    if(nameOfElement != "button0")
     r.style.setProperty('--secondtop', GetElementY(nameOfElement));
+    else{
+        r.style.setProperty('--secondtop', Number(document.getElementById(nameOfElement).getBoundingClientRect().top.toFixed()) + 'px');
+    }
 }
 function ResetRootProperties() {
     cursorTut.style.animation = "none";
@@ -462,6 +466,7 @@ function sixthmove() {
 }
 function sevethmove() {
     ResetRootProperties();
+    SetNextCoordinates("button0");
     Intervals(eighthmove);
 }
 function eighthmove() {
@@ -574,10 +579,14 @@ function tutorialclick() {
         setTimeout(Barvy(document.getElementById("button20")), 1000);
     } else if (move == 5) {
         MiddleButtonPressed();
-        // problem s automatickým přiřazením
     } else if (move == 6) {
         setTimeout(Barvy(document.getElementById("button4")), 1000);
     } else if (move == 7) {
+        MiddleColor = "null";
+                middleButton.style.backgroundColor = "#00000000";
+                backgroundClick = true;
+
+                MoveGradient();   
     } else if (move == 8) {
         backgroundClickedtutorial();
     }
