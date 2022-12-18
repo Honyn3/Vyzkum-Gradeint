@@ -11,66 +11,66 @@
 <body onresize="MoveToButtonIndex()" onclick="backgroundClicked()">
     <button class="prepinace" id="buttonstart" onclick="start()">Začít test</button>
     <p id="konec">Děkujeme za účast v průzkumu</p>
-    <svg id="cursortutorial" fill="#3F6078" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 4.702z"/></svg>
     <div class="centerAlign">
+        <svg id="cursortutorial" fill="#3F6078" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24">
+            <path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 4.702z" />
+        </svg>
+
         <div id="stranka" onclick="hideColor()">
             <div id="scales">
-                <ul id="scaleLi">ADAM</ul>
+                <ul id="scaleLi">adam</ul>
             </div>
-            <div id="gradient">
-            </div>
+            <div id="gradient"></div>
 
             <div id="buttons">
                 <input type="button" value="" onclick="LeftButtonPressed()" id="colorButtonLeft">
 
-            <input type="button" value="" id="colorButtonMiddle" onclick="MiddleButtonPressed()">
-
-            <input type="button" value="" onclick="RightButtonPressed()" id="colorButtonRight">
-                
-            <input type="button" value="" id="disableMiddleButton" onclick="DisableMiddleButton()">
-        </div>
-
+                <input type="button" value="" id="colorButtonMiddle" onclick="MiddleButtonPressed()">
+                <input type="button" value="" id="disableMiddleButton" onclick="DisableMiddleButton()">
+                <input type="button" value="" onclick="RightButtonPressed()" id="colorButtonRight">
+            </div>
             <div id="colorUpDiv">
                 <div id="colorDiv">
 
-                <ul id="preset">
-                    <li>
-                        <button class="button button1" onclick="Barvy(this)"></button>
-                        <button class="button button2" onclick="Barvy(this)"></button>
-                        <button class="button button3" onclick="Barvy(this)"></button>
-                        <button class="button button4" onclick="Barvy(this)"></button>
-                        <button class="button button5" onclick="Barvy(this)"></button>
-                        <button class="button button6" onclick="Barvy(this)"></button>
-                        <button class="button button7" onclick="Barvy(this)"></button>
+                    <ul id="preset">
+                        <li>
+                            <button class="button button1" onclick="Barvy(this)"></button>
+                            <button class="button button2" onclick="Barvy(this)"></button>
+                            <button class="button button3" onclick="Barvy(this)"></button>
+                            <button class="button button4" id="button4" onclick="Barvy(this)"></button>
+                            <button class="button button5" onclick="Barvy(this)"></button>
+                            <button class="button button6" onclick="Barvy(this)"></button>
+                            <button class="button button7" id="button7" onclick="Barvy(this)"></button>
 
-                    </li>
-                    <li>
-                        <button class="button button8" onclick="Barvy(this)"></button>
-                        <button class="button button9" onclick="Barvy(this)"></button>
-                        <button class="button button10" onclick="Barvy(this)"></button>
-                        <button class="button button11" onclick="Barvy(this)"></button>
-                        <button class="button button12" onclick="Barvy(this)"></button>
-                        <button class="button button13" onclick="Barvy(this)"></button>
-                        <button class="button button14" onclick="Barvy(this)"></button>
+                        </li>
+                        <li>
+                            <button class="button button8" id="button8" onclick="Barvy(this)"></button>
+                            <button class="button button9" onclick="Barvy(this)"></button>
+                            <button class="button button10" onclick="Barvy(this)"></button>
+                            <button class="button button11" onclick="Barvy(this)"></button>
+                            <button class="button button12" onclick="Barvy(this)"></button>
+                            <button class="button button13" onclick="Barvy(this)"></button>
+                            <button class="button button14" onclick="Barvy(this)"></button>
 
-                    </li>
-                    <li>
-                        <button class="button button15" onclick="Barvy(this)"></button>
-                        <button class="button button16" onclick="Barvy(this)"></button>
-                        <button class="button button17" onclick="Barvy(this)"></button>
-                        <button class="button button18" onclick="Barvy(this)"></button>
-                        <button class="button button19" onclick="Barvy(this)"></button>
-                        <button class="button button20" onclick="Barvy(this)"></button>
-                        <button class="button button21" onclick="Barvy(this)"></button>
-                    </li>
-                    <li>
-                        <button class="button button22" onclick="Barvy(this)"></button>
-                        <button class="button button23" onclick="Barvy(this)"></button>
-                        <button class="button button24" onclick="Barvy(this)"></button>
-                        <button class="button button25" onclick="Barvy(this)"></button>
-                        <button class="button button26" onclick="Barvy(this)"></button>
-                        <button class="button button27" onclick="Barvy(this)"></button>
-                        <button class="button button28" onclick="Barvy(this)"></button>
+                        </li>
+                        <li>
+                            <button class="button button15" onclick="Barvy(this)"></button>
+                            <button class="button button16" onclick="Barvy(this)"></button>
+                            <button class="button button17" onclick="Barvy(this)"></button>
+                            <button class="button button18" onclick="Barvy(this)"></button>
+                            <button class="button button19" onclick="Barvy(this)"></button>
+                            <button class="button button20" id="button20" onclick="Barvy(this)"></button>
+                            <button class="button button21" onclick="Barvy(this)"></button>
+                        </li>
+                        <li>
+                            <button class="button button22" onclick="Barvy(this)"></button>
+                            <button class="button button23" onclick="Barvy(this)"></button>
+                            <button class="button button24" onclick="Barvy(this)"></button>
+                            <button class="button button25" onclick="Barvy(this)"></button>
+                            <button class="button button26" onclick="Barvy(this)"></button>
+                            <button class="button button27" onclick="Barvy(this)"></button>
+                            <button class="button button28" onclick="Barvy(this)"></button>
 
                         </li>
                         <li>
@@ -82,45 +82,45 @@
                             <button class="button button34" onclick="Barvy(this)"></button>
                             <button class="button button35" onclick="Barvy(this)"></button>
 
-                    </li>
-                    <li>
-                        <button class="button button36" onclick="Barvy(this)"></button>
-                        <button class="button button37" onclick="Barvy(this)"></button>
-                        <button class="button button38" onclick="Barvy(this)"></button>
-                        <button class="button button39" onclick="Barvy(this)"></button>
-                        <button class="button button40" onclick="Barvy(this)"></button>
-                        <button class="button button41" onclick="Barvy(this)"></button>
-                        <button class="button button42" onclick="Barvy(this)"></button>
-                    </li>
-                    <li>
-                        <button class="button button43" onclick="Barvy(this)"></button>
-                        <button class="button button44" onclick="Barvy(this)"></button>
-                        <button class="button button45" onclick="Barvy(this)"></button>
-                        <button class="button button46" onclick="Barvy(this)"></button>
-                        <button class="button button47" onclick="Barvy(this)"></button>
-                        <button class="button button48" onclick="Barvy(this)"></button>
-                        <button class="button button49" onclick="Barvy(this)"></button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <p id="cislostranky">1/10</p>
-        <div id="dolniButtonyUp">
-            <div id="dolniButtony">
-                <button class="prepinace" id="zpatky" onclick="zpatky()">Zpátky</button>
-                <div id="switch">
+                        </li>
+                        <li>
+                            <button class="button button36" onclick="Barvy(this)"></button>
+                            <button class="button button37" onclick="Barvy(this)"></button>
+                            <button class="button button38" onclick="Barvy(this)"></button>
+                            <button class="button button39" onclick="Barvy(this)"></button>
+                            <button class="button button40" onclick="Barvy(this)"></button>
+                            <button class="button button41" onclick="Barvy(this)"></button>
+                            <button class="button button42" onclick="Barvy(this)"></button>
+                        </li>
+                        <li>
+                            <button class="button button43" onclick="Barvy(this)"></button>
+                            <button class="button button44" onclick="Barvy(this)"></button>
+                            <button class="button button45" onclick="Barvy(this)"></button>
+                            <button class="button button46" onclick="Barvy(this)"></button>
+                            <button class="button button47" onclick="Barvy(this)"></button>
+                            <button class="button button48" onclick="Barvy(this)"></button>
+                            <button class="button button49" onclick="Barvy(this)"></button>
+                        </li>
+                    </ul>
                 </div>
-                <button class="prepinace" id="dalsi" onclick="dalsi()" class="prepinace">Další <svg width="24"
-                        height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-                        <path fill="white"
-                            d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
-                    </svg>
+            </div>
+                <p id="cislostranky">1/10</p>
+                <div id="dolniButtonyUp">
+                    <div id="dolniButtony">
+                        <button class="prepinace" id="zpatky" onclick="zpatky()">Zpátky</button>
+                        <div id="switch">
+                        </div>
+                        <button class="prepinace" id="dalsi" onclick="dalsi()" class="prepinace">Další <svg width="24"
+                                height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                                <path fill="white"
+                                    d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
+                            </svg>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
 
 </html>

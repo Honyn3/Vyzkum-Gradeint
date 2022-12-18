@@ -31,8 +31,8 @@ function LeftButtonPressed() {
     ChangeActive();
 }
 function MiddleButtonPressed() {
-    colorPicker.style.marginLeft = middleButton.getBoundingClientRect().x - colorWidthHalf + "px";
-    middleButton.style.backgroundColor = odpovedi[pocetstranek - 1][1];
+    colorPicker.style.marginLeft = (middleButton.getBoundingClientRect().x - colorWidthHalf-stranka.offsetLeft) + "px";
+    // middleButton.style.backgroundColor = odpovedi[pocetstranek - 1][1];
     middleSwitch = true;
     btnIndex = 1;
     colorPicker.style.display = "inherit";
@@ -350,8 +350,8 @@ function movesofcursor (){
         
     }
 function firstmove(){
-    document.querySelector(':root').style.setProperty('--secondleft', document.getElementById("colorButtonLeft").getBoundingClientRect().x.toFixed()+'px');
-    document.querySelector(':root').style.setProperty('--secondtop', document.getElementById("colorButtonLeft").getBoundingClientRect().top.toFixed()+'px');
+    document.querySelector(':root').style.setProperty('--secondleft', Number(document.getElementById("colorButtonLeft").getBoundingClientRect().x.toFixed()) + 10 + 'px');
+    document.querySelector(':root').style.setProperty('--secondtop', Number(document.getElementById("colorButtonLeft").getBoundingClientRect().top.toFixed())+10+'px');
     document.getElementById("cursortutorial").style.animation = "moves 2s forwards"; //first move of the cursor
     setTimeout(tutorialclick, 2000);
     setTimeout(secondmove, 2500);
