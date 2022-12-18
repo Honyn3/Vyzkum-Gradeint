@@ -22,6 +22,7 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+
 #gradient {
     width: 70%;
     height: 35px;
@@ -37,6 +38,7 @@ body {
     transition: 0.3s ease;
     margin-left: 10%;
     display: none;
+    z-index: -1;
 }
 
 #colorUpDiv {
@@ -121,6 +123,14 @@ body {
 }
 
 /*ADAM*/
+#cursortutorial{
+  position: fixed;
+  animation-fill-mode:forwards;
+  top: var(--firsttop);
+  left: var(--firstleft);
+  z-index: 1;
+}
+
 .prepinace {
     cursor: pointer;
     background: #2CB9F1;
@@ -188,4 +198,45 @@ body {
     left: 30%;
     font-size: 2em;
     color: white;
+}
+:root {
+    --firsttop: 90%;
+    --firstleft: 10%;
+    --secondtop: 20%;
+    --secondleft: 20%;
+  }
+  @keyframes moves {
+    from {left: var(--firstleft); top:var(--firsttop);}
+    to {left: var(--secondleft); top:var(--secondtop);}
+  }
+  .ripple {
+    width: 1px;
+    height: 1px;
+    background-color: transparent;
+    position: fixed;
+    border-radius: 50%;
+    border: 1px solid #ffffff59;
+ }
+ 
+ @keyframes ripple-effect {
+    to {
+       transform:scale(30);
+       opacity: 0.01;
+    }}
+#tutorialtext{
+    position: fixed;
+    top:40%;
+    left:40%;
+    width:20%;
+    padding:2%;
+    z-index: 1;
+    font-size: 1.3em;
+    background:black;
+    color:white;
+    text-align:center;
+}
+#tutorialbutton{
+    font-size: 1.3em;
+    background:red;
+    
 }
