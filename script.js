@@ -4,7 +4,6 @@ let rightButton = document.getElementById("colorButtonRight");
 let leftButton = document.getElementById("colorButtonLeft");
 let gradient = document.getElementById("gradient");
 let middleButton = document.getElementById("colorButtonMiddle");
-let middleSwitch = document.getElementById("checkbox");
 let stranka = document.getElementById("stranka");
 let page = document.getElementById("stranka");
 let bodyContent = document.getElementById("bodyContent");
@@ -16,7 +15,7 @@ let tutorialBool = false;
 
 let LeftColor = "#A1A1A1";
 let RightColor = "#A1A1A1";
-let MiddleColor = null;
+let MiddleColor = "null";
 let checked;
 let backgroundClick = false;
 
@@ -39,7 +38,6 @@ function LeftButtonPressed() {
 function MiddleButtonPressed() {
     colorPicker.style.marginLeft = (middleButton.getBoundingClientRect().x - colorWidthHalf - stranka.offsetLeft) + "px";
     // middleButton.style.backgroundColor = odpovedi[pocetstranek - 1][1];
-    middleSwitch = true;
     btnIndex = 1;
     colorPicker.style.display = "inherit";
     backgroundClick = true;
@@ -127,7 +125,6 @@ function Barvy(button) {
     backgroundClick = true;
     setTransitionDelay1();
     bodyContent.style.backgroundColor = barva.replace(')', ', 0.1)');
-
 
     switch (btnIndex) {
         case 0:
@@ -570,20 +567,15 @@ function tutorialclick() {
     if (move == 1) {
         LeftButtonPressed();
     } else if (move == 2) {
-
         setTimeout(Barvy(document.getElementById("button8")), 1000);
     } else if (move == 3) {
-
         RightButtonPressed();
     } else if (move == 4) {
-
         setTimeout(Barvy(document.getElementById("button20")), 1000);
     } else if (move == 5) {
-
         MiddleButtonPressed();
         // problem s automatickým přiřazením
     } else if (move == 6) {
-
         setTimeout(Barvy(document.getElementById("button4")), 1000);
     } else if (move == 7) {
     } else if (move == 8) {

@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&family=Nunito&family=Roboto&display=swap');
 
-:root{
+:root {
     --transition-delay: 200ms;
 }
 
-.centerAlign{
+.centerAlign {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,6 +14,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 body {
     background-image: url(img/background.png), radial-gradient(circle, rgba(255, 0, 0, 0), rgba(255, 255, 0, 0));
     background-color: rgba(0, 0, 0, 0.861);
@@ -26,7 +27,8 @@ body {
     font-family: 'Roboto', sans-serif;
     width: fit-content;
 }
-#bodyContent{
+
+#bodyContent {
     transition: var(--transition-delay);
     background-image: radial-gradient(circle, rgba(0, 0, 0, 0) 10%, rgba(72, 72, 72, 0.209) 90%);
     -webkit-transition: var(--transition-delay);
@@ -139,12 +141,12 @@ body {
 }
 
 /*ADAM*/
-#cursortutorial{
-  position: fixed;
-  animation-fill-mode:forwards;
-  top: var(--firsttop);
-  left: var(--firstleft);
-  z-index: 1;
+#cursortutorial {
+    position: fixed;
+    animation-fill-mode: forwards;
+    top: var(--firsttop);
+    left: var(--firstleft);
+    z-index: 1;
 }
 
 .prepinace {
@@ -159,7 +161,8 @@ body {
     width: 100px;
     transition: 0.3s ease;
 }
-.prepinace:hover{
+
+.prepinace:hover {
     background-color: #249ac9;
 }
 
@@ -189,7 +192,7 @@ body {
     font-size: 20px;
     color: rgb(255, 255, 255);
     font-weight: bold;
-    background-color:#2CB9F1;
+    background-color: #2CB9F1;
     margin-left: 80%;
     text-align: center;
     border-radius: 7px;
@@ -224,59 +227,74 @@ body {
     font-size: 2em;
     color: white;
 }
+
 :root {
     --firsttop: 90%;
     --firstleft: 10%;
     --secondtop: 20%;
     --secondleft: 20%;
-  }
-  @keyframes moves {
-    from {left: var(--firstleft); top:var(--firsttop);}
-    to {left: var(--secondleft); top:var(--secondtop);}
-  }
-  .ripple {
+}
+
+@keyframes moves {
+    from {
+        left: var(--firstleft);
+        top: var(--firsttop);
+    }
+
+    to {
+        left: var(--secondleft);
+        top: var(--secondtop);
+    }
+}
+
+.ripple {
     width: 1px;
     height: 1px;
     background-color: transparent;
     position: fixed;
     border-radius: 50%;
     border: 1px solid #ffffff59;
- }
- 
- @keyframes ripple-effect {
+}
+
+@keyframes ripple-effect {
     to {
-       transform:scale(30);
-       opacity: 0.01;
-    }}
-#tutorialtext{
+        transform: scale(30);
+        opacity: 0.01;
+    }
+}
+
+#tutorialtext {
     position: fixed;
-    top:40%;
-    left:40%;
-    width:20%;
-    padding:2%;
+    top: 40%;
+    left: 40%;
+    width: 20%;
+    padding: 2%;
     z-index: 1;
     font-size: 1.3em;
-    background:black;
-    color:white;
-    text-align:center;
+    background: black;
+    color: white;
+    text-align: center;
 }
-#tutorialbutton{
+
+#tutorialbutton {
     font-size: 1.3em;
-    background:red;
+    background: red;
 }
-#tutorialbutton:hover{
+
+#tutorialbutton:hover {
     font-size: 1.3em;
-    background:rgb(221, 0, 0);
+    background: rgb(221, 0, 0);
     border-color: #000000;
     border-width: 2px;
     cursor: pointer;
 }
 
 @media only screen and (max-width: 1000px) {
-    body{
+    body {
         background-repeat: repeat-y;
         background-size: cover;
     }
+
     #stranka {
         display: none;
         width: 100%;
@@ -287,4 +305,4 @@ body {
         padding: 0;
         margin: 0;
     }
-  }
+}
