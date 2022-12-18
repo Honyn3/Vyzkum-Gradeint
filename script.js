@@ -8,6 +8,8 @@ let middleSwitch = document.getElementById("checkbox");
 let stranka = document.getElementById("stranka");
 let page = document.getElementById("stranka");
 let disableMiddleButton  = document.getElementById("disableMiddleButton");
+let bodyContent = document.getElementById("bodyContent");
+var store = document.querySelector(':root')
 
 let btnIndex = 0;
 let colorWidthHalf = 95;
@@ -125,6 +127,10 @@ function ChangeActive() {
 function Barvy(button) {
     let barva = window.getComputedStyle(button).backgroundColor;
     backgroundClick = true;
+    setTransitionDelay1();
+    bodyContent.style.backgroundImage = "radial-gradient(circle," + barva + "0%, rgba(0,0,0,0) 100%)";
+    
+
 
     switch (btnIndex) {
         case 0:
@@ -144,6 +150,17 @@ function Barvy(button) {
 
     }
     MoveGradient();
+    delay(200).then(() => setTransitionDelay2());
+    delay(800).then(() => bodyContent.style.background = "radial-gradient(circle, rgba(0,0,0,0.861) 0%, rgba(0,0,0,0) 100%)");
+}
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+function setTransitionDelay1(){
+    store.style.setProperty('--transition-delay', '200ms');
+}
+function setTransitionDelay2(){
+    store.style.setProperty('--transition-delay', '1000ms');
 }
 function MoveGradient() {
     if (MiddleColor != "null") {

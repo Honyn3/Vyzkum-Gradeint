@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&family=Nunito&family=Roboto&display=swap');
 
+:root{
+    --transition-delay: 200ms;
+}
+
 .centerAlign{
     display: flex;
     flex-direction: column;
@@ -20,6 +24,10 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
+}
+#bodyContent{
+    transition: var(--transition-delay);
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.861) 0%, rgba(0,0,0,0) 100%);   
 }
 
 
