@@ -1,17 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&family=Nunito&family=Roboto&display=swap');
 
+.centerAlign{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 body {
-    background-image: url(img/background.png);
+    background-image: url(img/background.png), radial-gradient(circle, rgba(255, 0, 0, 0), rgba(255, 255, 0, 0));
+    background-color: rgba(0, 0, 0, 0.861);
     background-size: 1920px 1080px;
-    background-color: rgba(18, 18, 18, 0.89);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 809px;
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
 
 #gradient {
-    width: 60%;
-    height: 55px;
+    width: 70%;
+    height: 35px;
     background: linear-gradient(to right, #A1A1A1, #A1A1A1 100%);
     margin: auto;
     padding: 10px;
@@ -27,15 +40,14 @@ body {
 }
 
 #colorUpDiv {
-    width: 100%;
+    width: 70%;
     position: absolute;
-    margin: auto;
 }
 
 #scaleLi {
     display: inline-flex;
-    font-size: 30px;
-    color: white;
+    font-size: 25px;
+    color: rgb(0, 0, 0);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -45,9 +57,8 @@ body {
 
 #scales {
     margin: auto;
-    margin-top: 200px;
-    width: 76%;
-    height: 60px;
+    width: 87%;
+    height: 33px;
 }
 
 #colorPicker {
@@ -142,16 +153,24 @@ body {
 }
 
 #cislostranky {
-    padding-top: 15%;
+    padding-top: 23%;
     width: 85%;
     text-align: right;
     font-size: 20px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-weight: bold;
 }
 
 #stranka {
     display: none;
+    width: 1000px;
+    height: 500px;
+    margin: auto auto;
+    background-color: rgb(230, 230, 230);
+    border: #000000 1px;
+    border-radius: 10px;
+    padding: 25px 0;
+
 }
 
 #buttonstart {

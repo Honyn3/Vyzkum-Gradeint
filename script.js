@@ -5,6 +5,7 @@ let leftButton = document.getElementById("colorButtonLeft");
 let gradient = document.getElementById("gradient");
 let middleButton = document.getElementById("colorButtonMiddle");
 let middleSwitch = document.getElementById("checkbox");
+let stranka = document.getElementById("stranka");
 
 let btnIndex = 0;
 let colorWidthHalf = 95;
@@ -21,14 +22,15 @@ function hideColor() {
     ChangeActive();
 }
 function LeftButtonPressed() {
-    colorPicker.style.marginLeft = leftButton.getBoundingClientRect().x - colorWidthHalf + "px";
+    // colorPicker.style.marginLeft = leftButton.getBoundingClientRect().x - colorWidthHalf + "px";
+    colorPicker.style.marginLeft = (leftButton.getBoundingClientRect().x - colorWidthHalf-stranka.offsetLeft) + "px";
     btnIndex = 0;
     colorPicker.style.display = "inherit";
     backgroundClick = true;
     ChangeActive();
 }
 function MiddleButtonPressed() {
-    colorPicker.style.marginLeft = middleButton.getBoundingClientRect().x - colorWidthHalf + "px";
+    colorPicker.style.marginLeft = (middleButton.getBoundingClientRect().x - colorWidthHalf-stranka.offsetLeft) + "px";
     middleButton.style.backgroundColor = odpovedi[pocetstranek - 1][1];
     middleSwitch = true;
     btnIndex = 1;
@@ -47,7 +49,8 @@ function DisableMiddleButton() {
     MoveGradient();
 }
 function RightButtonPressed() {
-    colorPicker.style.marginLeft = rightButton.getBoundingClientRect().x - colorWidthHalf + "px";
+    colorPicker.style.marginLeft = (rightButton.getBoundingClientRect().x - colorWidthHalf-stranka.offsetLeft) + "px";
+
     btnIndex = 2;
     colorPicker.style.display = "inherit";
     backgroundClick = true;
@@ -73,7 +76,6 @@ function MoveToButtonIndex() {
         RightButtonPressed();
 }
 function ChangeActive() {
-    console.log(btnIndex);
     switch (btnIndex) {
         case 0:
             leftButton.style.borderWidth = '4px';
@@ -167,6 +169,7 @@ else {
 }
 
 function start() {
+    console.log("start");
     if (localStorage.getItem("pouzil")) {
         document.getElementById("buttonstart").style.display = "none";
         document.getElementById("konec").style.display = "block";
