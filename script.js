@@ -8,6 +8,7 @@ let stranka = document.getElementById("stranka");
 let page = document.getElementById("stranka");
 let bodyContent = document.getElementById("bodyContent");
 var store = document.querySelector(':root')
+let scaleList = document.getElementById("scaleLi");
 
 let btnIndex = 0;
 let colorWidthHalf = 95;
@@ -23,9 +24,8 @@ let backgroundClick = false;
 function hideColor() {
     ChangeActive();
 }
-function ColorDivPress(){
+function ColorDivPress() {
     backgroundClick = true;
-
 }
 function LeftButtonPressed() {
     // colorPicker.style.marginLeft = leftButton.getBoundingClientRect().x - colorWidthHalf + "px";
@@ -53,7 +53,6 @@ function RightButtonPressed() {
     backgroundClick = true;
 
     ChangeActive();
-
 }
 function backgroundClicked() {
     if (!backgroundClick) {
@@ -71,7 +70,7 @@ function backgroundClickedtutorial() {
     backgroundClick = false;
 }
 function MoveToButtonIndex() {
-    if(tutorialBool) return;
+    if (tutorialBool) return;
     if (btnIndex == 0)
         LeftButtonPressed();
     else if (btnIndex == 1)
@@ -132,20 +131,20 @@ function Barvy(button) {
             leftButton.style.backgroundColor = barva;
             break;
         case 1:
-            if(barva == "rgb(160, 160, 160)"){
+            if (barva == "rgb(160, 160, 160)") {
                 MiddleColor = "null";
                 middleButton.style.backgroundColor = "#00000000";
                 backgroundClick = true;
 
-                MoveGradient();                
+                MoveGradient();
             }
-            else{
+            else {
                 MiddleColor = barva;
                 middleButton.style.backgroundColor = barva;
 
                 checked = true;
             }
-            
+
             break;
         case 2:
             RightColor = barva;
@@ -153,18 +152,20 @@ function Barvy(button) {
             break;
 
     }
+    AdjustColorToBackground();
+
     MoveGradient();
     delay(50).then(() => setTransitionDelay2());
-    delay(600).then(() => bodyContent.style.backgroundColor = "rgba(0,0,0,0.0)");
+    delay(1200).then(() => bodyContent.style.backgroundColor = "rgba(0,0,0,0.0)");
 }
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
-function setTransitionDelay1(){
+function setTransitionDelay1() {
     store.style.setProperty('--transition-delay', '50ms');
 }
-function setTransitionDelay2(){
-    store.style.setProperty('--transition-delay', '600ms');
+function setTransitionDelay2() {
+    store.style.setProperty('--transition-delay', '1200ms');
 }
 function MoveGradient() {
     if (MiddleColor != "null") {
@@ -229,7 +230,7 @@ function start() {
 
         document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
         for (let i = 0; i < soupisotazek[0].length; i++) {
-            document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[0].length + "%'>" + soupisotazek[0][i] + "</li>";
+            document.getElementById("scaleLi").innerHTML += "<li style='text-align:center; width:" + 100 / soupisotazek[0].length + "%'>" + soupisotazek[0][i] + "</li>";
         }
 
         document.getElementById("cislostranky").innerHTML = pocetstranek + "/" + celkovypocetotazek;
@@ -390,9 +391,9 @@ function GetElementY(nameOfElement) {
 }
 function SetNextCoordinates(nameOfElement) {
     r.style.setProperty('--secondleft', GetElementX(nameOfElement));
-    if(nameOfElement != "button0")
-    r.style.setProperty('--secondtop', GetElementY(nameOfElement));
-    else{
+    if (nameOfElement != "button0")
+        r.style.setProperty('--secondtop', GetElementY(nameOfElement));
+    else {
         r.style.setProperty('--secondtop', Number(document.getElementById(nameOfElement).getBoundingClientRect().top.toFixed()) + 'px');
     }
 }
@@ -406,7 +407,7 @@ function Intervals(moveNumber) {
         cursorTut.style.animation = "moves 2s forwards";
         setTimeout(tutorialclick, 2000);
         setTimeout(moveNumber, 2500);
-    } else{
+    } else {
         cursorTut.style.animation = "none";
         clearTimeout(tutorialclick);
         clearTimeout(moveNumber);
@@ -559,7 +560,7 @@ function EndOfAnim() {
     }, 2500);
 }
 function tutorialclick() {
-    if(!tutorialBool) return;
+    if (!tutorialBool) return;
     const ripple = document.createElement("div");
     ripple.className = "ripple";
     document.body.appendChild(ripple);
@@ -583,10 +584,9 @@ function tutorialclick() {
         setTimeout(Barvy(document.getElementById("button4")), 1000);
     } else if (move == 7) {
         MiddleColor = "null";
-                middleButton.style.backgroundColor = "#00000000";
-                backgroundClick = true;
-
-                MoveGradient();   
+        middleButton.style.backgroundColor = "#00000000";
+        backgroundClick = true;
+        MoveGradient();
     } else if (move == 8) {
         backgroundClickedtutorial();
     }

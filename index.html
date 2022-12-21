@@ -21,11 +21,13 @@
             <div id="stranka" onclick="hideColor()">
                 <p id="cislostranky">1/10</p>
 
-                <div id="scales">
-                    <ul id="scaleLi">adam</ul>
+                
+                <div id="gradient">
+                    <div id="scales">
+                        <ul id="scaleLi">adam</ul>
+                    </div>
                 </div>
-                <div id="gradient"></div>
-
+                
                 <div id="buttons">
                     <input type="button" value="" onclick="LeftButtonPressed()" id="colorButtonLeft">
 
@@ -37,7 +39,7 @@
 
                         <ul id="preset">
                             <li>
-                                <button class="button0" id="button0" onclick="Barvy(this)">Výchozí...</button>
+                                <button class="button0" id="button0" onclick="Barvy(this)">Vyberte barvu</button>
                             </li>
                             <li>
                                 <button class="button button1" onclick="Barvy(this)"></button>
@@ -125,6 +127,8 @@
             </div>
         </div>
         <script src="script.js"></script>
+        <script src="colorHeadings.js"></script>
+
     </div>
 
 
