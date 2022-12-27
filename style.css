@@ -162,7 +162,7 @@ body {
     padding: 0.7%;
     font-size: 20px;
     width: 100px;
-    transition: 0.3s ease;
+    /* transition: 0.1s ease; */
 }
 
 .prepinace:hover {

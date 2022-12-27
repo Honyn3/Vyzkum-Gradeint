@@ -1,11 +1,11 @@
 function AdjustColorToBackground() {
     for (let index = 0; index < scaleList.childElementCount; index++) {
         let child = scaleList.children[index];
-        if(index == 0) percentage = 0;
-        else if (index == scaleList.childElementCount-1) percentage = 100;
-        else percentage = (index * 100 / scaleList.childElementCount) + 50/scaleList.childElementCount;
+        if (index == 0) percentage = 0;
+        else if (index == scaleList.childElementCount - 1) percentage = 100;
+        else percentage = (index * 100 / scaleList.childElementCount) + 50 / scaleList.childElementCount;
         // child.style.color = GetColorFromGradient(percentage); //pro zmenu barvy pisma na gradientovou
-        if (GetColorAverage(percentage) > 128) child.style.color = "black"; //pro zmenu barvy pisma vzhledem k pozadi
+        if (GetColorAverage(percentage) > 128) child.style.color = "#222A35"; //pro zmenu barvy pisma vzhledem k pozadi
         else child.style.color = "white";
     }
 }
@@ -29,7 +29,7 @@ function GetColorFromGradient(percentage) {
         return "rgb( " + Math.round(lCol[0] + percentage * rDelta) + ", " + Math.round(lCol[1] + percentage * gDelta) + ", " + Math.round(lCol[2] + percentage * bDelta) + ")";
     } else {
         if (percentage >= 50) {
-            return GetColorFromGradientMiddleColor(2*percentage - 50, false);
+            return GetColorFromGradientMiddleColor(2 * percentage - 50, false);
         } else {
             return GetColorFromGradientMiddleColor(percentage * 2, true);
         }
@@ -106,8 +106,8 @@ function GetColorFromGradientArray(percentage) {
 
         return color = [Math.round(lCol[0] + percentage * rDelta), Math.round(lCol[1] + percentage * gDelta), Math.round(lCol[2] + percentage * bDelta)];
     } else {
-        if (percentage >= 50) {
-            return GetColorFromGradientMiddleColorArray(2*percentage - 50, false);
+        if (percentage > 50) {
+            return GetColorFromGradientMiddleColorArray(2 * percentage - 50, false);
         } else {
             return GetColorFromGradientMiddleColorArray(percentage * 2, true);
         }
