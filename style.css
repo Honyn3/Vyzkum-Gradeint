@@ -264,18 +264,21 @@ body {
     position: fixed;
     top: 40%;
     left: 40%;
-    width: 20%;
-    padding: 2%;
+    /* margin: auto; */
+    width: 300px;
+    padding: 1%;
     z-index: 1;
     font-size: 1.3em;
-    background: black;
-    color: white;
-    text-align: center;
+    background: rgba(26, 26, 26, 0.901);
+    color: rgb(233, 233, 233);
+    text-align: left;
 }
 
 #tutorialbutton {
     font-size: 1.3em;
     background: red;
+    margin-left: 65%;
+    width: max-content;
 }
 
 #tutorialbutton:hover {

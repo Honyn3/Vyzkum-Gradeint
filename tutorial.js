@@ -35,6 +35,7 @@ function movesofcursor() {
     // create tutorial pop up
     const tutorialrealtext = document.createTextNode("Budete mít za úkol přiřadit barvy ke slovům nad nimi, můžete přiřadit 2 nebo 3 barvy jak uvidíte v následující animaci.");
     tutorialtext.appendChild(tutorialrealtext);
+    tutorialtext.innerHTML += "<p></p>";
     const tutorialbutton = document.createElement("button");
     const textnode = document.createTextNode("Další");
     tutorialbutton.appendChild(textnode);
@@ -116,6 +117,8 @@ function sixthmove() {
             tutorialtext.style.display = "block";
             const tutorialrealtext = document.createTextNode("Prostřední barvu můžete též zrušit a nechat pouze dvě.");
             tutorialtext.appendChild(tutorialrealtext);
+            tutorialtext.innerHTML += "<p></p>";
+
             const tutorialbutton = document.createElement("button");
             const textnode = document.createTextNode("Další");
             tutorialbutton.appendChild(textnode);
@@ -160,6 +163,8 @@ function ForceEndOfAnim() {
     tutorialbutton.appendChild(textnode);
     tutorialtext.appendChild(tutorialbutton);
     tutorialbutton.setAttribute("id", "tutorialbutton");
+    tutorialbutton.style.marginLeft = "50%";
+
     page.style.filter = "blur(8px)"
 
     tutorialbutton.onclick = function () { //shows the start menu
