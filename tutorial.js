@@ -12,11 +12,16 @@ move = 1;
 function movesofcursor() {
 
     document.getElementById("zpatky").style.display = "none";
-    document.getElementById("cislostranky").style.display = "none";
+    // document.getElementById("cislostranky").style.display = "none";
     document.getElementById("stranka").style.display = "block";
     document.getElementById("buttonstart").style.display = "none";
     document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
     for (let i = 0; i < tutorialwords.length; i++) {
+        if(i == 0){
+        document.getElementById("scaleLi").innerHTML += "<li style='text-align:left;width:" + 100 / tutorialwords.length + "%;padding-left:60px'>" + tutorialwords[i] + "</li>";
+        }else if(i == tutorialwords.length-1){
+        document.getElementById("scaleLi").innerHTML += "<li style='text-align:right;width:" + 100 / tutorialwords.length + "%;padding-right:60px'>" + tutorialwords[i] + "</li>";
+        }else
         document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / tutorialwords.length + "%'>" + tutorialwords[i] + "</li>";
     }
     page.onclick = "";
@@ -28,7 +33,7 @@ function movesofcursor() {
         document.getElementsByTagName("input")[i].onclick = "";
     }
     // create tutorial pop up
-    const tutorialrealtext = document.createTextNode("Budeme mít za úkol přiřadit barvy ke slovům nad nimi, můžete přiřadit 2 nebo 3 barvy jak uvidíte v následující animaci.");
+    const tutorialrealtext = document.createTextNode("Budete mít za úkol přiřadit barvy ke slovům nad nimi, můžete přiřadit 2 nebo 3 barvy jak uvidíte v následující animaci.");
     tutorialtext.appendChild(tutorialrealtext);
     const tutorialbutton = document.createElement("button");
     const textnode = document.createTextNode("Další");
@@ -55,11 +60,7 @@ function GetElementY(nameOfElement) {
 }
 function SetNextCoordinates(nameOfElement) {
     r.style.setProperty('--secondleft', GetElementX(nameOfElement));
-    if (nameOfElement != "button0")
-        r.style.setProperty('--secondtop', GetElementY(nameOfElement));
-    else {
-        r.style.setProperty('--secondtop', Number(document.getElementById(nameOfElement).getBoundingClientRect().top.toFixed()) + 'px');
-    }
+    r.style.setProperty('--secondtop', GetElementY(nameOfElement));
 }
 function ResetRootProperties() {
     cursorTut.style.animation = "none";
@@ -68,9 +69,9 @@ function ResetRootProperties() {
 }
 function Intervals(moveNumber) {
     if (tutorialBool) {
-        cursorTut.style.animation = "moves 2s forwards";
-        setTimeout(tutorialclick, 2000);
-        setTimeout(moveNumber, 2500);
+        cursorTut.style.animation = "moves 1500ms forwards";
+        setTimeout(tutorialclick, 1500);
+        setTimeout(moveNumber, 2000);
     } else {
         cursorTut.style.animation = "none";
         clearTimeout(tutorialclick);

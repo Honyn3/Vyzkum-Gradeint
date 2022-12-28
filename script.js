@@ -11,7 +11,7 @@ var store = document.querySelector(':root')
 let scaleList = document.getElementById("scaleLi");
 
 let btnIndex = 0;
-let colorWidthHalf = 95;
+let colorWidthHalf = 90;
 let tutorialBool = false;
 
 let LeftColor = "#A1A1A1";
@@ -34,6 +34,7 @@ function LeftButtonPressed() {
     colorPicker.style.display = "inherit";
     backgroundClick = true;
     ChangeActive();
+    document.getElementById("button0").innerHTML = "Výchozí barva";
 }
 function MiddleButtonPressed() {
     colorPicker.style.marginLeft = (middleButton.getBoundingClientRect().x - colorWidthHalf - stranka.offsetLeft) + "px";
@@ -43,7 +44,7 @@ function MiddleButtonPressed() {
     backgroundClick = true;
 
     ChangeActive();
-
+    document.getElementById("button0").innerHTML = "Žádná barva";
 }
 function RightButtonPressed() {
     colorPicker.style.marginLeft = (rightButton.getBoundingClientRect().x - colorWidthHalf - stranka.offsetLeft) + "px";
@@ -53,6 +54,7 @@ function RightButtonPressed() {
     backgroundClick = true;
 
     ChangeActive();
+    document.getElementById("button0").innerHTML = "Výchozí barva";
 }
 function backgroundClicked() {
     if (!backgroundClick) {
@@ -235,6 +237,8 @@ function start() {
 
         document.getElementById("cislostranky").innerHTML = pocetstranek + "/" + celkovypocetotazek;
     }
+    AdjustColorToBackground();
+
 }
 function dalsi() {
     if (tutorialBool) {
@@ -278,6 +282,13 @@ function dalsi() {
             document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
             for (let i = 0; i < soupisotazek[pocetstranek].length; i++) {
                 document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek].length + "%'>" + soupisotazek[pocetstranek][i] + "</li>";
+
+                // if(soupisotazek[pocetstranek-1][i].length < 7)
+                // document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek].length + "%'>" + soupisotazek[pocetstranek][i] + "</li>";
+                // else{
+                //     document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek - 1].length + "%;font-size:16px'>" + soupisotazek[pocetstranek - 1][i] + "</li>";
+                //     }
+                //Zmenseni pisma, pokud slovo obsahuje vic jak 7 pismen
             }
 
             pocetstranek = pocetstranek + 1;
@@ -287,9 +298,11 @@ function dalsi() {
                 document.getElementById("dalsi").style.width = "250px";
             } else {
                 document.getElementById("dalsi").innerHTML = 'Další <svg width="24" height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path fill="white" d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>';
-                document.getElementById("dalsi").style.width = "100px";
+                document.getElementById("dalsi").style.width = "130px";
 
             }
+            AdjustColorToBackground();
+
         }
     }
 }
@@ -325,6 +338,13 @@ function zpatky() {
         document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
         for (let i = 0; i < soupisotazek[pocetstranek - 1].length; i++) {
             document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek - 1].length + "%'>" + soupisotazek[pocetstranek - 1][i] + "</li>";
+
+            // if(soupisotazek[pocetstranek-1][i].length < 7)
+            // document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek].length + "%'>" + soupisotazek[pocetstranek][i] + "</li>";
+            // else{
+            //     document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek - 1].length + "%;font-size:16px'>" + soupisotazek[pocetstranek - 1][i] + "</li>";
+            //     }
+            //Zmenseni pisma, pokud slovo obsahuje vic jak 7 pismen
         }
 
         if (celkovypocetotazek == pocetstranek) {
@@ -332,7 +352,9 @@ function zpatky() {
             document.getElementById("dalsi").style.width = "250px";
         } else {
             document.getElementById("dalsi").innerHTML = 'Další <svg width="24" height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path fill="white" d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>';
-            document.getElementById("dalsi").style.width = "100px";
+            document.getElementById("dalsi").style.width = "130px";
         }
+        AdjustColorToBackground();
+
     }
 }
