@@ -269,22 +269,26 @@ body {
     padding: 1%;
     z-index: 1;
     font-size: 1.3em;
-    background: rgba(26, 26, 26, 0.901);
-    color: rgb(233, 233, 233);
+    background: rgba(83, 83, 83, 0.901);
+    color: rgb(255, 255, 255);
     text-align: left;
+    border-radius: 7px;
 }
 
 #tutorialbutton {
-    font-size: 1.3em;
-    background: red;
-    margin-left: 65%;
-    width: max-content;
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+    background: #2CB9F1;
+    margin-left: 55%;
+    width: 130px;
+    height: 35px;
+    border: none;
+    border-radius: 7px;
 }
 
 #tutorialbutton:hover {
-    font-size: 1.3em;
-    background: rgb(221, 0, 0);
-    border-color: #000000;
+    background: #249ac9;
     border-width: 2px;
     cursor: pointer;
 }
