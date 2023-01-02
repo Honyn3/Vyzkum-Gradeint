@@ -1,0 +1,17 @@
+{
+  "source":[
+    "[[\"skvělé\", \"dobré\", \"neutrální\", \"špatné\", \"příšerné\"], [\"nádherné\", \"hezké\", \"neutrální\", \"ošklivé\", \"ohavné\"], [\"rychlé\", \"svižné\", \"neutrální\", \"zvolna\", \"pomalé\"], [\"neustálé\", \"časté\", \"obvyklé\", \"sporadické\", \"vzácné\"]]"
+  ],
+  "data": [
+    {
+      "colors": "[[\"#A1A1A1\",\"null\",\"#A1A1A1\"],[\"#A1A1A1\",\"null\",\"#A1A1A1\"],[\"#A1A1A1\",\"null\",\"#A1A1A1\"],[\"#A1A1A1\",\"null\",\"#A1A1A1\"]]",
+      "timestamp_s": 0,
+      "id": 1
+    },
+    {
+      "colors": "[[\"rgb(60, 255, 0)\",\"rgb(251, 197, 61)\",\"rgb(255, 0, 0)\"],[\"rgb(0, 255, 247)\",\"rgb(231, 231, 231)\",\"rgb(203, 102, 24)\"],[\"rgb(255, 32, 32)\",\"null\",\"rgb(212, 210, 92)\"],[\"rgb(60, 255, 0)\",\"null\",\"rgb(255, 0, 0)\"]]",
+      "timestamp_s": 40,
+      "id": 2
+    }
+  ]
+}

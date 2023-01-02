@@ -19,7 +19,7 @@ let RightColor = "#A1A1A1";
 let MiddleColor = "null";
 let checked;
 let backgroundClick = false;
-
+let timestamp = 0;
 
 function hideColor() {
     ChangeActive();
@@ -38,7 +38,7 @@ function LeftButtonPressed() {
 }
 function MiddleButtonPressed() {
     colorPicker.style.marginLeft = (middleButton.getBoundingClientRect().x - colorWidthHalf - stranka.offsetLeft) + "px";
-    // middleButton.style.backgroundColor = odpovedi[pocetstranek - 1][1];
+    // middleButton.style.backgroundColor = odpovedi[numOfPages - 1][1];
     btnIndex = 1;
     colorPicker.style.display = "inherit";
     backgroundClick = true;
@@ -184,15 +184,26 @@ function GradientAdjust(x) {
     return y;
 }
 
-let pocetstranek = 1;
-let soupisotazek = [["skvělé", "dobré", "neutrální", "špatné", "příšerné"], ["nádherné", "hezké", "neutrální", "ošklivé", "ohavné"], ["rychlé", "svižné", "neutrální", "zvolna", "pomalé"], ["biologie", "programování", "chemie", "němčina"]] //slova nad sliderem (budou v budoucnu přicházet ze serveru)
-let celkovypocetotazek = soupisotazek.length;
+let numOfPages = 1;
+let Questions;
+let numOfQuestions;
+
+window.addEventListener('DOMContentLoaded', () => GetQuestions())
+const GetQuestions = async () => {
+    let uri = 'http://localhost:3000/source';
+    const wait = await fetch(uri);
+    const data = await wait.json();
+
+    Questions = JSON.parse(data);
+    numOfQuestions = Questions.length;
+}
+
 let odpovedi = [];
 let barvy = ["#A1A1A1", "null", "#A1A1A1"]; // zapisuje pouze 3 barvy
 if (localStorage.getItem("odpovedi")) {
 }
 else {
-    for (let i = 0; i < celkovypocetotazek; i++) { // vytvori JSON se samými šedými barvami
+    for (let i = 0; i < numOfQuestions; i++) { // vytvori JSON se samými šedými barvami
         odpovedi[i] = barvy;
     }
     localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
@@ -231,14 +242,15 @@ function start() {
         document.getElementById("stranka").style.display = "block";
 
         document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
-        for (let i = 0; i < soupisotazek[0].length; i++) {
-            document.getElementById("scaleLi").innerHTML += "<li style='text-align:center; width:" + 100 / soupisotazek[0].length + "%'>" + soupisotazek[0][i] + "</li>";
+        for (let i = 0; i < Questions[0].length; i++) {
+            document.getElementById("scaleLi").innerHTML += "<li style='text-align:center; width:" + 100 / Questions[0].length + "%'>" + Questions[0][i] + "</li>";
         }
 
-        document.getElementById("cislostranky").innerHTML = pocetstranek + "/" + celkovypocetotazek;
+        document.getElementById("cislostranky").innerHTML = numOfPages + "/" + numOfQuestions;
     }
     AdjustColorToBackground();
-
+    let timeInc = 500;
+    setInterval(TimeIncrement, timeInc);
 }
 function dalsi() {
     if (tutorialBool) {
@@ -249,51 +261,55 @@ function dalsi() {
 
     } else {
         odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
-        odpovedi[pocetstranek - 1][0] = LeftColor;
-        odpovedi[pocetstranek - 1][1] = MiddleColor;
-        odpovedi[pocetstranek - 1][2] = RightColor;
+        odpovedi[numOfPages - 1][0] = LeftColor;
+        odpovedi[numOfPages - 1][1] = MiddleColor;
+        odpovedi[numOfPages - 1][2] = RightColor;
         localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
-        if (celkovypocetotazek == pocetstranek)// zápis do online databáze v případě, že jsme na poslední stránce
+        if (numOfQuestions == numOfPages)// zápis do online databáze v případě, že jsme na poslední stránce
         {
             document.getElementById("stranka").style.display = "none";
             document.getElementById("konec").style.display = "block";
+            Save(localStorage.getItem("odpovedi"), timestamp);
+
             localStorage.removeItem("odpovedi");
             localStorage.setItem("pouzil", "ano");
+
+
         } else {
-            LeftColor = odpovedi[pocetstranek][0];
-            MiddleColor = odpovedi[pocetstranek][1];
-            RightColor = odpovedi[pocetstranek][2];
-            if (odpovedi[pocetstranek][1] == "null") {
-                gradient.style.background = "linear-gradient(to right, " + odpovedi[pocetstranek][0] + ", " + odpovedi[pocetstranek][2] + " 100%)";
+            LeftColor = odpovedi[numOfPages][0];
+            MiddleColor = odpovedi[numOfPages][1];
+            RightColor = odpovedi[numOfPages][2];
+            if (odpovedi[numOfPages][1] == "null") {
+                gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages][0] + ", " + odpovedi[numOfPages][2] + " 100%)";
                 checked = false;
             }
             else {
-                gradient.style.background = "linear-gradient(to right, " + odpovedi[pocetstranek][0] + "," + odpovedi[pocetstranek][1] + "," + odpovedi[pocetstranek][2] + " 100%)";
+                gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages][0] + "," + odpovedi[numOfPages][1] + "," + odpovedi[numOfPages][2] + " 100%)";
                 checked = true;
             }
-            leftButton.style.backgroundColor = odpovedi[pocetstranek][0];
-            if (odpovedi[pocetstranek][1] == "null") {
+            leftButton.style.backgroundColor = odpovedi[numOfPages][0];
+            if (odpovedi[numOfPages][1] == "null") {
                 middleButton.style.backgroundColor = "#00000000";
 
             } else
-                middleButton.style.backgroundColor = odpovedi[pocetstranek][1];
-            rightButton.style.backgroundColor = odpovedi[pocetstranek][2];
+                middleButton.style.backgroundColor = odpovedi[numOfPages][1];
+            rightButton.style.backgroundColor = odpovedi[numOfPages][2];
 
             document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
-            for (let i = 0; i < soupisotazek[pocetstranek].length; i++) {
-                document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek].length + "%'>" + soupisotazek[pocetstranek][i] + "</li>";
+            for (let i = 0; i < Questions[numOfPages].length; i++) {
+                document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages].length + "%'>" + Questions[numOfPages][i] + "</li>";
 
-                // if(soupisotazek[pocetstranek-1][i].length < 7)
-                // document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek].length + "%'>" + soupisotazek[pocetstranek][i] + "</li>";
+                // if(Questions[numOfPages-1][i].length < 7)
+                // document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages].length + "%'>" + Questions[numOfPages][i] + "</li>";
                 // else{
-                //     document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek - 1].length + "%;font-size:16px'>" + soupisotazek[pocetstranek - 1][i] + "</li>";
+                //     document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages - 1].length + "%;font-size:16px'>" + Questions[numOfPages - 1][i] + "</li>";
                 //     }
                 //Zmenseni pisma, pokud slovo obsahuje vic jak 7 pismen
             }
 
-            pocetstranek = pocetstranek + 1;
-            document.getElementById("cislostranky").innerHTML = pocetstranek + "/" + celkovypocetotazek;
-            if (celkovypocetotazek == pocetstranek) {
+            numOfPages = numOfPages + 1;
+            document.getElementById("cislostranky").innerHTML = numOfPages + "/" + numOfQuestions;
+            if (numOfQuestions == numOfPages) {
                 document.getElementById("dalsi").innerHTML = "Ukončit dotazník";
                 document.getElementById("dalsi").style.width = "250px";
             } else {
@@ -307,47 +323,47 @@ function dalsi() {
     }
 }
 function zpatky() {
-    if ((pocetstranek - 2) >= 0) {
+    if ((numOfPages - 2) >= 0) {
         odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
-        odpovedi[pocetstranek - 1][0] = LeftColor;
-        odpovedi[pocetstranek - 1][1] = MiddleColor;
-        odpovedi[pocetstranek - 1][2] = RightColor;
+        odpovedi[numOfPages - 1][0] = LeftColor;
+        odpovedi[numOfPages - 1][1] = MiddleColor;
+        odpovedi[numOfPages - 1][2] = RightColor;
         localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
-        pocetstranek = pocetstranek - 1;
-        LeftColor = odpovedi[pocetstranek - 1][0];
-        MiddleColor = odpovedi[pocetstranek - 1][1];
-        RightColor = odpovedi[pocetstranek - 1][2];
-        if (odpovedi[pocetstranek - 1][1] == "null") {
-            gradient.style.background = "linear-gradient(to right, " + odpovedi[pocetstranek - 1][0] + ", " + odpovedi[pocetstranek - 1][2] + " 100%)";
+        numOfPages = numOfPages - 1;
+        LeftColor = odpovedi[numOfPages - 1][0];
+        MiddleColor = odpovedi[numOfPages - 1][1];
+        RightColor = odpovedi[numOfPages - 1][2];
+        if (odpovedi[numOfPages - 1][1] == "null") {
+            gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages - 1][0] + ", " + odpovedi[numOfPages - 1][2] + " 100%)";
             checked = false;
         }
         else {
-            gradient.style.background = "linear-gradient(to right, " + odpovedi[pocetstranek - 1][0] + "," + odpovedi[pocetstranek - 1][1] + "," + odpovedi[pocetstranek - 1][2] + " 100%)";
+            gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages - 1][0] + "," + odpovedi[numOfPages - 1][1] + "," + odpovedi[numOfPages - 1][2] + " 100%)";
             checked = true;
         }
-        leftButton.style.backgroundColor = odpovedi[pocetstranek - 1][0];
-        if (odpovedi[pocetstranek - 1][1] == "null") {
+        leftButton.style.backgroundColor = odpovedi[numOfPages - 1][0];
+        if (odpovedi[numOfPages - 1][1] == "null") {
             middleButton.style.backgroundColor = "#00000000";
 
         } else
-            middleButton.style.backgroundColor = odpovedi[pocetstranek - 1][1];
+            middleButton.style.backgroundColor = odpovedi[numOfPages - 1][1];
 
-        rightButton.style.backgroundColor = odpovedi[pocetstranek - 1][2];
-        document.getElementById("cislostranky").innerHTML = pocetstranek + "/" + celkovypocetotazek;
+        rightButton.style.backgroundColor = odpovedi[numOfPages - 1][2];
+        document.getElementById("cislostranky").innerHTML = numOfPages + "/" + numOfQuestions;
 
         document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
-        for (let i = 0; i < soupisotazek[pocetstranek - 1].length; i++) {
-            document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek - 1].length + "%'>" + soupisotazek[pocetstranek - 1][i] + "</li>";
+        for (let i = 0; i < Questions[numOfPages - 1].length; i++) {
+            document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages - 1].length + "%'>" + Questions[numOfPages - 1][i] + "</li>";
 
-            // if(soupisotazek[pocetstranek-1][i].length < 7)
-            // document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek].length + "%'>" + soupisotazek[pocetstranek][i] + "</li>";
+            // if(Questions[numOfPages-1][i].length < 7)
+            // document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages].length + "%'>" + Questions[numOfPages][i] + "</li>";
             // else{
-            //     document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / soupisotazek[pocetstranek - 1].length + "%;font-size:16px'>" + soupisotazek[pocetstranek - 1][i] + "</li>";
+            //     document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages - 1].length + "%;font-size:16px'>" + Questions[numOfPages - 1][i] + "</li>";
             //     }
             //Zmenseni pisma, pokud slovo obsahuje vic jak 7 pismen
         }
 
-        if (celkovypocetotazek == pocetstranek) {
+        if (numOfQuestions == numOfPages) {
             document.getElementById("dalsi").innerHTML = "Ukončit dotazník";
             document.getElementById("dalsi").style.width = "250px";
         } else {
@@ -357,4 +373,8 @@ function zpatky() {
         AdjustColorToBackground();
 
     }
+}
+
+function TimeIncrement(){
+    timestamp += 500;
 }
