@@ -206,9 +206,6 @@ const GetQuestions = async () => {
     }
 }
 
-let odpovedi = [];
-let barvy = ["#A1A1A1", "null", "#A1A1A1"]; // zapisuje pouze 3 barvy
-
 
 function start() {
     tutorialBool = false;
