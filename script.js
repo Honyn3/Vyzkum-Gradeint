@@ -187,7 +187,8 @@ function GradientAdjust(x) {
 let numOfPages = 1;
 let Questions;
 let numOfQuestions;
-
+let odpovedi = [];
+let barvy = ["#A1A1A1", "null", "#A1A1A1"]; // zapisuje pouze 3 barvy
 window.addEventListener('DOMContentLoaded', () => GetQuestions())
 const GetQuestions = async () => {
     let uri = 'http://localhost:3000/source';
