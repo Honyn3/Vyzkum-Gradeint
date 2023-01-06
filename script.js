@@ -187,7 +187,8 @@ function GradientAdjust(x) {
 let numOfPages = 1;
 let Questions;
 let numOfQuestions;
-
+let odpovedi = [];
+let barvy = ["#A1A1A1", "null", "#A1A1A1"]; // zapisuje pouze 3 barvy
 window.addEventListener('DOMContentLoaded', () => GetQuestions())
 const GetQuestions = async () => {
     let uri = 'http://localhost:3000/source';
@@ -196,18 +197,17 @@ const GetQuestions = async () => {
 
     Questions = JSON.parse(data);
     numOfQuestions = Questions.length;
+    if (localStorage.getItem("odpovedi")) {//answers loading has to happen after you load questions
+    }
+    else {
+        for (let i = 0; i < numOfQuestions; i++) { // vytvori JSON se samými šedými barvami
+            odpovedi[i] = barvy;
+        }
+        localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
+    }
 }
 
-let odpovedi = [];
-let barvy = ["#A1A1A1", "null", "#A1A1A1"]; // zapisuje pouze 3 barvy
-if (localStorage.getItem("odpovedi")) {
-}
-else {
-    for (let i = 0; i < numOfQuestions; i++) { // vytvori JSON se samými šedými barvami
-        odpovedi[i] = barvy;
-    }
-    localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
-}
+
 
 function start() {
     tutorialBool = false;
