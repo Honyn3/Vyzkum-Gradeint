@@ -158,7 +158,7 @@ function Barvy(button) {
 
     MoveGradient();
     delay(50).then(() => setTransitionDelay2());
-    delay(1200).then(() => bodyContent.style.backgroundColor = "rgba(0,0,0,0.0)");
+    delay(800).then(() => bodyContent.style.backgroundColor = "rgba(0,0,0,0.0)");
 }
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
@@ -167,7 +167,7 @@ function setTransitionDelay1() {
     store.style.setProperty('--transition-delay', '50ms');
 }
 function setTransitionDelay2() {
-    store.style.setProperty('--transition-delay', '1200ms');
+    store.style.setProperty('--transition-delay', '1600ms');
 }
 function MoveGradient() {
     if (MiddleColor != "null") {
@@ -196,18 +196,18 @@ const GetQuestions = async () => {
 
     Questions = JSON.parse(data);
     numOfQuestions = Questions.length;
+
+    if (!localStorage.getItem("odpovedi") || localStorage.getItem("odpovedi") == null || localStorage.getItem("odpovedi") == "[]") {
+        for (let i = 0; i < numOfQuestions; i++) { // vytvori JSON se samými šedými barvami
+            odpovedi[i] = barvy;
+        }
+        localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
+    }
 }
 
 let odpovedi = [];
 let barvy = ["#A1A1A1", "null", "#A1A1A1"]; // zapisuje pouze 3 barvy
-if (localStorage.getItem("odpovedi")) {
-}
-else {
-    for (let i = 0; i < numOfQuestions; i++) { // vytvori JSON se samými šedými barvami
-        odpovedi[i] = barvy;
-    }
-    localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
-}
+
 
 function start() {
     tutorialBool = false;
@@ -375,6 +375,6 @@ function zpatky() {
     }
 }
 
-function TimeIncrement(){
+function TimeIncrement() {
     timestamp += 500;
 }

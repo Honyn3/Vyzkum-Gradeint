@@ -11,18 +11,18 @@ move = 1;
 
 function movesofcursor() {
 
-    document.getElementById("zpatky").style.display = "none";
+    // document.getElementById("zpatky").style.display = "none";
     // document.getElementById("cislostranky").style.display = "none";
     document.getElementById("stranka").style.display = "block";
     document.getElementById("buttonstart").style.display = "none";
     document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
     for (let i = 0; i < tutorialwords.length; i++) {
-        if(i == 0){
-        document.getElementById("scaleLi").innerHTML += "<li style='text-align:left;width:" + 100 / tutorialwords.length + "%;padding-left:60px'>" + tutorialwords[i] + "</li>";
-        }else if(i == tutorialwords.length-1){
-        document.getElementById("scaleLi").innerHTML += "<li style='text-align:right;width:" + 100 / tutorialwords.length + "%;padding-right:60px'>" + tutorialwords[i] + "</li>";
-        }else
-        document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / tutorialwords.length + "%'>" + tutorialwords[i] + "</li>";
+        if (i == 0) {
+            document.getElementById("scaleLi").innerHTML += "<li style='text-align:left;width:" + 100 / tutorialwords.length + "%;padding-left:60px'>" + tutorialwords[i] + "</li>";
+        } else if (i == tutorialwords.length - 1) {
+            document.getElementById("scaleLi").innerHTML += "<li style='text-align:right;width:" + 100 / tutorialwords.length + "%;padding-right:60px'>" + tutorialwords[i] + "</li>";
+        } else
+            document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / tutorialwords.length + "%'>" + tutorialwords[i] + "</li>";
     }
     page.onclick = "";
     document.body.onclick = "";
@@ -172,7 +172,7 @@ function ForceEndOfAnim() {
             document.getElementById("preset").getElementsByTagName("button")[i].onclick = function () { Barvy(this); };
         }
         document.getElementById("dalsi").style.display = "block";
-        document.getElementById("zpatky").style.display = "block";
+        // document.getElementById("zpatky").style.display = "block";
         document.getElementById("cislostranky").style.display = "block";
         rightButton.onclick = function () { RightButtonPressed() }
         leftButton.onclick = function () { LeftButtonPressed() }
@@ -180,7 +180,7 @@ function ForceEndOfAnim() {
         page.onclick = function () { hideColor() }
         document.body.onclick = function () { backgroundClicked() }
         document.getElementById("dalsi").onclick = function () { dalsi() }
-        document.getElementById("zpatky").onclick = function () { zpatky() }
+        // document.getElementById("zpatky").onclick = function () { zpatky() }
         page.style.filter = "blur(0px)"
         setTimeout(start, 500);
         tutorialtext.style.display = "none";
@@ -213,7 +213,7 @@ function EndOfAnim() {
             document.getElementById("dalsi").innerHTML = 'Další <svg width="24" height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path fill="white" d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>';
 
             document.getElementById("dalsi").style.display = "block";
-            document.getElementById("zpatky").style.display = "block";
+            // document.getElementById("zpatky").style.display = "block";
             document.getElementById("cislostranky").style.display = "block";
             rightButton.onclick = function () { RightButtonPressed() }
             leftButton.onclick = function () { LeftButtonPressed() }
@@ -221,7 +221,7 @@ function EndOfAnim() {
             page.onclick = function () { hideColor() }
             document.body.onclick = function () { backgroundClicked() }
             document.getElementById("dalsi").onclick = function () { dalsi() }
-            document.getElementById("zpatky").onclick = function () { zpatky() }
+            // document.getElementById("zpatky").onclick = function () { zpatky() }
             page.style.filter = "blur(0px)";
             setTimeout(start, 500);
             tutorialtext.style.display = "none";

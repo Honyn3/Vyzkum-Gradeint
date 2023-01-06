@@ -20,8 +20,11 @@
             </svg>
 
             <div id="stranka" onclick="hideColor()">
-                <p id="cislostranky">1/1</p>
-
+                <div style="text-align: left;position: absolute;margin-top: 2.5%;" id="heading">Vyberte barvu ke slovům: </div>  
+                <p id="cislostranky">
+                    1/1
+                    
+                </p>
 
                 <div id="gradient">
                     <div id="scales">
@@ -31,15 +34,20 @@
 
                 <div id="buttons">
                     <input type="button" value="" onclick="LeftButtonPressed()" id="colorButtonLeft">
-
                     <input type="button" value="" id="colorButtonMiddle" onclick="MiddleButtonPressed()">
                     <input type="button" value="" onclick="RightButtonPressed()" id="colorButtonRight">
                 </div>
+
                 <div id="colorUpDiv">
                     <div id="colorDiv" onclick="ColorDivPress()">
 
                         <ul id="preset">
 
+                            <li>
+                                <button class="button0" id="button0" onclick="Barvy(this)">
+                                    Výchozí barva
+                                </button>
+                            </li>
                             <li>
                                 <button class="button button1" onclick="Barvy(this)"></button>
                                 <button class="button button2" onclick="Barvy(this)"></button>
@@ -107,17 +115,14 @@
                                 <button class="button button48" onclick="Barvy(this)"></button>
                                 <button class="button button49" onclick="Barvy(this)"></button>
                             </li>
-                            <li>
-                                <button class="button0" id="button0" onclick="Barvy(this)">
-                                    Výchozí barva
-                                </button>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
+
                 <div id="dolniButtonyUp">
                     <div id="dolniButtony">
-                        <button class="prepinace" id="zpatky" onclick="zpatky()">Zpátky</button>
+                        <!-- <button class="prepinace" id="zpatky" onclick="zpatky()">Zpátky</button> -->
                         <div id="switch">
                         </div>
                         <button class="prepinace" id="dalsi" onclick="dalsi()" class="prepinace">Další <svg width="24"
@@ -125,9 +130,9 @@
                                 <path fill="white"
                                     d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z" />
                             </svg>
-
                     </div>
                 </div>
+
             </div>
         </div>
         <script src="script.js"></script>
@@ -141,3 +146,5 @@
 </body>
 
 </html>
+
+<!-- json-server --watch db.json -->

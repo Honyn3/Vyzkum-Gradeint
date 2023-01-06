@@ -27,7 +27,7 @@
     border-radius: 4px;
     border: rgb(41, 41, 41) solid 1px;
     margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
     background-image: url(img/format\ color\ reset.png);
     background-repeat: no-repeat;
     background-size: 8%;
@@ -280,7 +280,7 @@
 #buttons {
     display: flex;
     height: 50px;
-    width: 85%;
+    width: 90%;
     margin: auto;
     align-items: center;
     background-color: #ffffff00;
