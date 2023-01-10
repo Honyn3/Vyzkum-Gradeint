@@ -1,7 +1,7 @@
 const Save = async (data, timestamp) => {
-    //let uri = 'http://localhost:3000/source';
+    //let uri = 'http://localhost:3000/data';
 
-    let uri = 'http://klara.fit.vutbr.cz:3000/source';
+    let uri = 'http://klara.fit.vutbr.cz:3000/data';
     let saveData = {
         colors: data,
         timestamp_s: timestamp / 1000
