@@ -1,8 +1,14 @@
 let tutorialwords = ["horké", "vlažné", "studené"];
 const tutorialtext = document.createElement("div");
 tutorialtext.setAttribute("id", "tutorialtext");
-document.body.appendChild(tutorialtext);
+
 movesofcursor();
+document.body.appendChild(tutorialtext);
+/*if(!(localStorage.getItem("pouzil"))){
+    movesofcursor();
+    document.body.appendChild(tutorialtext);
+} nemůže vyplnit vícekrát nahradí dva řády nahoře*/
+
 let cursorTut = document.getElementById("cursortutorial");
 cursorTut.style.display = "none";
 var r = document.querySelector(':root');

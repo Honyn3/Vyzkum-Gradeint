@@ -21,6 +21,12 @@ let checked;
 let backgroundClick = false;
 let timestamp = 0;
 
+if(false){ // pokud chci aby vyplnili jen 1x pak dát localStorage.getItem("pouzil") místo false
+    document.getElementById("buttonstart").style.display = "none";
+    document.getElementById("konec").style.display = "block";
+    document.getElementById("konec").innerHTML = "Průzkum jste již vyplnil(a), moc děkujeme.";
+}
+
 function hideColor() {
     ChangeActive();
 }
@@ -210,12 +216,6 @@ const GetQuestions = async () => {
 
 function start() {
     tutorialBool = false;
-    // if (localStorage.getItem("pouzil")) {
-    //     document.getElementById("buttonstart").style.display = "none";
-    //     document.getElementById("konec").style.display = "block";
-    //     document.getElementById("konec").innerHTML = "Průzkum jste již vyplnil(a), moc děkujeme.";
-    //     localStorage.removeItem("odpovedi");
-    // }
     odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
     console.log(odpovedi[0][1]);
     if (odpovedi[0][1] == "null") {
@@ -267,11 +267,7 @@ function dalsi() {
             document.getElementById("stranka").style.display = "none";
             document.getElementById("konec").style.display = "block";
             Save(localStorage.getItem("odpovedi"), timestamp);
-
-            localStorage.removeItem("odpovedi");
-            // localStorage.setItem("pouzil", "ano");
-
-
+            localStorage.setItem("pouzil", "ano");
         } else {
             LeftColor = odpovedi[numOfPages][0];
             MiddleColor = odpovedi[numOfPages][1];
@@ -307,6 +303,7 @@ function dalsi() {
             numOfPages = numOfPages + 1;
             document.getElementById("cislostranky").innerHTML = numOfPages + "/" + numOfQuestions;
             if (numOfQuestions == numOfPages) {
+                
                 document.getElementById("dalsi").innerHTML = "Ukončit dotazník";
                 document.getElementById("dalsi").style.width = "250px";
             } else {
@@ -314,7 +311,9 @@ function dalsi() {
                 document.getElementById("dalsi").style.width = "130px";
 
             }
+           
             AdjustColorToBackground();
+            
 
         }
     }
@@ -363,12 +362,13 @@ function zpatky() {
         if (numOfQuestions == numOfPages) {
             document.getElementById("dalsi").innerHTML = "Ukončit dotazník";
             document.getElementById("dalsi").style.width = "250px";
+            
         } else {
+            
             document.getElementById("dalsi").innerHTML = 'Další <svg width="24" height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path fill="white" d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>';
             document.getElementById("dalsi").style.width = "130px";
         }
         AdjustColorToBackground();
-
     }
 }
 
