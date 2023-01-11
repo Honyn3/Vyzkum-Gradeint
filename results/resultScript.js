@@ -18,7 +18,7 @@ const GetGradients = async () => {
     const data = await wait.json();
 
     Gradients = data;
-    
+
     numOfGradients = JSON.parse(Gradients[0].colors).length;
     GradientID.innerHTML = "1/" + numOfGradients;
     WriteResults();
@@ -33,7 +33,7 @@ const GetQuestions = async () => {
     WriteQuestions();
 }
 
-function WriteQuestions(){
+function WriteQuestions() {
     ScaleList.innerHTML = "";
     let Current = Questions[ScaleIndex];
     for (let i = 0; i < Current.length; i++) {
@@ -41,28 +41,33 @@ function WriteQuestions(){
     }
 }
 
-function WriteResults(){
-    for (let index = 0; index < numOfGradients; index++) {
-        let div;
-        if(JSON.parse(Gradients[index].colors)[ScaleIndex][1] != null)
-        div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', '+ JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
-        div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
+function WriteResults() {
+    for (let index = 0; index < Gradients.length; index++) {
+        console.log(JSON.parse(Gradients[index].colors)[ScaleIndex][0]);
+        if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[index].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[ScaleIndex][0] == "#A1A1A1") {
 
-        scalesPlace.innerHTML += div;
+        } else {
+            let div;
+            if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != null)
+                div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
+            div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
+
+            scalesPlace.innerHTML += div;
+        }
     }
 }
 
-function ClearGradients(){
+function ClearGradients() {
     scalesPlace.innerHTML = "";
 }
 
-function GradientIDChange(){
-    GradientID.innerHTML = ScaleIndex+1 + '/' + numOfGradients;
+function GradientIDChange() {
+    GradientID.innerHTML = ScaleIndex + 1 + '/' + numOfGradients;
 }
 
-function Previous(){
-    if(ScaleIndex -1 == -1){
-        ScaleIndex = numOfGradients-1;
+function Previous() {
+    if (ScaleIndex - 1 == -1) {
+        ScaleIndex = numOfGradients - 1;
     } else ScaleIndex--;
 
     GradientIDChange();
@@ -71,8 +76,8 @@ function Previous(){
     WriteQuestions();
 }
 
-function Next(){
-    if(ScaleIndex +1 == numOfGradients) ScaleIndex = 0;
+function Next() {
+    if (ScaleIndex + 1 == numOfGradients) ScaleIndex = 0;
     else ScaleIndex++;
 
     GradientIDChange();
@@ -81,11 +86,24 @@ function Next(){
     WriteQuestions();
 }
 
-function SortTableClicked(){
-    if(SortingTable.style.left == "0px") SortingTable.style.left = "-200px";
+function SortTableClicked() {
+    if (SortingTable.style.left == "0px") SortingTable.style.left = "-200px";
     else SortingTable.style.left = "0px";
 }
 
-function SortTableHide(){
+function SortTableHide() {
     SortingTable.style.left = "-200px";
+}
+
+function SortButton(color, position) {
+    for (let i = 0; i < 9; i++) {
+        document.getElementById("btn" + i).style.backgroundImage = "none";
+
+    }
+
+    let id = "btn" + (Number(color) * 3 + Number(position));
+    console.log(id);
+    let btn = document.getElementById(id);
+
+    btn.style.backgroundImage = "url(/img/arrowDown.png)";
 }

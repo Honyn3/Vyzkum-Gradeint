@@ -82,11 +82,39 @@ body{
 #SortingTable{
     top: 100px;
     border: 1px solid black;
-    width: 198px;
+    width: 192px;
     height: 500px;
     position: absolute;
     left: -200px;
     background-color: antiquewhite;
     transition: all 0.3s;
+    padding: 3px;
+}
 
+.toMiddle{
+    text-align: center;
+}
+
+.sortButton{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.ColorSort{
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+
+.ColorList{
+    list-style: none;
+    width: 50%;
+    display: inline-flex;
+}
+
+.ColorUl{
+    width: 30px;
+    margin: 10px;
+    padding: 0;
 }
