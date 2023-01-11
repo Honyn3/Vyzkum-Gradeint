@@ -210,43 +210,41 @@ const GetQuestions = async () => {
 
 function start() {
     tutorialBool = false;
-    if (localStorage.getItem("pouzil")) {
-        document.getElementById("buttonstart").style.display = "none";
-        document.getElementById("konec").style.display = "block";
-        document.getElementById("konec").innerHTML = "Průzkum jste již vyplnil(a), moc děkujeme.";
-        localStorage.removeItem("odpovedi");
+    // if (localStorage.getItem("pouzil")) {
+    //     document.getElementById("buttonstart").style.display = "none";
+    //     document.getElementById("konec").style.display = "block";
+    //     document.getElementById("konec").innerHTML = "Průzkum jste již vyplnil(a), moc děkujeme.";
+    //     localStorage.removeItem("odpovedi");
+    // }
+    odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
+    console.log(odpovedi[0][1]);
+    if (odpovedi[0][1] == "null") {
+        gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + ", " + odpovedi[0][2] + " 100%)";
+        checked = false;
     }
     else {
-        odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
-        console.log(odpovedi[0][1]);
-        if (odpovedi[0][1] == "null") {
-            gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + ", " + odpovedi[0][2] + " 100%)";
-            checked = false;
-        }
-        else {
-            gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + "," + odpovedi[0][1] + "," + odpovedi[0][2] + " 100%)";
-            checked = true;
-        }
-        LeftColor = odpovedi[0][0];
-        MiddleColor = odpovedi[0][1];
-        RightColor = odpovedi[0][2];
-        leftButton.style.backgroundColor = odpovedi[0][0];
-        if (odpovedi[0][1] != "null") {
-            middleButton.style.background = odpovedi[0][1];
-        } else {
-            middleButton.style.background = "#A1A1A100";
-        }
-        rightButton.style.backgroundColor = odpovedi[0][2];
-        document.getElementById("buttonstart").style.display = "none";
-        document.getElementById("stranka").style.display = "block";
-
-        document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
-        for (let i = 0; i < Questions[0].length; i++) {
-            document.getElementById("scaleLi").innerHTML += "<li style='text-align:center; width:" + 100 / Questions[0].length + "%'>" + Questions[0][i] + "</li>";
-        }
-
-        document.getElementById("cislostranky").innerHTML = numOfPages + "/" + numOfQuestions;
+        gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + "," + odpovedi[0][1] + "," + odpovedi[0][2] + " 100%)";
+        checked = true;
     }
+    LeftColor = odpovedi[0][0];
+    MiddleColor = odpovedi[0][1];
+    RightColor = odpovedi[0][2];
+    leftButton.style.backgroundColor = odpovedi[0][0];
+    if (odpovedi[0][1] != "null") {
+        middleButton.style.background = odpovedi[0][1];
+    } else {
+        middleButton.style.background = "#A1A1A100";
+    }
+    rightButton.style.backgroundColor = odpovedi[0][2];
+    document.getElementById("buttonstart").style.display = "none";
+    document.getElementById("stranka").style.display = "block";
+
+    document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
+    for (let i = 0; i < Questions[0].length; i++) {
+        document.getElementById("scaleLi").innerHTML += "<li style='text-align:center; width:" + 100 / Questions[0].length + "%'>" + Questions[0][i] + "</li>";
+    }
+
+    document.getElementById("cislostranky").innerHTML = numOfPages + "/" + numOfQuestions;
     AdjustColorToBackground();
     let timeInc = 500;
     setInterval(TimeIncrement, timeInc);
@@ -271,7 +269,7 @@ function dalsi() {
             Save(localStorage.getItem("odpovedi"), timestamp);
 
             localStorage.removeItem("odpovedi");
-            localStorage.setItem("pouzil", "ano");
+            // localStorage.setItem("pouzil", "ano");
 
 
         } else {
