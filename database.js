@@ -13,5 +13,5 @@ const Save = async (data, timestamp) => {
         headers: { 'Content-Type': 'application/json' }
     });
 
-    window.location.replace('index.html');
+    //window.location.replace('index.html'); na konci dotazníku načte znova stránku
 }

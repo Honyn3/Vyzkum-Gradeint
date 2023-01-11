@@ -222,6 +222,7 @@ body {
     position: fixed;
     bottom: 50%;
     left: 30%;
+    margin:auto;
     font-size: 2em;
     color: white;
 }
