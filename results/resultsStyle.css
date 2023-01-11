@@ -4,20 +4,28 @@ body{
     margin: 0;
     padding: 0;
 }
-
+#page{
+    display:grid;
+    grid-template-areas:'heading' 'scaleOfWords' 'scales' 'buttons';
+}
 #scalesPlace{
     width: 90%;
-    padding: auto;
-    margin: auto;
+    margin:auto;
+    height: 300px;
+    grid-area:scales;
+    overflow-y:auto;
+    overflow-x:hidden;
 }
 
 #heading{
     font-size: large;
     text-align: left;
     text-align: center;
+    grid-area:heading;
 }
 
 #buttons{
+    grid-area:buttons;
     padding-top: 100px;
     display:inline-flex;
     padding-left: 70%;
@@ -43,6 +51,7 @@ body{
 }
 
 #scaleLi {
+   
     display: inline-flex;
     font-size: 20px;
     color: rgb(0, 0, 0);
@@ -56,8 +65,11 @@ body{
 }
 
 #scales {
-    width: 100%;
+    width: 90%;
+    margin:auto;
     height: 33px;
+    grid-area:scaleOfWords;
+    padding:2%;
 }
 
 #SortButtons{
@@ -84,7 +96,7 @@ body{
     border: 1px solid black;
     width: 192px;
     height: 500px;
-    position: absolute;
+    position: fixed;
     left: -200px;
     background-color: antiquewhite;
     transition: all 0.3s;
