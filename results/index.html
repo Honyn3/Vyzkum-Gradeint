@@ -10,7 +10,7 @@
 
 </head>
 
-<body>
+<body onresize="SortTableShow()">
     <div id="page">
     <div id="SortingTable">
         <div id="SortButtons" onclick="SortTableClicked()"></div>
@@ -37,6 +37,14 @@
             <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn6" onclick="SortButton(2, 0)"></ul>
             <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn7" onclick="SortButton(2, 1)"></ul>
             <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn8" onclick="SortButton(2, 2)"></ul>
+        </li>
+        </div>
+
+        <div class="ColorSort">H:
+            <li class="ColorList">
+            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn9" onclick="SortButton(3, 0)"></ul>
+            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn10" onclick="SortButton(3, 1)"></ul>
+            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn11" onclick="SortButton(3, 2)"></ul>
         </li>
         </div>
     </div>

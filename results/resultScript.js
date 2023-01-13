@@ -6,7 +6,7 @@ let scalesPlace = document.getElementById("scalesPlace");
 let GradientID = document.getElementById("GradientID");
 let ScaleList = document.getElementById("scaleLi");
 let SortingTable = document.getElementById("SortingTable");
-let SortArray = [0,0,0,0,0,0,0,0,0];
+let SortArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 window.addEventListener('DOMContentLoaded', () => {
     GetGradients();
@@ -49,15 +49,14 @@ function WriteResults() {
     scalesPlace.innerHTML = "";
     let badResults = 0;
     for (let index = 0; index < Gradients.length; index++) {
-        console.log("barvy: " + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ", " + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ", " + JSON.parse(Gradients[index].colors)[ScaleIndex][2])
         if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[index].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[ScaleIndex][0] == "#A1A1A1") {
             badResults++;
         } else {
             let div;
-            if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null"){
+            if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
                 div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
-            }else
-            div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
+            } else
+                div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
 
             scalesPlace.innerHTML += div;
         }
@@ -96,96 +95,170 @@ function Next() {
 }
 
 function SortTableClicked() {
-    if (SortingTable.style.left == "0px") SortingTable.style.left = "-200px";
-    else SortingTable.style.left = "0px";
+    if (SortingTable.style.left == "30px") SortingTable.style.left = "-195px";
+    else SortingTable.style.left = "30px";
 }
 
 function SortTableHide() {
-    SortingTable.style.left = "-200px";
+    SortingTable.style.left = "-195px";
+}
+
+function SortTableShow() {
+    SortingTable.style.left = "30px";
 }
 
 function SortButton(color, position) {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < SortArray.length; i++) {
         document.getElementById("btn" + i).style.backgroundImage = "none";
     }
     let id = "btn" + (Number(color) * 3 + Number(position));
     let idNum = (Number(color) * 3 + Number(position));
     let btn = document.getElementById(id);
 
-    if(SortArray[idNum] == 0 || SortArray[idNum] == 2){
+    if (SortArray[idNum] == 0 || SortArray[idNum] == 2) {
         btn.style.backgroundImage = "url(/img/arrowDown.png)";
         SortArray[idNum] = 1;
     }
     else {
         btn.style.backgroundImage = "url(/img/arrowUp.png)";
-    SortArray[idNum] = 2;
+        SortArray[idNum] = 2;
     }
 
-    for (let i = 0; i < 9; i++) {
-        if(idNum != i) SortArray[i] = 0;
+    for (let i = 0; i < SortArray.length; i++) {
+        if (idNum != i) SortArray[i] = 0;
     }
-    
-    Sort(color, position, idNum);
+
+    if (color == 3) {
+        SortHue(position, idNum);
+    } else {
+        Sort(Math.abs(color - 2), position, idNum);
+        Sort(Math.abs(color - 1), position, idNum);
+        Sort(color, position, idNum);
+    }
+
+
 }
 
-function Sort(color, position, idNum){
+function SortHue(position, idNum) {
     let Colors = [];
     for (let i = 0; i < Gradients.length; i++) {
         let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
 
-        if(colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[color];
-        else Colors[i] = RGBToRgb(colorFromGradient)[color];
+        if (colorFromGradient[0] == "#") Colors[i] = rgb2hsv(hexToRgb(colorFromGradient))[0];
+        else Colors[i] = rgb2hsv(RGBToRgb(colorFromGradient))[0];
     }
 
     // Presort(color, position);
 
     let cont = true;
-    if(SortArray[idNum] == 1){
+    if (SortArray[idNum] == 1) {
         while (cont) {
             cont = false;
             for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
-                if(Colors[SortIndex] < Colors[SortIndex+1]){
+                if (Colors[SortIndex] < Colors[SortIndex + 1]) {
                     let help = Colors[SortIndex];
-                    Colors[SortIndex] = Colors[SortIndex +1];
-                    Colors[SortIndex +1] = help;
-        
+                    Colors[SortIndex] = Colors[SortIndex + 1];
+                    Colors[SortIndex + 1] = help;
+
                     help = Gradients[SortIndex];
-                    Gradients[SortIndex] = Gradients[SortIndex+1];
+                    Gradients[SortIndex] = Gradients[SortIndex + 1];
                     Gradients[SortIndex + 1] = help;
                     cont = true;
                 }
             }
         }
-    }else{
+    } else {
         while (cont) {
             cont = false;
             for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
-                if(Colors[SortIndex] > Colors[SortIndex+1]){
+                if (Colors[SortIndex] > Colors[SortIndex + 1]) {
                     let help = Colors[SortIndex];
-                    Colors[SortIndex] = Colors[SortIndex +1];
-                    Colors[SortIndex +1] = help;
-        
+                    Colors[SortIndex] = Colors[SortIndex + 1];
+                    Colors[SortIndex + 1] = help;
+
                     help = Gradients[SortIndex];
-                    Gradients[SortIndex] = Gradients[SortIndex+1];
+                    Gradients[SortIndex] = Gradients[SortIndex + 1];
                     Gradients[SortIndex + 1] = help;
                     cont = true;
                 }
             }
         }
     }
-    
+
     WriteResults();
 }
 
-function Presort(color, position){
-
-    color = Math.abs(color-1);
-    position = Math.abs(position -1);
+function Sort(color, position, idNum) {
+    console.log(Gradients.length);
     let Colors = [];
     for (let i = 0; i < Gradients.length; i++) {
         let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
 
-        if(colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[color];
+        if (colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[color];
+        else Colors[i] = RGBToRgb(colorFromGradient)[color];
+    }
+
+
+    // Presort(color, position);
+
+    //do dictionary naskladat cisla, a pak je vypsat
+    let dic = {
+        color: "0",
+        ids: 0
+    };
+    Colors.forEach(element => {
+        
+    });
+
+    let cont = true;
+    if (SortArray[idNum] == 1) {
+        while (cont) {
+            cont = false;
+            for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
+                if (Colors[SortIndex] < Colors[SortIndex + 1]) {
+                    let help = Colors[SortIndex];
+                    Colors[SortIndex] = Colors[SortIndex + 1];
+                    Colors[SortIndex + 1] = help;
+
+                    help = Gradients[SortIndex];
+                    Gradients[SortIndex] = Gradients[SortIndex + 1];
+                    Gradients[SortIndex + 1] = help;
+                    cont = true;
+                }
+            }
+        }
+    } else {
+        while (cont) {
+            cont = false;
+            for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
+                if (Colors[SortIndex] > Colors[SortIndex + 1]) {
+                    let help = Colors[SortIndex];
+                    Colors[SortIndex] = Colors[SortIndex + 1];
+                    Colors[SortIndex + 1] = help;
+
+                    help = Gradients[SortIndex];
+                    Gradients[SortIndex] = Gradients[SortIndex + 1];
+                    Gradients[SortIndex + 1] = help;
+                    cont = true;
+                }
+            }
+        }
+    }
+
+    console.log(Colors);
+
+    WriteResults();
+}
+
+function Presort(color, position) {
+
+    color = Math.abs(color - 1);
+    position = Math.abs(position - 1);
+    let Colors = [];
+    for (let i = 0; i < Gradients.length; i++) {
+        let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
+
+        if (colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[color];
         else Colors[i] = RGBToRgb(colorFromGradient)[color];
     }
     let cont = true;
@@ -193,13 +266,13 @@ function Presort(color, position){
     while (cont) {
         cont = false;
         for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
-            if(Colors[SortIndex] < Colors[SortIndex+1]){
+            if (Colors[SortIndex] < Colors[SortIndex + 1]) {
                 let help = Colors[SortIndex];
-                Colors[SortIndex] = Colors[SortIndex +1];
-                Colors[SortIndex +1] = help;
-    
+                Colors[SortIndex] = Colors[SortIndex + 1];
+                Colors[SortIndex + 1] = help;
+
                 help = Gradients[SortIndex];
-                Gradients[SortIndex] = Gradients[SortIndex+1];
+                Gradients[SortIndex] = Gradients[SortIndex + 1];
                 Gradients[SortIndex + 1] = help;
                 cont = true;
             }
@@ -235,4 +308,14 @@ function RGBToRgb(color) {
     col[1] = Number(col[1]);
     col[2] = Number(col[2]);
     return col;
+}
+
+function rgb2hsv(col) {
+    r = col[0];
+    g = col[1];
+    b = col[2];
+
+    let v = Math.max(r, g, b), c = v - Math.min(r, g, b);
+    let h = c && ((v == r) ? (g - b) / c : ((v == g) ? 2 + (b - r) / c : 4 + (r - g) / c));
+    return [60 * (h < 0 ? h + 6 : h), v && c / v, v];
 }

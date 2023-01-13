@@ -7,7 +7,8 @@ body{
     grid-template-areas:'heading' 'scaleOfWords' 'scales' 'buttons';
 }
 #scalesPlace{
-    width: 90%;
+    padding-left: 20%;
+    width: 70%;
     margin:auto;
     height: 600px;
     grid-area:scales;
@@ -49,7 +50,6 @@ body{
 }
 
 #scaleLi {
-   
     display: inline-flex;
     font-size: 20px;
     color: rgb(0, 0, 0);
@@ -63,19 +63,21 @@ body{
 }
 
 #scales {
-    width: 90%;
+    width: 70%;
     margin:auto;
     height: 7px;
     grid-area:scaleOfWords;
     padding:2%;
+    padding-left: 20%;
 }
 
 #SortButtons{
+    display: none;
     position: absolute;
     background-color: aquamarine;
-    width: 10px;
+    width: 20px;
     height: 100px;
-    left: 198px;
+    left: 205px;
     border: solid gray;
     transition: all 0.3s;
     background: url(/img/arrowForward.png);
@@ -92,10 +94,10 @@ body{
 #SortingTable{
     top: 100px;
     border: 1px solid black;
-    width: 192px;
+    width: 200px;
     height: 500px;
     position: fixed;
-    left: -200px;
+    left: 30px;
     background-color: antiquewhite;
     transition: all 0.3s;
     padding: 3px;
@@ -110,22 +112,45 @@ body{
     height: 30px;
     cursor: pointer;
     background-size: contain;
+    transition: all 0.3s;
+}
+
+.sortButton:hover{
+    border-color: aqua;
 }
 
 .ColorSort{
     width: 100%;
     display: inline-flex;
     align-items: center;
+    padding-left: 10px;
 }
 
 .ColorList{
     list-style: none;
-    width: 50%;
+    width: 100%;
     display: inline-flex;
 }
 
 .ColorUl{
     width: 30px;
     margin: 10px;
+    margin-right: 10px;
     padding: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+    #SortButtons{
+        display: inherit;
+    }
+
+    #scalesPlace{
+        padding-left: 0;
+        width: 90%;
+    }
+
+    #scales {
+        width: 90%;
+        padding-left: 0;
+    }
 }
