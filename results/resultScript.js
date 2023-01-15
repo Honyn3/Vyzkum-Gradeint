@@ -189,63 +189,90 @@ function SortHue(position, idNum) {
 }
 
 function Sort(color, position, idNum) {
-    console.log(Gradients.length);
     let Colors = [];
     for (let i = 0; i < Gradients.length; i++) {
         let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
 
-        if (colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[color];
+        if(colorFromGradient == "null" || colorFromGradient == null) Colors[i] = 0;
+        else if (colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[color];
         else Colors[i] = RGBToRgb(colorFromGradient)[color];
     }
-
-
-    // Presort(color, position);
-
-    //do dictionary naskladat cisla, a pak je vypsat
+    
     let dic = {
-        color: "0",
-        ids: 0
     };
-    Colors.forEach(element => {
-        
-    });
 
-    let cont = true;
-    if (SortArray[idNum] == 1) {
-        while (cont) {
-            cont = false;
-            for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
-                if (Colors[SortIndex] < Colors[SortIndex + 1]) {
-                    let help = Colors[SortIndex];
-                    Colors[SortIndex] = Colors[SortIndex + 1];
-                    Colors[SortIndex + 1] = help;
+    for (let i = 0; i < Colors.length; i++) {
 
-                    help = Gradients[SortIndex];
-                    Gradients[SortIndex] = Gradients[SortIndex + 1];
-                    Gradients[SortIndex + 1] = help;
-                    cont = true;
-                }
-            }
+        let element = String(Colors[i]);
+        if (dic[element] != null) {
+            let values = dic[element];
+            values.push(i);
+            dic[element] = values;
         }
-    } else {
-        while (cont) {
-            cont = false;
-            for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
-                if (Colors[SortIndex] > Colors[SortIndex + 1]) {
-                    let help = Colors[SortIndex];
-                    Colors[SortIndex] = Colors[SortIndex + 1];
-                    Colors[SortIndex + 1] = help;
-
-                    help = Gradients[SortIndex];
-                    Gradients[SortIndex] = Gradients[SortIndex + 1];
-                    Gradients[SortIndex + 1] = help;
-                    cont = true;
-                }
-            }
-        }
+        else dic[element] = [i];
     }
 
-    console.log(Colors);
+    let NewGradients = [];
+    let NewGradientsIndex = 0;
+
+    for (let i = 0; i < 257; i++) {
+        let num = String(i);
+
+        let element = (dic[num]);
+        if (element != undefined) {
+            for (let j = 0; j < element.length; j++) {
+                NewGradients[NewGradientsIndex] = Gradients[element[j]];
+                NewGradientsIndex++;
+            }
+        }   
+    }
+
+    if(SortArray[idNum] == 2){
+        for (let i = 0; i < NewGradients.length; i++) {
+            Gradients[i] = NewGradients[i];
+        }
+    }else{
+        for (let i = 0; i < NewGradients.length; i++) {
+            Gradients[i] = NewGradients[NewGradients.length - i - 1];
+        }
+    }
+    
+    // console.log(dic);
+
+    // let cont = true;
+    // if (SortArray[idNum] == 1) {
+    //     while (cont) {
+    //         cont = false;
+    //         for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
+    //             if (Colors[SortIndex] < Colors[SortIndex + 1]) {
+    //                 let help = Colors[SortIndex];
+    //                 Colors[SortIndex] = Colors[SortIndex + 1];
+    //                 Colors[SortIndex + 1] = help;
+
+    //                 help = Gradients[SortIndex];
+    //                 Gradients[SortIndex] = Gradients[SortIndex + 1];
+    //                 Gradients[SortIndex + 1] = help;
+    //                 cont = true;
+    //             }
+    //         }
+    //     }
+    // } else {
+    //     while (cont) {
+    //         cont = false;
+    //         for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
+    //             if (Colors[SortIndex] > Colors[SortIndex + 1]) {
+    //                 let help = Colors[SortIndex];
+    //                 Colors[SortIndex] = Colors[SortIndex + 1];
+    //                 Colors[SortIndex + 1] = help;
+
+    //                 help = Gradients[SortIndex];
+    //                 Gradients[SortIndex] = Gradients[SortIndex + 1];
+    //                 Gradients[SortIndex + 1] = help;
+    //                 cont = true;
+    //             }
+    //         }
+    //     }
+    // }
 
     WriteResults();
 }
