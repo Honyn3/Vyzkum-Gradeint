@@ -7,6 +7,8 @@ let GradientID = document.getElementById("GradientID");
 let ScaleList = document.getElementById("scaleLi");
 let SortingTable = document.getElementById("SortingTable");
 let SortArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let GraphBool = false;
+let GraphWidth;
 
 window.addEventListener('DOMContentLoaded', () => {
     GetGradients();
@@ -39,30 +41,76 @@ const GetQuestions = async () => {
 
 function WriteQuestions() {
     ScaleList.innerHTML = "";
-    let Current = Questions[ScaleIndex];
-    for (let i = 0; i < Current.length; i++) {
-        ScaleList.innerHTML += "<li style='text-align:center;width:" + 100 / Questions.length + "%'>" + Current[i] + "</li>";
+    if (!GraphBool) {
+        let Current = Questions[ScaleIndex];
+        for (let i = 0; i < Current.length; i++) {
+            ScaleList.innerHTML += "<li style='text-align:center;width:" + 100 / Questions.length + "%'>" + Current[i] + "</li>";
+        }
     }
 }
 
 function WriteResults() {
     scalesPlace.innerHTML = "";
     let badResults = 0;
-    for (let index = 0; index < Gradients.length; index++) {
-        if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[index].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[ScaleIndex][0] == "#A1A1A1") {
-            badResults++;
-        } else {
-            let div;
-            if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
-                div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
-            } else
-                div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
 
-            scalesPlace.innerHTML += div;
+    if (!GraphBool) {
+        for (let index = 0; index < Gradients.length; index++) {
+            if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[index].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[ScaleIndex][0] == "#A1A1A1") {
+                badResults++;
+            } else {
+
+                let div;
+                if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
+                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
+                } else
+                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;"></div>';
+
+                scalesPlace.innerHTML += div;
+
+            }
         }
-    }
-    document.getElementById("count").innerHTML = "Celkem " + Gradients.length + " výsledků, z toho " + badResults + " neplatných, ukazuje se " + (Gradients.length - badResults);
 
+        scalesPlace.style.display = "inherit";
+        WriteQuestions();
+    }
+    else {
+        let div0 = '<div style="background: conic-gradient(';
+        let div1 = '<div style="background: conic-gradient(';
+        let div2 = '<div style="background: conic-gradient(';
+
+        for (let index = 0; index < Gradients.length; index++) {
+
+            if (index == Gradients.length - 1) {
+                div0 += JSON.parse(Gradients[index].colors)[ScaleIndex][0];
+                if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
+                    div1 += JSON.parse(Gradients[index].colors)[ScaleIndex][1];
+                } else div1 += "#A1A1A1";
+                div2 += JSON.parse(Gradients[index].colors)[ScaleIndex][2];
+
+            } else {
+                div0 += JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ';
+                if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
+                    div1 += JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ';
+                }
+                div2 += JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ', ';
+            }
+        }
+
+        GraphWidth = document.body.offsetWidth/5;
+
+        div0 += '); width: '+GraphWidth+'px; height: '+GraphWidth+'px; margin: 5px;"></div>';
+        div1 += '); width: '+GraphWidth+'px; height: '+GraphWidth+'px; margin: 5px;"></div>';
+        div2 += '); width: '+GraphWidth+'px; height: '+GraphWidth+'px; margin: 5px;"></div>';
+
+        scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][0] + ' ' + div0 + '</div>';
+        scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][2] + ' ' + div1 + '</div>';
+        scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][4] + ' ' + div2 + '</div>';
+
+        scalesPlace.style.display = "inline-flex";
+        WriteQuestions();
+    }
+
+    document.getElementById("count").innerHTML = "Celkem " + Gradients.length + " výsledků, z toho " + badResults + " neplatných, ukazuje se " + (Gradients.length - badResults);
 }
 
 function ClearGradients() {
@@ -105,6 +153,8 @@ function SortTableHide() {
 
 function SortTableShow() {
     SortingTable.style.left = "30px";
+    GraphWidth = document.body.offsetWidth/5;
+
 }
 
 function SortButton(color, position) {
@@ -193,11 +243,11 @@ function Sort(color, position, idNum) {
     for (let i = 0; i < Gradients.length; i++) {
         let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
 
-        if(colorFromGradient == "null" || colorFromGradient == null) Colors[i] = 0;
+        if (colorFromGradient == "null" || colorFromGradient == null) Colors[i] = 0;
         else if (colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[color];
         else Colors[i] = RGBToRgb(colorFromGradient)[color];
     }
-    
+
     let dic = {
     };
 
@@ -224,19 +274,19 @@ function Sort(color, position, idNum) {
                 NewGradients[NewGradientsIndex] = Gradients[element[j]];
                 NewGradientsIndex++;
             }
-        }   
+        }
     }
 
-    if(SortArray[idNum] == 2){
+    if (SortArray[idNum] == 2) {
         for (let i = 0; i < NewGradients.length; i++) {
             Gradients[i] = NewGradients[i];
         }
-    }else{
+    } else {
         for (let i = 0; i < NewGradients.length; i++) {
             Gradients[i] = NewGradients[NewGradients.length - i - 1];
         }
     }
-    
+
     // console.log(dic);
 
     // let cont = true;
@@ -345,4 +395,15 @@ function rgb2hsv(col) {
     let v = Math.max(r, g, b), c = v - Math.min(r, g, b);
     let h = c && ((v == r) ? (g - b) / c : ((v == g) ? 2 + (b - r) / c : 4 + (r - g) / c));
     return [60 * (h < 0 ? h + 6 : h), v && c / v, v];
+}
+
+function GraphChange() {
+    let graphButton = document.getElementById("GpaphButton");
+    if (graphButton.value == "Graf") graphButton.value = "Škály";
+    else {
+        graphButton.value = "Graf"
+    }
+
+    GraphBool = !GraphBool;
+    WriteResults();
 }
