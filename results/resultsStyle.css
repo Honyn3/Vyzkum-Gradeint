@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+    background-color: #f8fce8;
 }
 #page{
     display:grid;
@@ -32,14 +33,17 @@ body{
 }
 
 .btn{
-    background-color: azure;
-    color: darkslategrey;
+    background-color: #3B5249;
+    color: rgb(234, 234, 234);
     border: 1px solid gray;
+    border-radius: 10px;
+    transition: all 0.3s;
+    width: 130px;
 }
 
 .btn:hover{
-    background-color: rgb(216, 253, 253);
-    color: darkslategrey;
+    background-color: #4c685d;
+    color: rgb(255, 255, 255);
     cursor: pointer;
 }
 
@@ -98,9 +102,11 @@ body{
     height: 500px;
     position: fixed;
     left: 30px;
-    background-color: antiquewhite;
+    background-color: #DD614A;
     transition: all 0.3s;
     padding: 3px;
+    color: #f8fce8;
+    padding-top: 10px;
 }
 
 #count{
@@ -113,13 +119,15 @@ body{
     height: 30px;
     margin: auto;
     padding: auto;
-    background-color:azure;
+    background-color:#3B5249;
+    color: #f8fce8;
     cursor: pointer;
     border: 1px solid gray;
 }
 #GpaphButton:hover{
     
-    background-color:rgb(212, 255, 255);
+    background-color:#4c685d;
+    color: white;
 }
 
 .toMiddle{

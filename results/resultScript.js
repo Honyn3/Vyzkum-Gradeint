@@ -96,11 +96,11 @@ function WriteResults() {
             }
         }
 
-        GraphWidth = document.body.offsetWidth/5;
+        GraphWidth = document.body.offsetWidth / 5;
 
-        div0 += '); width: '+GraphWidth+'px; height: '+GraphWidth+'px; margin: 5px;"></div>';
-        div1 += '); width: '+GraphWidth+'px; height: '+GraphWidth+'px; margin: 5px;"></div>';
-        div2 += '); width: '+GraphWidth+'px; height: '+GraphWidth+'px; margin: 5px;"></div>';
+        div0 += '); width: ' + GraphWidth + 'px; height: ' + GraphWidth + 'px; margin: 5px;"></div>';
+        div1 += '); width: ' + GraphWidth + 'px; height: ' + GraphWidth + 'px; margin: 5px;"></div>';
+        div2 += '); width: ' + GraphWidth + 'px; height: ' + GraphWidth + 'px; margin: 5px;"></div>';
 
         scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][0] + ' ' + div0 + '</div>';
         scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][2] + ' ' + div1 + '</div>';
@@ -126,6 +126,8 @@ function Previous() {
         ScaleIndex = numOfGradients - 1;
     } else ScaleIndex--;
 
+    SortButton(3, 1);
+
     GradientIDChange();
     ClearGradients();
     WriteResults();
@@ -136,6 +138,7 @@ function Next() {
     if (ScaleIndex + 1 == numOfGradients) ScaleIndex = 0;
     else ScaleIndex++;
 
+    SortButton(3, 1);
     GradientIDChange();
     ClearGradients();
     WriteResults();
@@ -153,7 +156,7 @@ function SortTableHide() {
 
 function SortTableShow() {
     SortingTable.style.left = "30px";
-    GraphWidth = document.body.offsetWidth/5;
+    GraphWidth = document.body.offsetWidth / 5;
 
 }
 
@@ -181,8 +184,12 @@ function SortButton(color, position) {
     if (color == 3) {
         SortHue(position, idNum);
     } else {
-        Sort(Math.abs(color - 2), position, idNum);
-        Sort(Math.abs(color - 1), position, idNum);
+        // Sort(Math.abs(color - 2), position, idNum);
+        // Sort(Math.abs(color - 1), position, idNum);
+        Sort(0, position, idNum);
+        Sort(1, position, idNum);
+        Sort(2, position, idNum);
+
         Sort(color, position, idNum);
     }
 
@@ -194,8 +201,12 @@ function SortHue(position, idNum) {
     for (let i = 0; i < Gradients.length; i++) {
         let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
 
-        if (colorFromGradient[0] == "#") Colors[i] = rgb2hsv(hexToRgb(colorFromGradient))[0];
-        else Colors[i] = rgb2hsv(RGBToRgb(colorFromGradient))[0];
+        if (colorFromGradient[0] == "#") Colors[i] = "1"; //Musí být jedna, aby se to nepletlo s cervenou, ktera ma 0
+        else if (colorFromGradient[0] == "r") Colors[i] = rgb2hsv(RGBToRgb(colorFromGradient))[0];
+        else {
+            Colors[i] = "1";
+        }
+
     }
 
     // Presort(color, position);
@@ -204,7 +215,7 @@ function SortHue(position, idNum) {
     if (SortArray[idNum] == 1) {
         while (cont) {
             cont = false;
-            for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
+            for (let SortIndex = 0; SortIndex < Gradients.length - 1; SortIndex++) {
                 if (Colors[SortIndex] < Colors[SortIndex + 1]) {
                     let help = Colors[SortIndex];
                     Colors[SortIndex] = Colors[SortIndex + 1];
@@ -220,7 +231,7 @@ function SortHue(position, idNum) {
     } else {
         while (cont) {
             cont = false;
-            for (let SortIndex = 0; SortIndex < Gradients.length; SortIndex++) {
+            for (let SortIndex = 0; SortIndex < Gradients.length - 1; SortIndex++) {
                 if (Colors[SortIndex] > Colors[SortIndex + 1]) {
                     let help = Colors[SortIndex];
                     Colors[SortIndex] = Colors[SortIndex + 1];
@@ -235,7 +246,76 @@ function SortHue(position, idNum) {
         }
     }
 
+
     WriteResults();
+}
+
+function SortElement(element, color, position) {
+    if (element.length == 1) return element;
+
+    let cont = true;
+    if (color == 1) col = 2;
+    else if (color == 2) col = 0;
+    else col = 1;
+
+    let Colors = [];
+    for (let i = 0; i < element.length; i++) {
+        let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
+
+        if (colorFromGradient == "null" || colorFromGradient == null) Colors[i] = 0;
+        else if (colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[col];
+        else Colors[i] = RGBToRgb(colorFromGradient)[col];
+
+    }
+
+    while (cont) {
+        cont = false;
+        for (let i = 0; i < element.length - 1; i++) {
+            if (Colors[i] < Colors[i + 1]) {
+                let help = Colors[i + 1];
+                Colors[i + 1] = Colors[i];
+                Colors[i] = help;
+
+                help = element[i];
+                element[i] = element[i + 1];
+                element[i + 1] = help;
+                cont = true;
+            }
+
+        }
+    }
+
+    if (col == 1) col = 2;
+    else if (col == 2) col = 0;
+    else col = 1;
+
+    Colors = [];
+    for (let i = 0; i < element.length; i++) {
+        let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
+
+        if (colorFromGradient == "null" || colorFromGradient == null) Colors[i] = 0;
+        else if (colorFromGradient[0] == "#") Colors[i] = hexToRgb(colorFromGradient)[col];
+        else Colors[i] = RGBToRgb(colorFromGradient)[col];
+    }
+
+    cont = true;
+    while (cont) {
+        cont = false;
+        for (let i = 0; i < element.length - 1; i++) {
+            if (Colors[i] < Colors[i + 1]) {
+                let help = Colors[i + 1];
+                Colors[i + 1] = Colors[i];
+                Colors[i] = help;
+
+                help = element[i];
+                element[i] = element[i + 1];
+                element[i + 1] = help;
+                cont = true;
+            }
+
+        }
+    }
+    return element;
 }
 
 function Sort(color, position, idNum) {
@@ -270,8 +350,11 @@ function Sort(color, position, idNum) {
 
         let element = (dic[num]);
         if (element != undefined) {
+            let sortedElement = SortElement(element, color, position);
+
             for (let j = 0; j < element.length; j++) {
-                NewGradients[NewGradientsIndex] = Gradients[element[j]];
+
+                NewGradients[NewGradientsIndex] = Gradients[sortedElement[j]];
                 NewGradientsIndex++;
             }
         }
@@ -287,7 +370,6 @@ function Sort(color, position, idNum) {
         }
     }
 
-    // console.log(dic);
 
     // let cont = true;
     // if (SortArray[idNum] == 1) {
