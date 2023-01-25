@@ -7,7 +7,7 @@ let GradientID = document.getElementById("GradientID");
 let ScaleList = document.getElementById("scaleLi");
 let SortingTable = document.getElementById("SortingTable");
 let SortArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-let GraphBool = false;
+let ViewMod = 0;
 let GraphWidth;
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -41,7 +41,7 @@ const GetQuestions = async () => {
 
 function WriteQuestions() {
     ScaleList.innerHTML = "";
-    if (!GraphBool) {
+    if (ViewMod == 0 || ViewMod == 2) {
         let Current = Questions[ScaleIndex];
         for (let i = 0; i < Current.length; i++) {
             ScaleList.innerHTML += "<li style='text-align:center;width:" + 100 / Questions.length + "%'>" + Current[i] + "</li>";
@@ -53,7 +53,7 @@ function WriteResults() {
     scalesPlace.innerHTML = "";
     let badResults = 0;
 
-    if (!GraphBool) {
+    if (ViewMod == 0) {
         for (let index = 0; index < Gradients.length; index++) {
             if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[index].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[ScaleIndex][0] == "#A1A1A1") {
                 badResults++;
@@ -73,7 +73,7 @@ function WriteResults() {
         scalesPlace.style.display = "inherit";
         WriteQuestions();
     }
-    else {
+    else if (ViewMod == 1) {
         let div0 = '<div style="background: conic-gradient(';
         let div1 = '<div style="background: conic-gradient(';
         let div2 = '<div style="background: conic-gradient(';
@@ -108,9 +108,112 @@ function WriteResults() {
 
         scalesPlace.style.display = "inline-flex";
         WriteQuestions();
+    } else {
+        let div = "<table>";
+        let div1 = [];
+        let div2 = [];
+        let div3 = [];
+
+
+        let dic1 = GetDic(0);
+        let dic2 = GetDic(1);
+        let dic3 = GetDic(2);
+
+        let used1 = [];
+        let used2 = [];
+        let used3 = [];
+
+
+        for (let i = 0; i < Gradients.length; i++) {
+
+            let col1 = JSON.parse(Gradients[i].colors)[ScaleIndex][0];
+           
+            if(!used1.includes(col1)){
+                div1.push('<td style=" background-color: ' + col1 + '; text-align:center;" title="' + col1 + '" onclick="CopyColor(this)">' + dic1[col1].length)
+                used1.push(col1);
+            }else{
+                // div1.push('<td style=" background-color: white;">')
+
+            }
+
+            let col2 = JSON.parse(Gradients[i].colors)[ScaleIndex][1];
+
+            if(!used2.includes(col2)){
+                div2.push('<td style=" background-color: ' + col2 + '; text-align:center;" title="' + col2 + '" onclick="CopyColor(this)">' + dic2[col2].length)
+                used2.push(col2);
+            }else{
+                // div2.push('<td style=" background-color: white;">')
+
+            }
+            
+            let col3 = JSON.parse(Gradients[i].colors)[ScaleIndex][2];
+
+            if(!used3.includes(col3)){
+                div3.push('<td style=" background-color: ' + col3 + '; text-align:center;" title="' + col3 + '" onclick="CopyColor(this)">' + dic3[col3].length)
+                used3.push(col3);
+            }else{
+                // div3.push('<td style=" background-color: white;">')
+
+            }
+
+        }
+        for (let i = 0; i < Math.max(div1.length, div2.length, div3.length); i++) {
+            div+= "<tr>"
+            if(div1[i] != undefined)
+            div += div1[i];
+            else div += '<td style=" background-color: white;">';
+            if(div2[i] != undefined)
+            div += div2[i];
+            else div += '<td style=" background-color: white;">';
+            if(div3[i] != undefined)
+            div += div3[i];
+            else div += '<td style=" background-color: white;">';
+            div+= "</tr>"
+        }
+        div += "</table>";
+
+        scalesPlace.innerHTML = div;
+        scalesPlace.style.display = "inherit";
+        WriteQuestions();
     }
 
     document.getElementById("count").innerHTML = "Celkem " + Gradients.length + " výsledků, z toho " + badResults + " neplatných, ukazuje se " + (Gradients.length - badResults);
+}
+
+function CopyColor(element){
+    let toCopy = element.style.backgroundColor;
+    // navigator.clipboard.writeText(toCopy);
+}
+
+function GetDic(position){
+    let Colors = [];
+    for (let i = 0; i < Gradients.length; i++) {
+        Colors[i] = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
+    }
+
+    let dic = {
+    };
+
+    for (let i = 0; i < Colors.length; i++) {
+
+        // let name = String(i);
+        // if(dic[name] != null){
+        //     let values = dic[name];
+        //     values++;
+        //     dic[name] = values;
+        // }else{
+        //     dic[name] = 1;
+        // }
+
+        let element = String(Colors[i]);
+        if (dic[element] != null) {
+            let values = dic[element];
+            values.push(i);
+            dic[element] = values;
+        }
+        else dic[element] = [i];
+    }
+    return dic;
 }
 
 function ClearGradients() {
@@ -480,12 +583,16 @@ function rgb2hsv(col) {
 }
 
 function GraphChange() {
-    let graphButton = document.getElementById("GpaphButton");
-    if (graphButton.value == "Graf") graphButton.value = "Škály";
-    else {
-        graphButton.value = "Graf"
-    }
+    ViewMod = 1;
+    WriteResults();
+}
 
-    GraphBool = !GraphBool;
+function ScaleChange() {
+    ViewMod = 0;
+    WriteResults();
+}
+
+function PercentChange() {
+    ViewMod = 2;
     WriteResults();
 }
