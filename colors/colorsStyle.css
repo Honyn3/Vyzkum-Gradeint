@@ -3,17 +3,20 @@
     --S: 50%;
     --PickerX: 450px;
     --PickerY: 310px;
+    --BrightPickerLeft: 10px;
 }
 
 body{
-    padding-top: 10%;
+    padding-top: 5%;
 }
 
 #ColorPicker{
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: rgb(48, 100, 146);
+    background: url(/img/color_picker.png);
+    background-repeat: no-repeat;
+    background-size: contain;
     left: var(--PickerX);
     top: var(--PickerY);
     pointer-events: none;
@@ -42,7 +45,6 @@ body{
 
 #Hue{
     background: linear-gradient(to right, red, yellow, lime, aqua, blue, magenta, red);
-
 }
 
 #Saturation{
@@ -66,21 +68,31 @@ body{
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: rgb(148, 33, 231);
-    left: 1283px;
+    background: url(/img/arrow_left.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: 20px;
     top: var(--BPickerY);
     pointer-events: none;
 }
 #nextButton{
-    margin:3%;
+    margin-top:3%;
     margin-left:84%;
-    padding:1%;
+    padding:10px;
     color: white;
     font-size: 23px;
     font-weight: bold;
     background: #2CB9F1;
     width: 130px;
     height: 50px;
-    border: none;
+    border: solid gray;
     border-radius: 7px;
+    transition: all 0.4s;
+    cursor: pointer;
+}
+
+#nextButton:hover{
+    background: #2086ae;
+    color: rgb(53, 53, 53);
+
 }

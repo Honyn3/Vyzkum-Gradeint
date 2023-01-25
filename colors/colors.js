@@ -8,11 +8,15 @@ let ColorPicker = document.getElementById("ColorPicker");
 let ColorPickerWidth = ColorPicker.offsetWidth / 2;
 let ColorPickerHeight = ColorPicker.offsetHeight;
 let BrightnessSelect = document.getElementById("BrightnessSelect");
+let BrightnessPicker = document.getElementById("BrightnessPicker");
 let chosenColor = "hsl(180, 50%, 50%)";
 let wordIteration = 0;
-const wordsForHeading = ["Banana", "Orange", "Apple", "Mango"];
+const wordsForHeading = ["Studený", "Špatný", "Aktivní", "Líný", "Nebezpečný", "Bezpečný", "Mrtvý", "Živý", "Ženský", "Mužský", "Štěstí", "Smůla", "Horký", "Zdravý", "Dobrý", "Budoucnost", "Minulost", "Sladký", "Hořký", "Věřící", "Nevěřící", "Moderní", "Tradiční", "Nemocný", "Městský", "Vesnický", "Mladý", "Starý"];
 let arrayOfColors = [];
 let H, S = 100, L = 50;
+
+root.style.setProperty('--BrightPickerLeft', document.getElementById("BrightnessPicker").offsetLeft + "px");
+
 
 nextWord();
 
@@ -52,11 +56,10 @@ document.body.onmousemove = function Click(e) {
     }
     if (BrightnessMD) {
         let y = e.clientY - CanvasTop;
-        let pickerY = Number(e.clientY) - ColorPickerWidth;
+        let pickerY = Number(e.clientY) - CanvasTop - BrightnessPicker.offsetHeight/2;
 
-        if (e.clientY <= (CanvasTop - ColorPickerWidth / 2 + 4)) pickerY = CanvasTop - ColorPickerWidth;
-        if (e.clientY >= (CanvasTop + CanvasHeight + ColorPickerWidth / 2 - 3)) pickerY = CanvasTop + CanvasHeight - ColorPickerWidth;
-
+        if (e.clientY <= (CanvasTop - ColorPickerWidth / 2 + 4)) pickerY = CanvasTop - CanvasTop - BrightnessPicker.offsetHeight/2;
+        if (e.clientY >= (CanvasTop + CanvasHeight + ColorPickerWidth / 2 - 3)) pickerY = CanvasHeight - BrightnessPicker.offsetHeight/2;
 
         L = Math.abs(100 - (y / CanvasHeight * 100));
         root.style.setProperty('--BPickerY', pickerY + "px");
@@ -68,6 +71,9 @@ document.body.onmousemove = function Click(e) {
 function SetBackground() {
     document.body.style.backgroundColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
     chosenColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
+
+    if(L > 50) document.getElementById("Subject").style.color = "black";
+    else document.getElementById("Subject").style.color = "White";
 }
 
 var SaturationMD = false;
@@ -99,6 +105,8 @@ function ResetBoundries() {
     CanvasHeight = Canvas.offsetHeight;
     CanvasLeft = Canvas.getBoundingClientRect().left;
     CanvasTop = Canvas.getBoundingClientRect().top;
+root.style.setProperty('--BrightPickerLeft', document.getElementById("BrightnessPicker").offsetLeft + "px");
+
 }
 function nextWord(){
         if(wordIteration==0){
@@ -108,7 +116,6 @@ function nextWord(){
             document.getElementById("Subject").innerHTML = wordsForHeading[wordIteration];
             if(wordIteration==1){
                 arrayOfColors.push(chosenColor);
-                alert(arrayOfColors[0]);
                 const JSONColors = JSON.stringify(arrayOfColors);
                 localStorage.setItem("JSONColor", JSONColors);
             }else{
