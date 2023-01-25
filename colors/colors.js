@@ -10,7 +10,7 @@ let ColorPickerHeight = ColorPicker.offsetHeight;
 let BrightnessSelect = document.getElementById("BrightnessSelect");
 let chosenColor = "hsl(180, 50%, 50%)";
 let wordIteration = 0;
-const wordsForHeading = ["Banana", "Orange", "Apple", "Mango"];
+const wordsForHeading = ["studený","špatný","aktivní","líný","nebezpečný","mrtvý","živý","ženský","mužský","štěstí","smůla","horký","horký","zdravý","dobrý","budoucnost","minulost","sladký","hořký","věřící","nevěřící","moderní","tradiční","nemocný","městský","vesnický","mladý","starý"];
 let arrayOfColors = [];
 let H, S = 100, L = 50;
 
@@ -108,7 +108,6 @@ function nextWord(){
             document.getElementById("Subject").innerHTML = wordsForHeading[wordIteration];
             if(wordIteration==1){
                 arrayOfColors.push(chosenColor);
-                alert(arrayOfColors[0]);
                 const JSONColors = JSON.stringify(arrayOfColors);
                 localStorage.setItem("JSONColor", JSONColors);
             }else{
@@ -120,7 +119,14 @@ function nextWord(){
             }
             document.body.style.backgroundColor = "hsl(" + 0 + ", " + 0 + "% , " + 100 + "%)";
             if(!(wordIteration<wordsForHeading.length)){
-                document.body.innerHTML = "Děkujeme za vyplnění.";
+                document.body.style.backgroundColor = "hsl(" + 200 + ", " + 58 + "% , " + 39 + "%)";
+                const node = document.createElement("p");
+                const textnode = document.createTextNode("Děkujeme za vyplnění.");
+                node.appendChild(textnode);
+                node.id = "endingMessage";
+                document.body.innerHTML = "";
+                document.body.appendChild(node);
+                // code for sending data to server can be added here
             }
             wordIteration++;
         }
