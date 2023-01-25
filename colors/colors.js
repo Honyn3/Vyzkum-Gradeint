@@ -8,9 +8,13 @@ let ColorPicker = document.getElementById("ColorPicker");
 let ColorPickerWidth = ColorPicker.offsetWidth / 2;
 let ColorPickerHeight = ColorPicker.offsetHeight;
 let BrightnessSelect = document.getElementById("BrightnessSelect");
-
-
+let chosenColor = "hsl(180, 50%, 50%)";
+let wordIteration = 0;
+const wordsForHeading = ["Banana", "Orange", "Apple", "Mango"];
+let arrayOfColors = [];
 let H, S = 100, L = 50;
+
+nextWord();
 
 function Click(el) {
     console.log(el.clientX - 406);
@@ -63,6 +67,7 @@ document.body.onmousemove = function Click(e) {
 
 function SetBackground() {
     document.body.style.backgroundColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
+    chosenColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
 }
 
 var SaturationMD = false;
@@ -95,3 +100,29 @@ function ResetBoundries() {
     CanvasLeft = Canvas.getBoundingClientRect().left;
     CanvasTop = Canvas.getBoundingClientRect().top;
 }
+function nextWord(){
+        if(wordIteration==0){
+            document.getElementById("Subject").innerHTML = wordsForHeading[wordIteration];
+            wordIteration++;
+        } else {
+            document.getElementById("Subject").innerHTML = wordsForHeading[wordIteration];
+            if(wordIteration==1){
+                arrayOfColors.push(chosenColor);
+                alert(arrayOfColors[0]);
+                const JSONColors = JSON.stringify(arrayOfColors);
+                localStorage.setItem("JSONColor", JSONColors);
+            }else{
+                let oldColors = localStorage.getItem("JSONColor");
+                arrayOfColors = JSON.parse(oldColors);
+                arrayOfColors.push(chosenColor);
+                let JSONColors = JSON.stringify(arrayOfColors);
+                localStorage.setItem("JSONColor", JSONColors);
+            }
+            document.body.style.backgroundColor = "hsl(" + 0 + ", " + 0 + "% , " + 100 + "%)";
+            if(!(wordIteration<wordsForHeading.length)){
+                document.body.innerHTML = "Děkujeme za vyplnění.";
+            }
+            wordIteration++;
+        }
+            
+    }
