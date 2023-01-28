@@ -27,14 +27,21 @@ body{
     height: 400px;
     padding: 20px;
     margin: auto;
+
     background-color: rgb(211, 232, 250);
+    border-radius: 10px;
 }
 
 #Subject{
+    margin-top: 5%;
     text-align: center;
     pointer-events: none;
     user-select: none;
+<<<<<<< Updated upstream
     font-family: Arial, Helvetica, sans-serif;
+=======
+    font-size: 40px;
+>>>>>>> Stashed changes
 }
 
 .ColorSelect{
@@ -77,14 +84,17 @@ body{
     pointer-events: none;
 }
 #nextButton{
-    margin-top:3%;
-    margin-left:84%;
+    top:0%;
+    right: 0%;
     padding:10px;
     color: white;
     font-size: 23px;
     font-weight: bold;
-    background: #2CB9F1;
+    background: #000000 url(/img/arrowForward.png);
+    background-repeat: no-repeat;
+    background-size: contain;
     width: 130px;
+<<<<<<< Updated upstream
     height: 50px;
     border: solid gray;
     border-radius: 7px;
@@ -98,10 +108,21 @@ body{
     font-size: 300%;
     font-family: Arial, Helvetica, sans-serif;
     transition: all 0.4s;
+=======
+    height: 100%;
+    border: none;
+>>>>>>> Stashed changes
     cursor: pointer;
+    position: absolute;
 }
 
 #nextButton:hover{
+<<<<<<< Updated upstream
     background: #2086ae;
     color: rgb(53, 53, 53);
+=======
+    background: #242424;
+    color: rgb(229, 229, 229);
+
+>>>>>>> Stashed changes
 }

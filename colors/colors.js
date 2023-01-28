@@ -72,7 +72,7 @@ function SetBackground() {
     document.body.style.backgroundColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
     chosenColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
 
-    if(L > 50) document.getElementById("Subject").style.color = "black";
+    if(L > 60) document.getElementById("Subject").style.color = "black";
     else document.getElementById("Subject").style.color = "White";
 }
 
