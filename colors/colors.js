@@ -170,10 +170,28 @@ function nextWord() {
             document.body.innerHTML = "";
             document.body.appendChild(node);
             // code for sending data to server can be added here
+            Save(localStorage.getItem("JSONColor"));
         }
         wordIteration++;
     }
     Counter.innerHTML = wordIteration + "/" + wordsForHeading.length;
+}
+
+const Save = async (data) => {
+    //let uri = 'http://localhost:3000/data';
+
+    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    let saveData = {
+        colors: data
+    };
+
+    await fetch(uri, {
+        method: 'POST',
+        body: JSON.stringify(saveData),
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    //window.location.replace('index.html'); na konci dotazníku načte znova stránku
 }
 
 function SaturaionTap(e) {
