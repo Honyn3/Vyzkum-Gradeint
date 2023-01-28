@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,22 +8,27 @@
     <title>Gradient - barvy</title>
     <link rel="stylesheet" href="colorsStyle.css">
 </head>
+
 <body onresize="ResetBoundries()">
-    <h1 id="Subject">Tmavá</h1>
-    <div id="ColorSelectDiv">
-        <p style="user-select: none;">Vyberte barvu:</p>
-        <div>
-            <div class="ColorSelect" id="Hue" style="user-select: none;"></div>
-            <div class="ColorSelect" id="Saturation" onclick=""></div>
+    <div id="ColorBackground">
+        <h1 id="Subject">Tmavá</h1>
+        <div id="ColorSelectDiv">
+            <p style="user-select: none; margin-bottom: 17px; margin-top: 5px; font-family: Arial, Helvetica, sans-serif;">Vyberte barvu</p>
+            <div>
+                <div class="ColorSelect" id="Hue" style="user-select: none;"></div>
+                <div class="ColorSelect" id="Saturation" onclick=""></div>
 
-            <div id="BrightnessSelect">
-    <div id="BrightnessPicker"></div>
+                <div id="BrightnessSelect">
+                    <div id="BrightnessPicker"></div>
 
+                </div>
             </div>
         </div>
-    </div>
-    <div id="ColorPicker"></div>
-    <button id="nextButton" onclick="nextWord()">Další</button>
+        <div id="ColorPicker"></div>
+    </div>  
+    <button id="nextButton" onclick="nextWord()"></button>
+    <div id="Counter">1/10</div>
     <script src="colors.js"></script>
 </body>
+
 </html>

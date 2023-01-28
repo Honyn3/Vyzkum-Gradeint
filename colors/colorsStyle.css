@@ -1,13 +1,27 @@
 :root{
     --H: 200;
     --S: 50%;
-    --PickerX: 450px;
-    --PickerY: 310px;
+    --PickerX: 50%;
+    --PickerY: 70%;
     --BrightPickerLeft: 10px;
+    --BPickerY: 50%
 }
 
 body{
-    padding-top: 5%;
+    background-color: #000000;
+    padding: 0;
+    margin: 0;
+}
+
+#ColorBackground{
+    left: 15%;
+    padding: 0;
+    margin: 0;
+    width: 70%;
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    padding: auto;
+    position: absolute;
 }
 
 #ColorPicker{
@@ -24,47 +38,57 @@ body{
 
 #ColorSelectDiv{
     width: 700px;
-    height: 400px;
-    padding: 20px;
+    height: 350px;
+    padding: 12px;
+    padding-left: 20px;
+    padding-top: 20px;
     margin: auto;
 
     background-color: rgb(211, 232, 250);
-    border-radius: 10px;
+    border-radius: 14px;
+    margin-top: 10%;
+
 }
 
 #Subject{
-    margin-top: 5%;
+    margin-top: 20%;
     text-align: center;
     pointer-events: none;
     user-select: none;
-<<<<<<< Updated upstream
     font-family: Arial, Helvetica, sans-serif;
-=======
-    font-size: 40px;
->>>>>>> Stashed changes
+    font-size: 44px;
 }
 
 .ColorSelect{
     border: 1px solid black;
     height: 300px;
-    width: 600px;
+    width: 620px;
     position: absolute;
+}
+
+#Counter{
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    color: aliceblue;
 }
 
 #Hue{
     background: linear-gradient(to right, red, yellow, lime, aqua, blue, magenta, red);
+    border: none;
 }
 
 #Saturation{
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), hsl(192, 2%, 50%));
     cursor:crosshair;
+    border: none;
 
 }
 
 #BrightnessSelect{
     height: 300px;
-    width: 20px;
-    border: 1px solid black;
+    width: 23px;
+    border: none;
     background-color: aqua;
     position: relative;
     background: linear-gradient(to bottom, hsl( var(--H), 100%, 100%), hsl(var(--H), var(--S), 50%), hsl(var(--H), 100%, 0%));
@@ -90,14 +114,16 @@ body{
     color: white;
     font-size: 23px;
     font-weight: bold;
-    background: #000000 url(/img/arrowForward.png);
+    background: #00000000;
+    background-image: url(/img/arrowForward.png);
+    filter: invert(1);
     background-repeat: no-repeat;
-    background-size: contain;
+    background-position: center;
     width: 130px;
-<<<<<<< Updated upstream
-    height: 50px;
-    border: solid gray;
-    border-radius: 7px;
+    height: 100%;
+    border: none;
+    position: absolute;
+    cursor: pointer;
 }
 #endingMessage{
     margin: auto;
@@ -108,21 +134,9 @@ body{
     font-size: 300%;
     font-family: Arial, Helvetica, sans-serif;
     transition: all 0.4s;
-=======
-    height: 100%;
-    border: none;
->>>>>>> Stashed changes
-    cursor: pointer;
-    position: absolute;
 }
 
 #nextButton:hover{
-<<<<<<< Updated upstream
-    background: #2086ae;
-    color: rgb(53, 53, 53);
-=======
-    background: #242424;
-    color: rgb(229, 229, 229);
+    background-size: 47%;
 
->>>>>>> Stashed changes
 }
