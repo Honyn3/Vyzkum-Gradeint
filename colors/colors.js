@@ -37,6 +37,11 @@ function SaturaionClick(e) {
     H = x / CanvasWidth * 360;
     S = Math.abs(100 - (y / CanvasHeight * 100));
 
+    if (H > 360) H = 360;
+    if (H < 0) H = 0;
+    if (S > 100) S = 100;
+    if (S < 0) S = 0;
+
     root.style.setProperty('--H', H);
     root.style.setProperty('--S', S + "%");
 
@@ -64,17 +69,17 @@ document.body.onmousemove = function Click(e) {
     }
 }
 
-function BrightnessClick(e){
+function BrightnessClick(e) {
     let y = e.clientY - CanvasTop;
-        let pickerY = Number(e.clientY) - CanvasTop - BrightnessPicker.offsetHeight / 2;
+    let pickerY = Number(e.clientY) - CanvasTop - BrightnessPicker.offsetHeight / 2;
 
-        if (e.clientY <= (CanvasTop - ColorPickerWidth / 2 + 4)) pickerY = CanvasTop - CanvasTop - BrightnessPicker.offsetHeight / 2;
-        if (e.clientY >= (CanvasTop + CanvasHeight + ColorPickerWidth / 2 - 3)) pickerY = CanvasHeight - BrightnessPicker.offsetHeight / 2;
+    if (e.clientY <= (CanvasTop - ColorPickerWidth / 2 + 4)) pickerY = CanvasTop - CanvasTop - BrightnessPicker.offsetHeight / 2;
+    if (e.clientY >= (CanvasTop + CanvasHeight + ColorPickerWidth / 2 - 3)) pickerY = CanvasHeight - BrightnessPicker.offsetHeight / 2;
 
-        L = Math.abs(100 - (y / CanvasHeight * 100));
-        root.style.setProperty('--BPickerY', pickerY + "px");
+    L = Math.abs(100 - (y / CanvasHeight * 100));
+    root.style.setProperty('--BPickerY', pickerY + "px");
 
-        SetBackground();
+    SetBackground();
 }
 
 function SetBackground() {
@@ -96,11 +101,24 @@ document.getElementById("Saturation").onmousedown = function (e) {
     BrightnessMD = false;
     SaturaionClick(e);
 }
+document.getElementById("Saturation").ontouchmove = function (e) {
+    SaturationMD = true;
+    BrightnessMD = false;
+    SaturaionTap(e);
+}
 document.getElementById("Saturation").onmouseup = function () {
+    SaturationMD = false;
+}
+document.getElementById("Saturation").ontouchcancel = function () {
     SaturationMD = false;
 }
 
 var BrightnessMD = false;
+BrightnessSelect.ontouchstart = function (e) {
+    BrightnessMD = true;
+    SaturationMD = false;
+    BrightnessTap(e);
+}
 BrightnessSelect.onmousedown = function (e) {
     BrightnessMD = true;
     SaturationMD = false;
@@ -108,6 +126,9 @@ BrightnessSelect.onmousedown = function (e) {
 }
 
 BrightnessSelect.onmouseup = function () {
+    BrightnessMD = false;
+}
+BrightnessSelect.ontouchcancel = function () {
     BrightnessMD = false;
 }
 
@@ -153,6 +174,47 @@ function nextWord() {
         wordIteration++;
     }
     Counter.innerHTML = wordIteration + "/" + wordsForHeading.length;
+}
 
+function SaturaionTap(e) {
+    let x = e.targetTouches[0].pageX - CanvasLeft;
+    let y = e.targetTouches[0].pageY - CanvasTop;
 
+    H = x / CanvasWidth * 360;
+    S = Math.abs(100 - (y / CanvasHeight * 100));
+
+    if (H > 360) H = 360;
+    if (H < 0) H = 0;
+    if (S > 100) S = 100;
+    if (S < 0) S = 0;
+
+    root.style.setProperty('--H', H);
+    root.style.setProperty('--S', S + "%");
+
+    let pickerX = Number(e.targetTouches[0].pageX) - ColorPickerWidth - ColorBackgroundLeft;
+    let pickerY = Number(e.targetTouches[0].pageY) - ColorPickerWidth;
+
+    if (e.targetTouches[0].pageX <= (CanvasLeft - ColorPickerWidth / 2 + 3)) pickerX = CanvasLeft - ColorPickerWidth - ColorBackgroundLeft;
+    if (e.targetTouches[0].pageX >= (CanvasLeft + CanvasWidth + ColorPickerWidth / 2 - 3)) pickerX = CanvasLeft + CanvasWidth - ColorPickerWidth - ColorBackgroundLeft;
+
+    if (e.targetTouches[0].pageY <= (CanvasTop - ColorPickerWidth / 2 + 4)) pickerY = CanvasTop - ColorPickerWidth;
+    if (e.targetTouches[0].pageY >= (CanvasTop + CanvasHeight + ColorPickerWidth / 2 - 3)) pickerY = CanvasTop + CanvasHeight - ColorPickerWidth;
+
+    root.style.setProperty('--PickerX', pickerX + "px");
+    root.style.setProperty('--PickerY', pickerY + "px");
+
+    SetBackground();
+}
+
+function BrightnessTap(e) {
+    let y = e.targetTouches[0].pageY - CanvasTop;
+    let pickerY = Number(e.targetTouches[0].pageY) - CanvasTop - BrightnessPicker.offsetHeight / 2;
+
+    if (e.targetTouches[0].pageY <= (CanvasTop - ColorPickerWidth / 2 + 4)) pickerY = CanvasTop - CanvasTop - BrightnessPicker.offsetHeight / 2;
+    if (e.targetTouches[0].pageY >= (CanvasTop + CanvasHeight + ColorPickerWidth / 2 - 3)) pickerY = CanvasHeight - BrightnessPicker.offsetHeight / 2;
+
+    L = Math.abs(100 - (y / CanvasHeight * 100));
+    root.style.setProperty('--BPickerY', pickerY + "px");
+
+    SetBackground();
 }
