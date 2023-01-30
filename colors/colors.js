@@ -185,9 +185,10 @@ function nextWord() {
 const Save = async (data) => {
     //let uri = 'http://localhost:3000/data';
 
-    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    let uri = 'http://localhost:3000/colorsdata';
     let saveData = {
-        colors: data
+        colors: data,
+        id: 0
     };
 
     await fetch(uri, {
@@ -195,7 +196,6 @@ const Save = async (data) => {
         body: JSON.stringify(saveData),
         headers: { 'Content-Type': 'application/json' }
     });
-
     //window.location.replace('index.html'); na konci dotazníku načte znova stránku
 }
 
