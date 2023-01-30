@@ -88,6 +88,11 @@ function SetBackground() {
 
     if ((L > 60 && H > 180) || (L > 40 && H <= 180)) document.getElementById("Subject").style.color = "black";
     else document.getElementById("Subject").style.color = "White";
+
+    if (document.body.getBoundingClientRect().width < 1050) {
+        if ((L > 60 && H > 180) || (L > 40 && H <= 180)) document.getElementById("Counter").style.color = "black";
+        else document.getElementById("Counter").style.color = "White";
+    }else document.getElementById("Counter").style.color = "White";
 }
 
 var SaturationMD = false;

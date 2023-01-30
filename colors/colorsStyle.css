@@ -46,12 +46,14 @@ body {
 
     background-color: rgb(238, 246, 254);
     border-radius: 14px;
-    margin-top: 10%;
-
+    margin-top: 13%;
+    /* position: absolute;
+    bottom: 5%;
+    left: 50% - 350px; */
 }
 
 #Subject {
-    margin-top: 16%;
+    margin-top: 14%;
     text-align: center;
     pointer-events: none;
     user-select: none;
@@ -72,6 +74,8 @@ body {
     right: 50px;
     top: 50px;
     color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
 
 #Hue {
@@ -110,19 +114,18 @@ body {
 }
 
 #nextButton {
-    top: 0%;
     right: 0%;
     padding: 10px;
     color: white;
     font-size: 0px;
     font-weight: bold;
     background: #00000000;
-    background-image: url(/img/arrowForward.png);
-    filter: invert(1);
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 130px;
+    background-blend-mode: multiply;
+
+    width: 15%;
     height: 100%;
+    /* border-radius: 1000px; */
+    /* top: 45%; */
     border: none;
     position: absolute;
     cursor: pointer;
@@ -139,26 +142,47 @@ body {
     transition: all 0.4s;
 }
 
-#nextButton:hover {
-    background-size: 47%;
+#nextButtonImg {
+    background-image: url(/img/arrowForwardBright.png);
+    filter: invert(1);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30%;
+
+    width: 80px;
+    height: 80px;
+    border-radius: 1000px;
+    margin-left: 40%;
+    transition: all 0.2s;
+}
+
+#nextButton:hover #nextButtonImg {
+    background-color: #8888887e;
+    background-image: url(/img/arrowForward.png);
 
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1050px) {
     #ColorBackground {
         width: 100%;
         left: 0%;
+    }
+
+    #nextButtonImg {
+        display: none;
     }
 
     #nextButton {
         width: 19%;
         height: 3.3%;
         top: 59%;
-        right: 6%;
+        right: 8%;
         padding: 5px;
         background-image: url(/img/arrowForward.png);
         background-size: contain;
         background-position: 100%;
+        background-repeat: no-repeat;
+
         filter: none;
         background-color: rgb(240, 240, 241);
         font-size: 10px;
