@@ -18,7 +18,8 @@ body{
 }
 
 #heading{
-    font-size: large;
+    margin-bottom: 0;
+    font-size: 25px;
     text-align: left;
     text-align: center;
     grid-area:heading;
