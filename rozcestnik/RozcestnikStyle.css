@@ -1,0 +1,164 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    vertical-align: middle;
+}
+
+.Grid {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    gap: 40px;
+    font-size: 20px;
+    color: aliceblue;
+    list-style: none;
+}
+
+header {
+    width: 100%;
+    background-color: rgb(59, 59, 59);
+}
+
+a {
+    color: aliceblue;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+a:hover{
+    text-decoration: underline;
+    color: rgb(218, 237, 253);
+
+}
+
+#Heading {
+    text-align: center;
+    font-size: 25px;
+    color: aliceblue;
+}
+
+h1 {
+    position: absolute;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    min-height: 70px;
+    align-items: center;
+    padding: 0 25px;
+    justify-content: space-between;
+}
+
+#password{
+    margin: auto;
+    text-align: center;
+    margin-top: 20%;
+    font-size: large;
+}
+
+
+#container{
+    display: grid;
+    grid-template-columns: 95%;
+    grid-template-rows: 50% 50%;
+    row-gap: 10px;
+    height: 90%;
+}
+
+.lowerCont{
+    display: grid;
+    grid-template-columns: 10% 50% 20% 20%;
+    grid-template-rows: 100px 100px 100px 100px;
+    height: 50%;
+}
+
+#basicTable{
+    width: 100%;
+    background-color: #cccccc51;
+    border: #ccc 1px solid;
+    padding: 5px;
+}
+#colorTable{
+    width: 100%;
+
+    background-color: #cccccc51;
+    border: #ccc 1px solid;
+    padding: 5px;
+}
+
+.basicTd{
+    width: 20%;
+}
+.colorTd{
+    width: 20%;
+}
+.width80{
+    width: 80%;
+}
+.table{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.contChild{
+    max-height: 60%;
+    margin-left: 5%;
+}
+
+#saveButton{
+    background-color: rgba(44, 239, 44, 0.847);
+    border: solid 1px green;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 83%;
+  padding: 5px;
+
+}
+
+.minusButton{
+    background-color: rgba(255, 0, 0, 0.705);
+    border: solid 1px green;
+    border-radius: 0px 4px 4px 0px;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 5px;
+}
+
+.minusButton:hover{
+    background-color: rgb(198, 5, 5);
+}
+
+#saveButton:hover{
+    background-color: rgb(17, 183, 17);
+    
+}
+
+.plusButton{
+    width: 83%;
+    background-color: rgba(210, 239, 44, 0.847);
+    border: solid 1px green;
+    border-radius: 4px;
+    cursor: pointer;
+  padding: 5px;
+
+    transition: all 0.3s;
+}
+.plusButton:hover{
+    background-color: rgb(172, 197, 33);
+
+}
+.QuestionInput{
+    border: 1px solid #ccc;
+  border-radius: 4px 0px 0px 4px;
+  box-sizing: border-box;
+  padding: 5px;
+  padding-left: 10px;
+
+}

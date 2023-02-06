@@ -198,11 +198,11 @@ let barvy = ["#A1A1A1", "null", "#A1A1A1"]; // zapisuje pouze 3 barvy
 window.addEventListener('DOMContentLoaded', () => GetQuestions())
 const GetQuestions = async () => {
     //let uri = 'http://localhost:3000/source';
-    let uri = 'http://klara.fit.vutbr.cz:3000/source';
+    let uri = 'http://klara.fit.vutbr.cz:3000/source/0';
     const wait = await fetch(uri);
     const data = await wait.json();
 
-    Questions = JSON.parse(data);
+    Questions = data.data;
     numOfQuestions = Questions.length;
 
     if (!localStorage.getItem("odpovedi") || localStorage.getItem("odpovedi") == null || localStorage.getItem("odpovedi") == "[]") {

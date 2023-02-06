@@ -31,11 +31,11 @@ const GetGradients = async () => {
 }
 
 const GetQuestions = async () => {
-    let uri = 'http://klara.fit.vutbr.cz:3000/source';
+    let uri = 'http://klara.fit.vutbr.cz:3000/source/0';
     const wait = await fetch(uri);
     const data = await wait.json();
 
-    Questions = JSON.parse(data);
+    Questions = data.data;
     WriteQuestions();
 }
 

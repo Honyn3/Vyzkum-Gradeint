@@ -6,58 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rozcestník - gradienty</title>
-    <style>
-        body{
-            padding: 0;
-            margin: 0;
-        }
-        
-        p {
-            vertical-align: middle;
-        }
-
-        .Grid {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            vertical-align: middle;
-            gap: 40px;
-            font-size: 20px;
-            color: aliceblue;
-            list-style: none;
-        }
-
-        header {
-            width: 100%;
-            background-color: rgb(59, 59, 59);
-        }
-
-        a {
-            color: aliceblue;
-        }
-
-        #Heading {
-            text-align: center;
-            font-size: 25px;
-            color: aliceblue;
-        }
-
-        h1 {
-            position: absolute;
-        }
-
-        .bold {
-            font-weight: bold;
-        }
-
-        nav {
-            display: flex;
-            min-height: 70px;
-            align-items: center;
-            padding: 0 25px;
-            justify-content: space-between;
-        }
-    </style>
+    <link rel="stylesheet" href="RozcestnikStyle.css">
 </head>
 
 <body>
@@ -78,8 +27,15 @@
                 </ul>
             </ul>
         </nav>
-
     </header>
+
+    <div id="password">
+        <form action="pass.php" method="post">
+            Heslo: <input type="text" name="pass">
+            <input type="submit" value="OK">
+        </form>
+    </div>
+
 </body>
 
 </html>

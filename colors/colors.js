@@ -13,14 +13,26 @@ let ColorBackground = document.getElementById("ColorBackground");
 let ColorBackgroundLeft = ColorBackground.getBoundingClientRect().left;
 let chosenColor = "hsl(180, 50%, 50%)";
 let wordIteration = 0;
-const wordsForHeading = ["Studený", "Špatný", "Aktivní", "Líný", "Nebezpečný", "Bezpečný", "Mrtvý", "Živý", "Ženský", "Mužský", "Štěstí", "Smůla", "Horký", "Zdravý", "Dobrý", "Budoucnost", "Minulost", "Sladký", "Hořký", "Věřící", "Nevěřící", "Moderní", "Tradiční", "Nemocný", "Městský", "Vesnický", "Mladý", "Starý"];
+let wordsForHeading;
 let arrayOfColors = [];
 let H, S = 100, L = 50;
 let Counter = document.getElementById("Counter");
 root.style.setProperty('--BrightPickerLeft', document.getElementById("BrightnessPicker").offsetLeft + "px");
 
+window.addEventListener('DOMContentLoaded', () => {
+    GetQuestions();
+})
 
-nextWord();
+const GetQuestions = async () => {
+    let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource';
+    const wait = await fetch(uri);
+    const data = await wait.json();
+
+    wordsForHeading = data[0].data;
+    console.log(wordsForHeading);
+    nextWord();
+}
+
 
 function Click(el) {
     console.log(el.clientX - 406);
@@ -92,7 +104,7 @@ function SetBackground() {
     if (document.body.getBoundingClientRect().width < 1050) {
         if ((L > 60 && H > 180) || (L > 40 && H <= 180)) document.getElementById("Counter").style.color = "black";
         else document.getElementById("Counter").style.color = "White";
-    }else document.getElementById("Counter").style.color = "White";
+    } else document.getElementById("Counter").style.color = "White";
 }
 
 var SaturationMD = false;
