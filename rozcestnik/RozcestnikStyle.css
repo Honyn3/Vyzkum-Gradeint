@@ -65,7 +65,7 @@ nav {
 
 
 #container{
-    display: grid;
+    display: none;
     grid-template-columns: 95%;
     grid-template-rows: 50% 50%;
     row-gap: 10px;

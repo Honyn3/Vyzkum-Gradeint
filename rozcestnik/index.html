@@ -30,11 +30,257 @@
     </header>
 
     <div id="password">
-        <form action="pass.php" method="post">
-            Heslo: <input type="text" name="pass">
-            <input type="submit" value="OK">
-        </form>
+        Heslo: <input type="text" name="pass" id="inputPass">
+        <input type="submit" value="OK" onclick="Check()">
     </div>
+
+    <div id="container">
+        <div id="basic" class="contChild">
+            <h2 style="text-align: center; margin-bottom: 0px; margin-top: 50px;">Základ</h3>
+                <hr>
+                <div class="lowerCont">
+                    <div style="grid-row: 1; grid-column: 1;"> Otázky :</div>
+                    <div style="grid-row: 1 / 4; grid-column: 2 / 5;" class="table">
+                        <table id="basicTable">
+
+                        </table>
+                    </div>
+                </div>
+        </div>
+        <div id="colors" class="contChild">
+            <h2 style="text-align: center; margin-bottom: 0px; margin-top: 50px;">Barvy</h3>
+                <hr>
+                <div class="lowerCont">
+                    <div style="grid-row: 1; grid-column: 1;"> Otázky :</div>
+                    <div style="grid-row: 1 / 4; grid-column: 2 / 5;" class="table">
+                        <table id="colorTable">
+
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <script>
+        let basicData;
+        let basicTable = document.getElementById("basicTable");
+
+        let colorData;
+        let colorTable = document.getElementById("colorTable");
+
+        window.addEventListener('DOMContentLoaded', () => {
+            GetQuestionsBasic();
+            GetQuestionsColor();
+        })
+
+        function Check() {
+            let pass = document.getElementById("inputPass").value;
+            PassSave(pass);
+        }
+
+        function PassSave(data) {
+            let formData = {
+                password: data,
+                email: "mail@mail.com"
+            }
+            fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+                .then(res => res.json())
+                .then(data => Proceed(data));
+        }
+
+        function Proceed(data) {
+            console.log(data.accessToken)
+            if (data.user.email == "mail@mail.com") ShowTheSite();
+            else console.log("fail")
+        }
+
+        let show = false;
+        function ShowTheSite() {
+            document.getElementById("password").style.display = "none";
+            document.getElementById("container").style.display = "grid";
+            show = true;
+            WriteToTableColor();
+            WriteToTableBasic();
+        }
+
+        //#region Basic
+
+        const GetQuestionsBasic = async () => {
+            let uri = 'http://klara.fit.vutbr.cz:3000/source/0';
+            const wait = await fetch(uri);
+            const data = await wait.json();
+
+            basicData = (data.data);
+            WriteToTableBasic();
+            console.log(basicData);
+        }
+
+        function WriteToTableBasic() {
+            if (show) {
+                basicTable.innerHTML = "";
+
+                for (let i = 0; i < basicData.length; i++) {
+                    let div = "<tr>"
+                    for (let j = 0; j < basicData[i].length; j++) {
+                        div += '<td class="basicTd"><input type="text" value="' + basicData[i][j] + '" class="width80 QuestionInput"></td>';
+                    }
+                    div += '<td><input type="button" value="-" onclick="RemoveBasic(' + i + ')" class="minusButton"></td>'
+                    div += "</tr>";
+                    basicTable.innerHTML += div;
+                }
+                let addNew = '<td><input type="button" value="Přidat" onclick="addNewBasic()" class="plusButton"></td>' + '<td><input type="button" value="Uložit" onclick="SaveBasic()" id="saveButton"></td>';
+                basicTable.innerHTML += addNew;
+            }
+        }
+
+        function SaveBasic() {
+            if (show) {
+                let dataToSave = [,];
+                for (let i = 0; i < basicTable.children.length - 1; i++) {
+                    const element = basicTable.children[i];
+                    let toSave = [];
+
+                    for (let j = 0; j < element.firstChild.children.length; j++) {
+                        let help = element.firstChild.children[j].firstChild.value;
+                        if (help != "-" && help != "" && help != null) {
+
+                            toSave[toSave.length] = help;
+                        }
+                    }
+
+                    dataToSave[i] = toSave;
+                }
+                console.log(dataToSave);
+
+                let ConfirmText = "";
+                for (let i = 0; i < dataToSave.length; i++) {
+                    ConfirmText += dataToSave[i];
+                    ConfirmText += "\n";
+                }
+                console.log(ConfirmText)
+
+                if (confirm(ConfirmText)) {
+                    SaveBasicToDB(dataToSave);
+                }
+            }
+        }
+
+        const SaveBasicToDB = async (data) => {
+            let uri = 'http://klara.fit.vutbr.cz:3000/source/0';
+
+            let saveData = {
+                data: data,
+                id: 0
+            };
+
+            await fetch(uri, {
+                method: 'PATCH',
+                body: JSON.stringify(saveData),
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
+
+
+        function addNewBasic() {
+            basicData.push(["", "", "", "", ""]);
+            WriteToTableBasic();
+        }
+
+        function RemoveBasic(index) {
+            basicData.splice(index, 1);
+            WriteToTableBasic();
+        }
+        //#endregion
+
+        //#region color
+        const GetQuestionsColor = async () => {
+            let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource';
+            const wait = await fetch(uri);
+            const data = await wait.json();
+
+            colorData = data[0].data;
+            console.log(colorData);
+
+            WriteToTableColor();
+        }
+
+        function WriteToTableColor() {
+            if (show) {
+                colorTable.innerHTML = "";
+
+                for (let i = 0; i <= colorData.length / 5; i++) {
+                    let div = "<tr>"
+                    for (let j = 0; j < 5; j++) {
+                        if (colorData[j + (i * 5)] != undefined)
+                            div += '<td class="colorTd"><input type="text" value="' + colorData[j + (i * 5)] + '" class="width80 QuestionInput"><input type="button" value="-" onclick="RemoveColor(' + (j + (i * 5)) + ')" class="minusButton"></td>';
+                    }
+                    div += "</tr>";
+                    colorTable.innerHTML += div;
+                }
+                let addNew = '<td><input type="button" value="Přidat" onclick="addNewColor()" class="plusButton"></td>' + '<td><input type="button" value="Uložit" onclick="SaveColor()" id="saveButton"></td>';
+                colorTable.innerHTML += addNew;
+            }
+        }
+
+        function SaveColor() {
+            if (show) {
+                let dataToSave = [];
+
+                for (let i = 0; i < colorTable.children.length - 1; i++) {
+                    const element = colorTable.children[i];
+
+                    for (let j = 0; j < element.firstChild.children.length; j++) {
+                        let help = element.firstChild.children[j].firstChild.value;
+                        if (help != "-" && help != "" && help != null) {
+                            dataToSave[dataToSave.length] = help;
+                        }
+                    }
+                }
+                console.log(dataToSave);
+
+                let ConfirmText = "";
+                for (let i = 0; i < dataToSave.length; i++) {
+                    ConfirmText += dataToSave[i];
+                    ConfirmText += "\n";
+                }
+
+                if (confirm(ConfirmText)) {
+                    SaveColorToDb(dataToSave);
+                }
+            }
+        }
+
+        const SaveColorToDb = async (data) => {
+            let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource/0';
+
+            let saveData = {
+                data: data,
+                id: 0
+            };
+
+            await fetch(uri, {
+                method: 'PATCH',
+                body: JSON.stringify(saveData),
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
+        function addNewColor() {
+            colorData.push("");
+            WriteToTableColor();
+        }
+
+        function RemoveColor(index) {
+            colorData.splice(index, 1);
+            WriteToTableColor();
+        }
+        //#endregion
+    </script>
 
 </body>
 
