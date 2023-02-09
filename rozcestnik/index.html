@@ -60,6 +60,7 @@
                 </div>
         </div>
     </div>
+    <!-- <script src="\..\node_modules/jsonwebtoken/verify.js"></script> -->
 
     <script>
         let basicData;
@@ -67,6 +68,7 @@
 
         let colorData;
         let colorTable = document.getElementById("colorTable");
+
 
         window.addEventListener('DOMContentLoaded', () => {
             GetQuestionsBasic();
@@ -83,7 +85,7 @@
                 password: data,
                 email: "mail@mail.com"
             }
-            fetch('http://localhost:3000/login', {
+            fetch('http://localhost:3001/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -93,7 +95,9 @@
         }
 
         function Proceed(data) {
-            console.log(data.accessToken)
+
+            // var decoded = jws.verify(data.accessToken, 'shhhhh');
+            // console.log(decoded.foo) // bar
             if (data.user.email == "mail@mail.com") ShowTheSite();
             else console.log("fail")
         }
@@ -281,7 +285,6 @@
         }
         //#endregion
     </script>
-
 </body>
 
 </html>
