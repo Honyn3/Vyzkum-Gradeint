@@ -11,8 +11,16 @@
 <div>
 <p id="sortingTitle">Řazení</p>
 <div id="sortingDiv">
-<div>1. <input type="button" value="R" id="RGBButton1" class="switchButton"> <input type="button" value="" id="UpDown1" class="switchButton"></div>
-<div>2. <input type="button" value="G" id="RGBButton2" class="switchButton"> <input type="button" value="" id="UpDown2" class="switchButton"></div>
+<select id="colorModel" onchange="changeOfColorType()">
+    <option value="rgb">RGB</option>
+    <option value="hsl">HSL</option>
+</select>
+<div>1. <input type="button" value="R" id="RGBButton1" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown1" class="switchButton" onclick="SortUpDown(this)"></div>
+<!-- <input type="range" id="vol" name="vol" min="0" max="100"> -->
+<div>2. <input type="button" value="G" id="RGBButton2" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown2" class="switchButton"  onclick="SortUpDown(this)"></div>
+<!--<input type="range" id="vol" name="vol" min="0" max="100"> -->
+<div>3. <input type="button" value="B" id="RGBButton3" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown3" class="switchButton"  onclick="SortUpDown(this)"></div>
+<!-- <input type="range" id="vol" name="vol" min="0" max="100"> -->
 </div>
 </div>
 <div>
