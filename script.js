@@ -11,7 +11,7 @@ var store = document.querySelector(':root')
 let scaleList = document.getElementById("scaleLi");
 
 let btnIndex = 0;
-let colorWidthHalf = 90;
+let colorWidthHalf = 105;
 let tutorialBool = false;
 
 let LeftColor = "#A1A1A1";
@@ -139,7 +139,7 @@ function Barvy(button) {
             leftButton.style.backgroundColor = barva;
             break;
         case 1:
-            if (barva == "rgb(160, 160, 160)") {
+            if (button.innerHTML == "Žádná barva") {
                 MiddleColor = "null";
                 middleButton.style.backgroundColor = "#00000000";
                 backgroundClick = true;

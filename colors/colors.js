@@ -197,7 +197,7 @@ function nextWord() {
 const Save = async (data) => {
     //let uri = 'http://localhost:3000/data';
 
-    let uri = 'http://localhost:3000/colorsdata';
+    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
     let saveData = {
         colors: data,
         id: 0
