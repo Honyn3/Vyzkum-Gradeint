@@ -199,8 +199,7 @@ const Save = async (data) => {
 
     let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
     let saveData = {
-        colors: data,
-        id: 0
+        colors: data
     };
 
     await fetch(uri, {
