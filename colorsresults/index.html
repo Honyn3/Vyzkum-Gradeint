@@ -16,11 +16,19 @@
     <option value="hsl">HSL</option>
 </select>
 <div>1. <input type="button" value="R" id="RGBButton1" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown1" class="switchButton" onclick="SortUpDown(this)"></div>
-<!-- <input type="range" id="vol" name="vol" min="0" max="100"> -->
 <div>2. <input type="button" value="G" id="RGBButton2" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown2" class="switchButton"  onclick="SortUpDown(this)"></div>
-<!--<input type="range" id="vol" name="vol" min="0" max="100"> -->
 <div>3. <input type="button" value="B" id="RGBButton3" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown3" class="switchButton"  onclick="SortUpDown(this)"></div>
-<!-- <input type="range" id="vol" name="vol" min="0" max="100"> -->
+<button id="sortButton" onclick="Sort()">Setřídit</button>
+<select id="numOfDivs" onchange="loadColors()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+</select>
 </div>
 </div>
 <div>
