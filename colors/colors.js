@@ -15,7 +15,7 @@ let chosenColor = "hsl(180, 50%, 50%)";
 let wordIteration = 0;
 let wordsForHeading;
 let arrayOfColors = [];
-let H, S = 100, L = 50;
+let H = 0, S = 100, L = 50;
 let Counter = document.getElementById("Counter");
 root.style.setProperty('--BrightPickerLeft', document.getElementById("BrightnessPicker").offsetLeft + "px");
 
@@ -131,7 +131,7 @@ document.getElementById("Saturation").ontouchcancel = function () {
 }
 
 var BrightnessMD = false;
-BrightnessSelect.ontouchstart = function (e) {
+BrightnessSelect.ontouchmove = function (e) {
     BrightnessMD = true;
     SaturationMD = false;
     BrightnessTap(e);

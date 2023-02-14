@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 const GetColors = async () => {
-    let uri = 'http://localhost:3000/colorsdata';
+    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
     const wait = await fetch(uri);
     const data = await wait.json();
     NumOfProp = NumOfProperties(data);
