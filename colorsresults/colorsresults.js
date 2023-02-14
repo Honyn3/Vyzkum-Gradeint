@@ -12,17 +12,38 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 const GetColors = async () => {
+    let helparray =[];
     let uri = 'http://localhost:3000/colorsdata';
     const wait = await fetch(uri);
     const data = await wait.json();
     NumOfProp = NumOfProperties(data);
-    for (let index = 0; index < NumOfProp; index++) {
-        colors.push(JSON.parse(data[index].colors));
+    if(NumOfProp!=0){
+        for (let s = 0; s < JSON.parse(data[0].colors).length; s++) {
+            let arrayHelp = [];
+            for (let index = 0; index < NumOfProp; index++) {
+                let hslText = JSON.parse(data[index].colors)[s];
+                var itContains=false;
+                var sameColPosition=0;
+                    for (var x = 0; x < arrayHelp.length; x++) {
+                        if (arrayHelp[x][0]==hslText) {
+                            itContains=true;
+                            sameColPosition=x;
+                        }
+                    }
+                if (itContains) {
+                    arrayHelp[sameColPosition][3] = arrayHelp[sameColPosition][3] + 1;
+                }else{
+                    // [hsl text, hsl numbers[], rgb numbers [], count]
+                    let hslNum = [extractNumFromHsl(hslText,0),extractNumFromHsl(hslText,1),extractNumFromHsl(hslText,2)];
+                    let rgbNum = HslToRgb((1/360)*hslNum[0],hslNum[1],hslNum[2]);
+                    arrayHelp.push([hslText,hslNum,rgbNum,1]);
+                }
+        }
+        colors.push(arrayHelp);
     }
     loadColors();
-    HSLArrayToRGB();
+    }
 }
-
 const GetWords = async () => {
     let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource';
     const wait = await fetch(uri);
@@ -33,12 +54,26 @@ const GetWords = async () => {
 }
 
 function loadColors() {
+    var numOfDiv = document.getElementById("numOfDivs").value;
+    var divWidth = (100-(numOfDiv-1))/numOfDiv;
+    var numOfLast = (colors[0].length)%numOfDiv;
+    if (numOfLast==0) {
+        numOfLast=numOfDiv;
+    }
     document.getElementById("resultsDiv").innerHTML = "";
-    for (let index = 0; index < NumOfProp; index++) {
+    for (let index = 0; index < colors[0].length; index++) {
         var ColorDiv = document.createElement("div");
         ColorDiv.className = "colorDiv";
-        ColorDiv.style.backgroundColor = colors[index][iteration];
-        ColorDiv.title = colors[index][iteration];
+        ColorDiv.innerHTML = colors[iteration][index][3];
+        ColorDiv.style.backgroundColor = colors[iteration][index][0];
+        ColorDiv.title = colors[iteration][index][0];
+        ColorDiv.style.width = divWidth+"%";
+        if ((index+1)%numOfDiv==0) {
+            ColorDiv.style.marginRight = "0%";
+        }
+        if (index >= (colors[0].length-numOfLast)) {
+            ColorDiv.style.marginBottom = "0%";
+        }
         document.getElementById("resultsDiv").appendChild(ColorDiv);    
     }
 }
@@ -160,9 +195,84 @@ if (elm == document.getElementById("UpDown1")) {
 function SortUpDownHelp(i,elm){
     if (arrowUp[i]) {
         arrowUp[i] = false;
-        elm.style.backgroundImage = "url(/img/arrowUp.png)";
+        elm.style.backgroundImage = "url(/img/arrowDown.png)";
     }else{
         arrowUp[i] = true;
-        elm.style.backgroundImage = "url(/img/arrowDown.png)";
+        elm.style.backgroundImage = "url(/img/arrowUp.png)";
+    }
+}
+function extractNumFromHsl(element, numPosition){
+positions = [element.indexOf("("), element.indexOf(","), element.indexOf("%"),element.indexOf(")")-2];
+if (numPosition==0) {
+    return Number(element.replace(/\s/g, "").substring(positions[0]+1,positions[1]));
+} else if (numPosition==1) {
+    return Number(element.replace(/\s/g, "").substring(positions[1]+1,positions[2]-1))/100;
+} else {
+    return Number(element.replace(/\s/g, "").substring(positions[2]+1,positions[3]-2))/100;
+}
+}
+function HslToRgb(h,s,l){
+    var g, r, b;
+    if(s == 0){
+        r = g = b = l;
+    }else{
+        var hue2rgb = function hue2rgb(p, q, t){
+        if(t < 0) t += 1;
+        if(t > 1) t -= 1;
+        if(t < 1/6) return p + (q - p) * 6 * t;
+        if(t < 1/2) return q;
+        if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+        }
+
+        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        var p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+    }
+
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+ 
+function Sort(){
+    var conditions = [document.getElementById("RGBButton1").value,document.getElementById("RGBButton2").value,document.getElementById("RGBButton3").value];
+    var isRGB = 0;
+    if (colModel[0]=="R") {
+        isRGB=1;
+    } else {
+        isRGB=0;
+    }
+ for (let i = 2; i >= 0; i--) {
+    if (conditions[i]==" ") {
+        continue;
+    } else if (conditions[i]==colModel[0]) {
+        SortArray(colors,arrowUp[i],isRGB,0)
+    } else if (conditions[i]==colModel[1]){
+        SortArray(colors,arrowUp[i],isRGB,1)
+    } else {
+        SortArray(colors,arrowUp[i],isRGB,2)
+    }
+ }
+ loadColors()
+}
+function SortArray(array,up,rgbOrHsl,position){//  ([],true,0/1,0/1/2)
+    for (let n = 0; n < array.length; n++) {
+        for (var i = 0; i < array[n].length - 1; i++) {
+        for (var j = 0; j < array[n].length - i - 1; j++) {
+            if(array[n][j][rgbOrHsl+1][position] < array[n][j+1][rgbOrHsl+1][position]){
+                var tmp = array[n][j];
+                array[n][j] = array[n][j+1];
+                array[n][j+1] = tmp;
+            }
+        }
+    }
+    }
+    if (up) {
+        return array;
+    }else{
+        array.forEach(element => {
+            element.reverse();
+        });
     }
 }
