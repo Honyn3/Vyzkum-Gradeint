@@ -73,12 +73,15 @@ function SaturaionClick(e) {
 }
 
 document.body.onmousemove = function Click(e) {
-    if (SaturationMD) {
-        SaturaionClick(e);
+    if(document.body.offsetWidth > 1050){
+        if (SaturationMD) {
+            SaturaionClick(e);
+        }
+        if (BrightnessMD) {
+            BrightnessClick(e);
+        }
     }
-    if (BrightnessMD) {
-        BrightnessClick(e);
-    }
+    
 }
 
 function BrightnessClick(e) {
@@ -161,6 +164,8 @@ function ResetBoundries() {
     ColorBackgroundLeft = ColorBackground.getBoundingClientRect().left;
 }
 function nextWord() {
+    SaturationMD = false;
+    BrightnessMD = false;
     if (wordIteration == 0) {
         document.getElementById("Subject").innerHTML = wordsForHeading[wordIteration];
         wordIteration++;

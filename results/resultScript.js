@@ -9,11 +9,31 @@ let SortingTable = document.getElementById("SortingTable");
 let SortArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let ViewMod = 0;
 let GraphWidth;
+let filterEmptyTickbox = document.getElementById("filterEmptyTickbox");
+let graphButtons = document.getElementsByClassName("GraphButton");
 
 window.addEventListener('DOMContentLoaded', () => {
     GetGradients();
     GetQuestions();
 })
+
+GraphButton(0);
+function GraphButton(index){
+    graphButtons[index].style.backgroundColor = "#6a9484";
+
+    if(index == 0){
+        graphButtons[1].style.backgroundColor = "#3B5249";
+        graphButtons[2].style.backgroundColor = "#3B5249";
+    }
+    else if(index == 1){
+        graphButtons[0].style.backgroundColor = "#3B5249";
+        graphButtons[2].style.backgroundColor = "#3B5249";
+    }
+    else{
+        graphButtons[1].style.backgroundColor = "#3B5249";
+        graphButtons[0].style.backgroundColor = "#3B5249";
+    }
+}
 
 const GetGradients = async () => {
     let uri = 'http://klara.fit.vutbr.cz:3000/data';
@@ -55,7 +75,7 @@ function WriteResults() {
 
     if (ViewMod == 0) {
         for (let index = 0; index < Gradients.length; index++) {
-            if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[index].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[ScaleIndex][0] == "#A1A1A1") {
+            if (filterEmptyTickbox.checked && JSON.parse(Gradients[index].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[index].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[ScaleIndex][0] == "#A1A1A1") {
                 badResults++;
             } else {
 
@@ -249,7 +269,7 @@ function Next() {
 }
 
 function SortTableClicked() {
-    if (SortingTable.style.left == "30px") SortingTable.style.left = "-195px";
+    if (SortingTable.style.left == "30px") SortingTable.style.left = "-250px";
     else SortingTable.style.left = "30px";
 }
 

@@ -61,9 +61,14 @@
 
                         </table>
                     </div>
+                    <div style="grid-row: 3; grid-column: 1;"> Odpovědi :</div>
+
                     <ul class="lowerPanelGrid">
                         <li id="basicText">
                         </li>
+                        <!-- <li>
+                            <input type="button" value="Smazat Data" class="deleteButton" onclick="DeleteData(0)">
+                        </li> -->
                         <li>
                             <input type="button" value="Stáhnout" class="downloadButton" onclick="Download(0)">
 
@@ -81,6 +86,8 @@
 
                         </table>
                     </div>
+                    <div style="grid-row: 3; grid-column: 1;"> Odpovědi :</div>
+
                     <ul class="lowerPanelGrid">
                         <li id="colorText">
                         </li>
@@ -165,10 +172,43 @@
 
         }
 
+        function DeleteData(index) {
+            if (index == 0) {
+                Remove();
+                // let idField = [];
+                // for (let i = 0; i < basicResults.length; i++) {
+                //     idField[i] = basicResults[i].id;
+                // }
+                // for (let i = 0; i < idField.length; i++) {
+                //     Remove(idField[i]);
+                //     delay(1000);
+                // }
+            };
+        }
+
+        function delay(time) {
+            return new Promise(resolve => setTimeout(resolve, time));
+        }
+
+        const Remove = async () => {
+            let uri = 'http://klara.fit.vutbr.cz:3000/data';
+            console.log(uri);
+            let saveData = {
+                colors: "",
+                timestamp_s: 0
+            }
+
+            await fetch(uri, {
+                method: 'PATCH',
+                body: JSON.stringify(saveData),
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
         function Download(index) {
-            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(index == 0 ? basicResults : colorResults));
+            var dataString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(index == 0 ? basicResults : colorResults));
             var down = document.createElement('a');
-            down.href = dataStr;
+            down.href = dataString;
             down.download = (index == 0 ? "GradientData" : "ColorsData") + ".json";
             document.body.appendChild(down);
             down.click();

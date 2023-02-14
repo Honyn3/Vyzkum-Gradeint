@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,37 +8,42 @@
     <link rel="stylesheet" href="style.css">
     <title>Colors results</title>
 </head>
+
 <body>
-<div>
-<p id="sortingTitle">Řazení</p>
-<div id="sortingDiv">
-<select id="colorModel" onchange="changeOfColorType()">
-    <option value="rgb">RGB</option>
-    <option value="hsl">HSL</option>
-</select>
-<div>1. <input type="button" value="R" id="RGBButton1" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown1" class="switchButton" onclick="SortUpDown(this)"></div>
-<div>2. <input type="button" value="G" id="RGBButton2" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown2" class="switchButton"  onclick="SortUpDown(this)"></div>
-<div>3. <input type="button" value="B" id="RGBButton3" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown3" class="switchButton"  onclick="SortUpDown(this)"></div>
-<button id="sortButton" onclick="Sort()">Setřídit</button>
-<select id="numOfDivs" onchange="loadColors()">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-</select>
-</div>
-</div>
-<div>
-<p id="word"></p>
-<div id="resultsDiv">
-</div>
-<button id="backButton" onclick="back()">zpátky</button>
-<button id="forwardButton" onclick="next()">další</button>
-</div>
+    <div>
+        <p id="sortingTitle">Řazení</p>
+        <div id="sortingDiv">
+            <select id="colorModel" onchange="changeOfColorType()">
+                <option value="rgb">RGB</option>
+                <option value="hsl">HSL</option>
+            </select>
+            <div>1. <input type="button" value="R" id="RGBButton1" class="switchButton" onclick="ChangeSort(this)">
+                <input type="button" value="" id="UpDown1" class="switchButton" onclick="SortUpDown(this)"></div>
+            <div>2. <input type="button" value="G" id="RGBButton2" class="switchButton" onclick="ChangeSort(this)">
+                <input type="button" value="" id="UpDown2" class="switchButton" onclick="SortUpDown(this)"></div>
+            <div>3. <input type="button" value="B" id="RGBButton3" class="switchButton" onclick="ChangeSort(this)">
+                <input type="button" value="" id="UpDown3" class="switchButton" onclick="SortUpDown(this)"></div>
+            <button id="sortButton" onclick="Sort()">Setřídit</button>
+            <select id="numOfDivs" onchange="loadColors()">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <p id="word"></p>
+        <div id="resultsDiv">
+        </div>
+        <button id="backButton" onclick="back()">zpátky</button>
+        <button id="forwardButton" onclick="next()">další</button>
+    </div>
 </body>
 <script src="colorsresults.js"></script>
+
 </html>

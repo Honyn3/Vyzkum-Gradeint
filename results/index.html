@@ -14,7 +14,7 @@
     <div id="page">
     <div id="SortingTable">
         <div id="SortButtons" onclick="SortTableClicked()"></div>
-        <div class="toMiddle">Řazení</div>
+        <div class="toMiddle" style="font-size: large; margin-bottom: 10px;">Řazení & Filtry</div>
 
         <div class="ColorSort">R:
             <li class="ColorList">
@@ -48,10 +48,17 @@
         </li>
         </div>
 
-        <input type="button" value="Škály" id="GpaphButton" onclick="ScaleChange()">
-        <input type="button" value="Grafy" id="GpaphButton" onclick="GraphChange()">
-        <input type="button" value="Počty" id="GpaphButton" onclick="PercentChange()">
+        <input type="button" value="Škály" class="GraphButton" onclick="ScaleChange(), GraphButton(0)">
+        <input type="button" value="Grafy" class="GraphButton" onclick="GraphChange(), GraphButton(1)">
+        <input type="button" value="Počty" class="GraphButton" onclick="PercentChange(), GraphButton(2)">
 
+
+        <li class="ColorList">
+            <ul style="padding-left: 0px;"><div class="ColorSort" style="padding-top: 3px;">Filtrovat prázdné: </div></ul>
+            <ul><input type="checkbox" name="" id="filterEmptyTickbox" checked="true" onclick="WriteResults()"></ul>
+        </li>
+    
+        
     </div>
 
     <p id="heading">Výsledky</p>
