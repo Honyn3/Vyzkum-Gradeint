@@ -9,7 +9,9 @@ let page = document.getElementById("stranka");
 let bodyContent = document.getElementById("bodyContent");
 var store = document.querySelector(':root')
 let scaleList = document.getElementById("scaleLi");
+let login = document.getElementById("login");
 
+let username = "sám";
 let btnIndex = 0;
 let colorWidthHalf = 105;
 let tutorialBool = false;
@@ -21,7 +23,35 @@ let checked;
 let backgroundClick = false;
 let timestamp = 0;
 
-if(false){ // pokud chci aby vyplnili jen 1x pak dát localStorage.getItem("pouzil") místo false
+document.addEventListener('keypress', (event) => {
+    if (event.key == "1") ShowLogin();
+})
+
+function ShowLogin() {
+
+    if (login.style.display == "none" || login.style.display == "") login.style.display = "inherit";
+    else login.style.display = "none";
+}
+
+function CreateLogin() {
+    let loginBtn = document.createElement("input")
+    loginBtn.type = "button"
+    loginBtn.value = "OK";
+    loginBtn.id = "tutorialbutton";
+    login.appendChild(loginBtn);
+    loginBtn.addEventListener('click', () => {
+        username = document.getElementById("loginText").value;
+        if (username == "") { 
+            username = "sám"; 
+            alert("Prázdné jméno -> uloží se výchozí hodnota");
+        }else alert("Na dotazník dohlíží: " + username);
+        login.style.display = "none";
+    });
+}
+
+CreateLogin();
+
+if (false) { // pokud chci aby vyplnili jen 1x pak dát localStorage.getItem("pouzil") místo false
     document.getElementById("buttonstart").style.display = "none";
     document.getElementById("konec").style.display = "block";
     document.getElementById("konec").innerHTML = "Průzkum jste již vyplnil(a), moc děkujeme.";
@@ -266,7 +296,7 @@ function dalsi() {
         {
             document.getElementById("stranka").style.display = "none";
             document.getElementById("konec").style.display = "block";
-            Save(localStorage.getItem("odpovedi"), timestamp);
+            Save(localStorage.getItem("odpovedi"), timestamp, username); //uloží data do db
             localStorage.setItem("pouzil", "ano");
         } else {
             LeftColor = odpovedi[numOfPages][0];
@@ -303,7 +333,7 @@ function dalsi() {
             numOfPages = numOfPages + 1;
             document.getElementById("cislostranky").innerHTML = numOfPages + "/" + numOfQuestions;
             if (numOfQuestions == numOfPages) {
-                
+
                 document.getElementById("dalsi").innerHTML = "Ukončit dotazník";
                 document.getElementById("dalsi").style.width = "250px";
             } else {
@@ -311,9 +341,9 @@ function dalsi() {
                 document.getElementById("dalsi").style.width = "130px";
 
             }
-           
+
             AdjustColorToBackground();
-            
+
 
         }
     }
@@ -362,9 +392,9 @@ function zpatky() {
         if (numOfQuestions == numOfPages) {
             document.getElementById("dalsi").innerHTML = "Ukončit dotazník";
             document.getElementById("dalsi").style.width = "250px";
-            
+
         } else {
-            
+
             document.getElementById("dalsi").innerHTML = 'Další <svg width="24" height="20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path fill="white" d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>';
             document.getElementById("dalsi").style.width = "130px";
         }

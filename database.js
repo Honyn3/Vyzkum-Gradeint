@@ -1,10 +1,11 @@
-const Save = async (data, timestamp) => {
+const Save = async (data, timestamp, collector) => {
     //let uri = 'http://localhost:3000/data';
 
     let uri = 'http://klara.fit.vutbr.cz:3000/data';
     let saveData = {
         colors: data,
-        timestamp_s: timestamp / 1000
+        timestamp_s: timestamp / 1000,
+        collector: collector
     };
 
     await fetch(uri, {

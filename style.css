@@ -138,6 +138,30 @@ body {
     margin-top: 19%;
 }
 
+#login{
+    display: none;
+    position: absolute;
+    z-index: 50;
+
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    /* margin: auto; */
+    width: 300px;
+    padding: 1%;
+    z-index: 10;
+    font-size: 1.3em;
+    background: rgba(83, 83, 83, 0.993);
+    color: rgb(255, 255, 255);
+    text-align: left;
+    border-radius: 7px;
+    transition: all 0.2s;
+}
+#loginText{
+    width: 292px;
+    margin-bottom: 3%;
+}
+
 /*ADAM*/
 #cursortutorial {
     position: fixed;

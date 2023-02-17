@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta&family=Nunito&family=Roboto&display=swap');
+
 body{
     margin: 0;
     padding: 0;
     background-color: #f8fce8;
+    font-family: 'Roboto', sans-serif;
 }
 #page{
     display:grid;
@@ -138,6 +141,9 @@ body{
 #count{
     padding-bottom: 0;
     margin-bottom: 0;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
 }
 
 .GraphButton{

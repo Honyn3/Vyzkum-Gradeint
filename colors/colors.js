@@ -17,11 +17,46 @@ let wordsForHeading;
 let arrayOfColors = [];
 let H = 0, S = 100, L = 50;
 let Counter = document.getElementById("Counter");
+let username = "sám";
+let timestamp = 0;
 root.style.setProperty('--BrightPickerLeft', document.getElementById("BrightnessPicker").offsetLeft + "px");
 
 window.addEventListener('DOMContentLoaded', () => {
     GetQuestions();
+    setInterval(TimeIncrement, 500);
 })
+
+document.addEventListener('keypress', (event) => {
+    if (event.key == "1") ShowLogin();
+})
+
+function TimeIncrement() {
+    timestamp += 500;
+}
+
+function ShowLogin() {
+
+    if (login.style.display == "none" || login.style.display == "") login.style.display = "inherit";
+    else login.style.display = "none";
+}
+
+function CreateLogin() {
+    let loginBtn = document.createElement("input")
+    loginBtn.type = "button"
+    loginBtn.value = "OK";
+    loginBtn.id = "tutorialbutton";
+    login.appendChild(loginBtn);
+    loginBtn.addEventListener('click', () => {
+        username = document.getElementById("loginText").value;
+        if (username == "") { 
+            username = "sám"; 
+            alert("Prázdné jméno -> uloží se výchozí hodnota");
+        }else alert("Na dotazník dohlíží: " + username);
+        login.style.display = "none";
+    });
+}
+
+CreateLogin();
 
 const GetQuestions = async () => {
     let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource';
@@ -200,11 +235,13 @@ function nextWord() {
 }
 
 const Save = async (data) => {
-    let uri = 'http://localhost:3000/colorsdata';
+    //let uri = 'http://localhost:3000/colorsdata';
 
-    //let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
     let saveData = {
-        colors: data
+        colors: data,
+        timestamp_s: timestamp/1000,
+        collector: username
     };
 
     await fetch(uri, {
