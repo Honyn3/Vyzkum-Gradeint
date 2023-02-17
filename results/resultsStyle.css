@@ -82,7 +82,7 @@ body{
     background-color: aquamarine;
     width: 20px;
     height: 100px;
-    left: 205px;
+    left: 247px;
     border: solid gray;
     transition: all 0.3s;
     background: url(/img/arrowForward.png);
@@ -97,12 +97,37 @@ body{
 }
 
 #SortingTable{
-    top: 100px;
+    border-radius: 3px;
+    top: 14.5%;
+    left: 3%;
+
     border: 1px solid black;
-    width: 201px;
-    height: 500px;
+    width: 241px;
     position: fixed;
-    left: 30px;
+    background-color: #DD614A;
+    transition: all 0.3s;
+    padding: 3px;
+    color: #f8fce8;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+#filterEmptyTickbox{
+    margin-right: 20px;
+    padding: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+#FilterTable{
+    border-radius: 3px;
+    top: 60%;
+    left: 3%;
+
+    border: 1px solid black;
+    width: 241px;
+    position: fixed;
     background-color: #DD614A;
     transition: all 0.3s;
     padding: 3px;
@@ -115,17 +140,20 @@ body{
     margin-bottom: 0;
 }
 
-#GpaphButton{
+.GraphButton{
     width: 100%;
     height: 30px;
     margin: auto;
+    margin-top: 5px;
+    border-radius: 3px;
+
     padding: auto;
     background-color:#3B5249;
     color: #f8fce8;
     cursor: pointer;
     border: 1px solid gray;
 }
-#GpaphButton:hover{
+.GraphButton:hover{
     
     background-color:#4c685d;
     color: white;
@@ -157,6 +185,7 @@ body{
 }
 
 .ColorList{
+    justify-content: space-evenly;
     list-style: none;
     width: 100%;
     display: inline-flex;

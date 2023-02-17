@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 body{
     padding: 0;
     margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 p {
@@ -70,13 +73,51 @@ nav {
     grid-template-rows: 50% 50%;
     row-gap: 10px;
     height: 90%;
+    margin-bottom: 100px;
+
 }
 
 .lowerCont{
     display: grid;
     grid-template-columns: 10% 50% 20% 20%;
-    grid-template-rows: 100px 100px 100px 100px;
+    grid-template-rows: 100px 100px 10px 120px;
     height: 50%;
+}
+
+.lowerPanelGrid{
+    grid-row: 4;
+    grid-column: 2/5;
+    background-color: #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    gap: 10px;
+    list-style: none;
+    padding-left: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+.downloadButton{
+    width: 105px;
+    height: 40px;
+    background-image: url(../img/arrowDown.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: rgba(44, 239, 44, 0.847);
+    border-radius: 2px;
+    border: solid 2px gray;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+    background-position: right;
+    margin-left: 50px;
+}
+.downloadButton:hover{
+    background-color: rgb(44, 239, 44);
+    border: 2px solid black;
 }
 
 #basicTable{
@@ -102,6 +143,9 @@ nav {
 .width80{
     width: 80%;
 }
+.width100{
+    width: 100%;
+}
 .table{
     overflow-x: hidden;
     overflow-y: auto;
@@ -111,13 +155,12 @@ nav {
     margin-left: 5%;
 }
 
-#saveButton{
+.saveButton{
     background-color: rgba(44, 239, 44, 0.847);
     border: solid 1px green;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
-    width: 83%;
   padding: 5px;
 
 }
@@ -135,13 +178,24 @@ nav {
     background-color: rgb(198, 5, 5);
 }
 
+.minusButtonBasic{
+    background-color: rgba(255, 0, 0, 0.705);
+    border: solid 1px green;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 5px;
+}
+
+.minusButtonBasic:hover{
+    background-color: rgb(198, 5, 5);
+}
 #saveButton:hover{
     background-color: rgb(17, 183, 17);
     
 }
 
 .plusButton{
-    width: 83%;
     background-color: rgba(210, 239, 44, 0.847);
     border: solid 1px green;
     border-radius: 4px;
@@ -161,4 +215,60 @@ nav {
   padding: 5px;
   padding-left: 10px;
 
+}
+
+.basicText{
+    position: absolute;
+    width: 70%;
+    padding: 15px;
+}
+
+.QuestionInputBasic{
+    border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 5px;
+  padding-left: 10px;
+
+}
+
+#mobile{
+    display: none;
+}
+#slideList{
+    list-style: none;
+}
+
+@media only screen and (max-width: 940px) {
+    #desktop{
+        display: none;
+    }
+    #mobile{
+        display: inline;
+        font-size: 20px;
+        color: aliceblue;
+    }
+    #hamburger{
+        position: absolute;
+        right: 5%;
+        height: 50px;
+        width: 50px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 30px;
+        color: aliceblue;
+        transition: all 0.3s;
+    }
+    #slideMenu{
+        width: 100%;
+        position: absolute;
+        right: 200%;
+        transition: all 0.3s;
+        background-color: rgb(59, 59, 59);
+        list-style: none;
+
+    }
+    
+    
 }

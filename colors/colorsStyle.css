@@ -11,6 +11,7 @@ body {
     background-color: #000000;
     padding: 0;
     margin: 0;
+    overscroll-behavior: contain;
 }
 
 #ColorBackground {
@@ -18,7 +19,7 @@ body {
     padding: 0;
     margin: 0;
     width: 70%;
-    background-color: rgb(255, 255, 255);
+    background-color: hsl(0, 0%, 100%);
     height: 100%;
     padding: auto;
     position: absolute;
@@ -163,6 +164,12 @@ body {
 }
 
 @media only screen and (max-width: 1050px) {
+
+    body{
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
     #ColorBackground {
         width: 100%;
         left: 0%;
@@ -173,15 +180,22 @@ body {
     }
 
     #nextButton {
-        width: 19%;
-        height: 3.3%;
-        top: 59%;
-        right: 8%;
-        padding: 5px;
+        height: 30%;
+        top: 25%;
+        margin: 0;
+        padding: 0;
+        background-color: #0000002f;
         background-image: url(/img/arrowForward.png);
         background-size: contain;
         background-position: 100%;
         background-repeat: no-repeat;
+        border-radius: 10px;
+        /* width: 19%;
+        height: 3.3%;
+        top: 59%;
+        right: 8%;
+        padding: 5px;
+        
 
         filter: none;
         background-color: rgb(240, 240, 241);
@@ -190,7 +204,7 @@ body {
         text-align: left;
         border-radius: 3px;
         border: #000000 solid 1px;
-        box-shadow: #888888 2px 2px;
+        box-shadow: #888888 2px 2px; */
     }
 
     #Counter {

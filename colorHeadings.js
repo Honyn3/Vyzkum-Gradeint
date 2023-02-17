@@ -5,7 +5,7 @@ function AdjustColorToBackground() {
         else if (index == scaleList.childElementCount - 1) percentage = 100;
         else percentage = (index * 100 / scaleList.childElementCount) + 50 / scaleList.childElementCount;
         // child.style.color = GetColorFromGradient(percentage); //pro zmenu barvy pisma na gradientovou
-        if (GetColorAverage(percentage) > 128) child.style.color = "#222A35"; //pro zmenu barvy pisma vzhledem k pozadi
+        if (GetColorAverage(percentage) > 104) child.style.color = "#222A35"; //pro zmenu barvy pisma vzhledem k pozadi
         else child.style.color = "#f0f0f0";
     }
 }

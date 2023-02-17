@@ -15,7 +15,7 @@ let chosenColor = "hsl(180, 50%, 50%)";
 let wordIteration = 0;
 let wordsForHeading;
 let arrayOfColors = [];
-let H, S = 100, L = 50;
+let H = 0, S = 100, L = 50;
 let Counter = document.getElementById("Counter");
 root.style.setProperty('--BrightPickerLeft', document.getElementById("BrightnessPicker").offsetLeft + "px");
 
@@ -73,12 +73,15 @@ function SaturaionClick(e) {
 }
 
 document.body.onmousemove = function Click(e) {
-    if (SaturationMD) {
-        SaturaionClick(e);
+    if(document.body.offsetWidth > 1050){
+        if (SaturationMD) {
+            SaturaionClick(e);
+        }
+        if (BrightnessMD) {
+            BrightnessClick(e);
+        }
     }
-    if (BrightnessMD) {
-        BrightnessClick(e);
-    }
+    
 }
 
 function BrightnessClick(e) {
@@ -131,7 +134,7 @@ document.getElementById("Saturation").ontouchcancel = function () {
 }
 
 var BrightnessMD = false;
-BrightnessSelect.ontouchstart = function (e) {
+BrightnessSelect.ontouchmove = function (e) {
     BrightnessMD = true;
     SaturationMD = false;
     BrightnessTap(e);
@@ -161,6 +164,8 @@ function ResetBoundries() {
     ColorBackgroundLeft = ColorBackground.getBoundingClientRect().left;
 }
 function nextWord() {
+    SaturationMD = false;
+    BrightnessMD = false;
     if (wordIteration == 0) {
         document.getElementById("Subject").innerHTML = wordsForHeading[wordIteration];
         wordIteration++;

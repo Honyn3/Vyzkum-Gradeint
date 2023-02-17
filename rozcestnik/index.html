@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <nav>
+        <nav id="desktop">
             <p id="Heading">Rozcestník</p>
             <ul class="Grid">
                 <ul class="Grid">
@@ -27,6 +27,22 @@
                 </ul>
             </ul>
         </nav>
+        <div id="mobile">
+            <nav>
+                <h1>Rozcestník</h1>
+                <input type="button" value="=" id="hamburger" onclick="Hamburger()">
+            </nav>
+            <div id="slideMenu">
+                <ul class="slideList" style="list-style: none;">
+                    <li class="bold">Základ:</li>
+                    <li><a href="http://klara.fit.vutbr.cz:3000/" class="border">Dotazník</a></li>
+                    <li><a href="http://klara.fit.vutbr.cz:3000/results/" class="border">Výsledky</a></li>
+                    <li class="bold">Barvy:</li>
+                    <li><a href="http://klara.fit.vutbr.cz:3000/colors/" class="border">Dotazník</a></li>
+                    <li><a href="http://klara.fit.vutbr.cz:3000/colorsresults/" class="border">Výsledky</a></li>
+                </ul>
+            </div>
+        </div>
     </header>
 
     <div id="password">
@@ -40,11 +56,24 @@
                 <hr>
                 <div class="lowerCont">
                     <div style="grid-row: 1; grid-column: 1;"> Otázky :</div>
-                    <div style="grid-row: 1 / 4; grid-column: 2 / 5;" class="table">
+                    <div style="grid-row: 1 / 3; grid-column: 2 / 5;" class="table">
                         <table id="basicTable">
 
                         </table>
                     </div>
+                    <div style="grid-row: 3; grid-column: 1;"> Odpovědi :</div>
+
+                    <ul class="lowerPanelGrid">
+                        <li id="basicText">
+                        </li>
+                        <!-- <li>
+                            <input type="button" value="Smazat Data" class="deleteButton" onclick="DeleteData(0)">
+                        </li> -->
+                        <li>
+                            <input type="button" value="Stáhnout" class="downloadButton" onclick="Download(0)">
+
+                        </li>
+                    </ul>
                 </div>
         </div>
         <div id="colors" class="contChild">
@@ -52,35 +81,60 @@
                 <hr>
                 <div class="lowerCont">
                     <div style="grid-row: 1; grid-column: 1;"> Otázky :</div>
-                    <div style="grid-row: 1 / 4; grid-column: 2 / 5;" class="table">
+                    <div style="grid-row: 1 / 3; grid-column: 2 / 5;" class="table">
                         <table id="colorTable">
 
                         </table>
                     </div>
+                    <div style="grid-row: 3; grid-column: 1;"> Odpovědi :</div>
+
+                    <ul class="lowerPanelGrid">
+                        <li id="colorText">
+                        </li>
+                        <li>
+                            <input type="button" value="Stáhnout" class="downloadButton" onclick="Download(1)">
+
+                        </li>
+                    </ul>
+
                 </div>
         </div>
     </div>
     <!-- <script src="\..\node_modules/jsonwebtoken/verify.js"></script> -->
 
     <script>
+        function Hamburger() {
+            let hmbButton = document.getElementById("hamburger");
+            hmbButton.value = hmbButton.value == "=" ? "x" : "=";
+
+            let slidemenu = document.getElementById("slideMenu");
+            slidemenu.style.right = slidemenu.style.right == "0%" ? "200%" : "0%";
+        }
+
+
         let basicData;
         let basicTable = document.getElementById("basicTable");
-
         let colorData;
         let colorTable = document.getElementById("colorTable");
-
+        let basicResults;
+        let basicPanel = document.getElementsByClassName("lowerPanel")[0];
+        let colorResults;
+        let colorPanel = document.getElementsByClassName("lowerPanel")[1];
 
         window.addEventListener('DOMContentLoaded', () => {
             GetQuestionsBasic();
             GetQuestionsColor();
+
+            GetResultsBasic();
+            GetResultsColor();
         })
 
         function Check() {
             let pass = document.getElementById("inputPass").value;
-            PassSave(pass);
+            CheckPass(pass);
         }
 
-        function PassSave(data) {
+        function CheckPass(data) {
             let formData = {
                 password: data,
                 email: "mail@mail.com"
@@ -94,11 +148,15 @@
                 .then(data => Proceed(data));
         }
 
+        function Authenticate(req, res, next) {
+            const authHeader = req.headers['authorization'];
+            const token = authHeader && authHeader.split(' ')[1];
+        }
+
         function Proceed(data) {
 
             // var decoded = jws.verify(data.accessToken, 'shhhhh');
-            // console.log(decoded.foo) // bar
-            if (data.user.email == "mail@mail.com") ShowTheSite();
+            if (data.user.email == "mail@mail.com" && data.user.id == 1 && data.accessToken != null) ShowTheSite();
             else console.log("fail")
         }
 
@@ -109,6 +167,82 @@
             show = true;
             WriteToTableColor();
             WriteToTableBasic();
+            WriteToPanelBasic();
+            WriteToPanelColor();
+
+        }
+
+        function DeleteData(index) {
+            if (index == 0) {
+                Remove();
+                // let idField = [];
+                // for (let i = 0; i < basicResults.length; i++) {
+                //     idField[i] = basicResults[i].id;
+                // }
+                // for (let i = 0; i < idField.length; i++) {
+                //     Remove(idField[i]);
+                //     delay(1000);
+                // }
+            };
+        }
+
+        function delay(time) {
+            return new Promise(resolve => setTimeout(resolve, time));
+        }
+
+        const Remove = async () => {
+            let uri = 'http://klara.fit.vutbr.cz:3000/data';
+            console.log(uri);
+            let saveData = {
+                colors: "",
+                timestamp_s: 0
+            }
+
+            await fetch(uri, {
+                method: 'PATCH',
+                body: JSON.stringify(saveData),
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
+        function Download(index) {
+            var dataString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(index == 0 ? basicResults : colorResults));
+            var down = document.createElement('a');
+            down.href = dataString;
+            down.download = (index == 0 ? "GradientData" : "ColorsData") + ".json";
+            document.body.appendChild(down);
+            down.click();
+            down.remove();
+        }
+
+        function WriteToPanelBasic() {
+            let textDiv = document.getElementById("basicText");
+            let text = "Celkem vyplnění: " + basicResults.length + "\n";
+
+            textDiv.innerHTML = text;
+        }
+
+        function WriteToPanelColor() {
+            let textDiv = document.getElementById("colorText");
+            let text = "Celkem vyplnění: " + colorResults.length + "\n";
+
+            textDiv.innerHTML = text;
+        }
+
+        const GetResultsBasic = async () => {
+            let uri = 'http://klara.fit.vutbr.cz:3000/data';
+            const wait = await fetch(uri);
+            const data = await wait.json();
+
+            basicResults = data;
+        }
+
+        const GetResultsColor = async () => {
+            let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+            const wait = await fetch(uri);
+            const data = await wait.json();
+
+            colorResults = data;
         }
 
         //#region Basic
@@ -130,13 +264,13 @@
                 for (let i = 0; i < basicData.length; i++) {
                     let div = "<tr>"
                     for (let j = 0; j < basicData[i].length; j++) {
-                        div += '<td class="basicTd"><input type="text" value="' + basicData[i][j] + '" class="width80 QuestionInput"></td>';
+                        div += '<td class="basicTd"><input type="text" value="' + basicData[i][j] + '" class="width100 QuestionInputBasic"></td>';
                     }
-                    div += '<td><input type="button" value="-" onclick="RemoveBasic(' + i + ')" class="minusButton"></td>'
+                    div += '<td><input type="button" value="-" onclick="RemoveBasic(' + i + ')" class="minusButtonBasic"></td>'
                     div += "</tr>";
                     basicTable.innerHTML += div;
                 }
-                let addNew = '<td><input type="button" value="Přidat" onclick="addNewBasic()" class="plusButton"></td>' + '<td><input type="button" value="Uložit" onclick="SaveBasic()" id="saveButton"></td>';
+                let addNew = '<td><input type="button" value="Přidat" onclick="addNewBasic()" class="plusButton width100"></td>' + '<td><input type="button" value="Uložit" onclick="SaveBasic()" class="width100 saveButton"></td>';
                 basicTable.innerHTML += addNew;
             }
         }
@@ -188,8 +322,6 @@
             });
         }
 
-
-
         function addNewBasic() {
             basicData.push(["", "", "", "", ""]);
             WriteToTableBasic();
@@ -226,7 +358,7 @@
                     div += "</tr>";
                     colorTable.innerHTML += div;
                 }
-                let addNew = '<td><input type="button" value="Přidat" onclick="addNewColor()" class="plusButton"></td>' + '<td><input type="button" value="Uložit" onclick="SaveColor()" id="saveButton"></td>';
+                let addNew = '<td><input type="button" value="Přidat" onclick="addNewColor()" class="plusButton width80"></td>' + '<td><input type="button" value="Uložit" onclick="SaveColor()" class="width80 saveButton"></td>';
                 colorTable.innerHTML += addNew;
             }
         }
