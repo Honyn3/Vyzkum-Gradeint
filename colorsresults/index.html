@@ -8,7 +8,7 @@
     <title>Colors results</title>
 </head>
 <body>
-<div>
+<div >
 <p id="sortingTitle">Řazení</p>
 <div id="sortingDiv">
 <select id="colorModel" onchange="changeOfColorType()">
@@ -29,15 +29,27 @@
     <option value="7">7</option>
     <option value="8">8</option>
 </select>
+
 </div>
 </div>
 <div>
-<p id="word"></p>
+<div id="topRow">
+    <p id="filtr" onclick="displayFiltr()">filtr</p>
+    <p id="word"></p>
+    <p id="pageNum"></p>
+</div>
 <div id="resultsDiv">
 </div>
 <button id="backButton" onclick="back()">zpátky</button>
 <button id="forwardButton" onclick="next()">další</button>
 </div>
+<div id="filtrPage">
+<button id="addFiltrButton" onclick="addCondition()">přidat</button>
+<div id="filtrDivs"></div>
+<button id="deleteFiltrsButton" onclick="filtersOff()">vypnout filtry</button>
+<button id="filtrButton" onclick="filter()">filtrovat</button>
+</div>
+
 </body>
 <script src="colorsresults.js"></script>
 </html>

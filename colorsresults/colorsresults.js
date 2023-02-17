@@ -3,9 +3,12 @@ let wordsForHeading;
 arrowUp = [true,true,true];
 let iteration = 0;
 var colors = [];
+var colorsNotFiltred = [];
 var colorsRGB = [];
+var conditionsArray = [];
 var NumOfProp;
 var colModel = ["R","G","B"," "];
+var allColModels = ["R","B","G","H","S","L"];
 window.addEventListener('DOMContentLoaded', () => {
     GetColors();
     GetWords();
@@ -42,7 +45,9 @@ const GetColors = async () => {
         colors.push(arrayHelp);
     }
     loadColors();
+    colorsNotFiltred = colors.slice();
     }
+    loadPageNum();
 }
 const GetWords = async () => {
     let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource';
@@ -90,6 +95,7 @@ function next() {
     }
     loadWords();
     loadColors();
+    loadPageNum();
 }
 function back() {
     if (0 == iteration) {
@@ -99,6 +105,7 @@ function back() {
     }
     loadWords();
     loadColors();
+    loadPageNum();
 }
 
 function NumOfProperties(obj) {
@@ -274,5 +281,128 @@ function SortArray(array,up,rgbOrHsl,position){//  ([],true,0/1,0/1/2)
         array.forEach(element => {
             element.reverse();
         });
+    }
+}
+function loadPageNum(){
+    document.getElementById("pageNum").innerHTML=(iteration+1)+"/"+colors.length;
+}
+function displayFiltr(){
+    document.getElementById("filtrPage").style.display = "block";
+    
+}
+function filtersOff(){
+    document.getElementById("filtrPage").style.display = "none";
+    document.getElementById("filtrDivs").innerHTML="";
+    colors = colorsNotFiltred.slice();
+    loadColors();
+}
+function addCondition(){
+    createConditionDiv();
+}
+function createConditionDiv(){
+    var arrayOfSymbols = ["=",">","<","<=",">="];
+    var conDiv = document.createElement("div");
+    var letterInput = document.createElement("input");
+    var selectSymbol = document.createElement("select");
+    var valOfCondition = document.createElement("input");
+    var delCondition = document.createElement("input");
+    letterInput.addEventListener("click",function() {
+        circleColModels(letterInput)
+      });
+      delCondition.addEventListener("click",function() {
+        deleteCondition(conDiv)
+      });
+    conDiv.className="conDiv";
+    letterInput.className="letterInput";
+    valOfCondition.className="valOfCondition";
+    selectSymbol.className="selectSymbol";
+    delCondition.className="delCondition";
+    letterInput.setAttribute("type","button");
+    delCondition.setAttribute("type","button");
+    valOfCondition.setAttribute("type","text");
+    letterInput.value = "R";
+    delCondition.value="-";
+    for (let index = 0; index < arrayOfSymbols.length; index++) {
+        var option = document.createElement("option");
+        option.innerHTML = arrayOfSymbols[index];
+        selectSymbol.appendChild(option);
+    }
+    conDiv.append(letterInput,selectSymbol,valOfCondition,delCondition);
+    document.getElementById("filtrDivs").appendChild(conDiv);
+}
+function deleteCondition(el){
+    document.getElementById("filtrDivs").removeChild(el);
+}
+function circleColModels(el){
+    for (let index = 0; index < allColModels.length; index++) {
+        if (el.value == allColModels[index]) {
+            if ((index+1)==allColModels.length) {
+                el.value = allColModels[0].split();
+                break;
+            } else {
+                el.value = allColModels[index+1].split();
+                break;
+            }
+        }
+    }
+}
+function filter(){
+    conditionsArray =[];
+    var condition = [];
+    var divCollection = document.getElementById("filtrDivs").children;
+    if (divCollection.length!=0) {
+        if(checkIfNumbers(divCollection)){
+            for (let i = 0; i < divCollection.length; i++) {
+                for (let index = 0; index < (divCollection[i].children.length -1); index++) {
+                    condition[index] = divCollection[i].children[index].value.replace(/\s/g, '');
+                }
+                conditionsArray.push(condition.concat());
+            }
+            document.getElementById("filtrPage").style.display = "none";
+            filterColors();
+            loadColors();
+        }
+    }else{
+        filtersOff();
+    }
+    
+}
+function checkIfNumbers(divCollection){
+    var onlyNum = true;
+    for (let index = 0; index < divCollection.length; index++) {
+        if(isNaN(divCollection[index].children[2].value)||(divCollection[index].children[2].value.replace(/\s/g, '')==""))
+        {
+            onlyNum = false;
+            divCollection[index].children[2].value = "notNum";
+        }
+    }
+    return onlyNum;
+}
+function filterColors(){
+for (let index = 0; index < conditionsArray.length; index++) {
+    var isRgb = 0;
+    var letterPosition = 0;
+    getPositions(isRgb,letterPosition,conditionsArray[index]);
+    for (let i = 0; i < colors[iteration].length; i++) {
+        var condi = "" + colors[iteration][i][isRgb+1][letterPosition] + conditionsArray[index][1] + Number(conditionsArray[index][2]);
+        if (!eval(condi)) { //chyba
+            
+            colors[iteration].splice(i, 1);
+            i--;
+            continue;
+        }
+    }
+   
+}
+}
+function getPositions(isRgb,letterPosition,condition){
+    var rgbModel = [];
+    var hslModel = [];
+    if (["R","B","G"].includes(condition[0])) {
+        isRgb = 1;
+        letterPosition = rgbModel.indexOf(condition[0]);
+    } else {
+        isRgb = 0;
+        hslModel = hslModel.indexOf(condition[0]);
     }
 }

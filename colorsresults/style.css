@@ -11,15 +11,16 @@ body{
 #sortingDiv{
     background-color:hsl(40, 20%, 48%);
     margin-right:30%;
-    height: 500px;
+    min-height: 70vh;
     border:1px solid black;
     color:white;
     font:1em;
 }
 #resultsDiv{
-background-color:hsl(61, 28%, 71%);
-overflow: hidden;
-padding:1%;
+    background-color:hsl(61, 28%, 71%);
+    padding:1%;
+    height: 60vh;
+    overflow:auto;
 }
 .colorDiv{
     width:25%;
@@ -36,10 +37,6 @@ padding:1%;
     margin:0;
     padding:0;
 }
-#word{
-    text-align: center;
-    font-size: 1.3em;
-}
 #sortingTitle{
     text-align: center;
     margin-right:30%;
@@ -52,11 +49,11 @@ padding:1%;
     font-size: 1em;
     border-radius: 4px;
     background-color: hsl(40, 37%, 48%);
-  border: none;
-  color: white;
-  padding: 7px;
-  text-align: center;
-  text-decoration: none;
+    border: none;
+    color: white;
+    padding: 7px;
+    text-align: center;
+    text-decoration: none;
     
 }
 #forwardButton{
@@ -73,16 +70,73 @@ padding:1%;
     text-decoration: none;
 }
 .switchButton{
-font-size: 1.5em;
-width:50px;
-height:50px;
+    font-size: 1.5em;
+    width:50px;
+    height:50px;
 }
 #UpDown1{
-background-image: url(/img/arrowUp.png);
+    background-image: url(/img/arrowUp.png);
 }
 #UpDown2{
     background-image: url(/img/arrowUp.png);
 }
 #UpDown3{
     background-image: url(/img/arrowUp.png);
+}
+#pageNum{
+    font-size: 1.2em;
+    text-align: right;
+    padding: 0;
+    padding-right: 20%;
+}
+#filtr{
+    padding: 0;
+    padding-left: 20%;
+}
+#word{
+    padding: 0;
+    text-align: center;
+    font-size: 1.3em;
+}
+#topRow{
+    display:grid;
+    grid-template-columns: auto auto auto;
+}
+#filtrPage{
+    height:80vh;
+    width: 60%;
+    background-color: rgb(34, 46, 58);
+    display:none;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+#filtrDivs{
+    width:90%;
+    margin:auto;
+    height: 80%;
+    background-color: black;
+    overflow: auto;
+}
+.conDiv{
+    display:grid;
+    grid-template-columns: auto auto auto auto;
+    width:100%;
+    height:10%;
+    background-color: lightblue;
+    padding: 0;
+}
+.letterInput{
+    font-size: 1.5em;
+}
+.valOfCondition{
+    font-size: 1.5em;
+}
+.selectSymbol{
+    text-align: center;
+    font-size: 1.5em;
+}
+.delCondition{
+    text-align: center;
+    font-size: 1.5em;
 }
