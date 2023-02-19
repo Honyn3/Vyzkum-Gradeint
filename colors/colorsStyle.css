@@ -125,7 +125,6 @@ body {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), hsl(192, 2%, 50%));
     cursor: crosshair;
     border: none;
-
 }
 
 #BrightnessSelect {
