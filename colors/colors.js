@@ -82,7 +82,7 @@ function SaturaionClick(e) {
     let y = e.clientY - CanvasTop;
 
     H = x / CanvasWidth * 360;
-    S = Math.abs(100 - (y / CanvasHeight * 100));
+    S = 100 - (y / CanvasHeight * 100);
 
     if (H > 360) H = 360;
     if (H < 0) H = 0;
@@ -126,7 +126,9 @@ function BrightnessClick(e) {
     if (e.clientY <= (CanvasTop - ColorPickerWidth / 2 + 4)) pickerY = CanvasTop - CanvasTop - BrightnessPicker.offsetHeight / 2;
     if (e.clientY >= (CanvasTop + CanvasHeight + ColorPickerWidth / 2 - 3)) pickerY = CanvasHeight - BrightnessPicker.offsetHeight / 2;
 
-    L = Math.abs(100 - (y / CanvasHeight * 100));
+    L = 100 - (y / CanvasHeight * 100);
+    if (L > 100) L = 100;
+    if (L < 0) L = 0;
     root.style.setProperty('--BPickerY', pickerY + "px");
 
     SetBackground();
@@ -258,7 +260,7 @@ function SaturaionTap(e) {
     let y = e.targetTouches[0].pageY - CanvasTop;
 
     H = x / CanvasWidth * 360;
-    S = Math.abs(100 - (y / CanvasHeight * 100));
+    S = 100 - (y / CanvasHeight * 100);
 
     if (H > 360) H = 360;
     if (H < 0) H = 0;
@@ -290,8 +292,9 @@ function BrightnessTap(e) {
     if (e.targetTouches[0].pageY <= (CanvasTop - ColorPickerWidth / 2 + 4)) pickerY = CanvasTop - CanvasTop - BrightnessPicker.offsetHeight / 2;
     if (e.targetTouches[0].pageY >= (CanvasTop + CanvasHeight + ColorPickerWidth / 2 - 3)) pickerY = CanvasHeight - BrightnessPicker.offsetHeight / 2;
 
-    L = Math.abs(100 - (y / CanvasHeight * 100));
+    L = 100 - (y / CanvasHeight * 100);
+    if (L > 100) L = 100;
+    if (L < 0) L = 0;
     root.style.setProperty('--BPickerY', pickerY + "px");
-
     SetBackground();
 }
