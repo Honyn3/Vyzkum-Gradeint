@@ -19,19 +19,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
 GraphButton(0);
 function GraphButton(index){
-    graphButtons[index].style.backgroundColor = "#6a9484";
+    graphButtons[index].style.backgroundColor = "#A4243B";
 
     if(index == 0){
-        graphButtons[1].style.backgroundColor = "#3B5249";
-        graphButtons[2].style.backgroundColor = "#3B5249";
+        graphButtons[1].style.backgroundColor = "#222E50";
+        graphButtons[2].style.backgroundColor = "#222E50";
     }
     else if(index == 1){
-        graphButtons[0].style.backgroundColor = "#3B5249";
-        graphButtons[2].style.backgroundColor = "#3B5249";
+        graphButtons[0].style.backgroundColor = "#222E50";
+        graphButtons[2].style.backgroundColor = "#222E50";
     }
     else{
-        graphButtons[1].style.backgroundColor = "#3B5249";
-        graphButtons[0].style.backgroundColor = "#3B5249";
+        graphButtons[1].style.backgroundColor = "#222E50";
+        graphButtons[0].style.backgroundColor = "#222E50";
     }
 }
 
@@ -81,9 +81,9 @@ function WriteResults() {
 
                 let div;
                 if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
-                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;" title="id: '+Gradients[index].id+'; '+Gradients[index].timestamp_s+' sek, prováděl: '+(Gradients[index].collector == undefined ? "sám" : Gradients[index].collector)+'"></div>';
+                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px; border: solid 1px gray;" title="id: '+Gradients[index].id+'; '+Gradients[index].timestamp_s+' sek, prováděl: '+(Gradients[index].collector == undefined ? "sám" : Gradients[index].collector)+'"></div>';
                 } else
-                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px;" title="id: '+Gradients[index].id+'; '+Gradients[index].timestamp_s+' sek; prováděl: '+(Gradients[index].collector == undefined ? "sám" : Gradients[index].collector)+'"></div>';
+                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px; border: solid 1px gray;" title="id: '+Gradients[index].id+'; '+Gradients[index].timestamp_s+' sek; prováděl: '+(Gradients[index].collector == undefined ? "sám" : Gradients[index].collector)+'"></div>';
 
                 scalesPlace.innerHTML += div;
 

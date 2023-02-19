@@ -136,8 +136,9 @@ function SetBackground() {
     ColorBackground.style.backgroundColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
     chosenColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
 
-    if ((L > 60 && H > 180) || (L > 40 && H <= 180)) document.getElementById("Subject").style.color = "black";
-    else document.getElementById("Subject").style.color = "White";
+    let Subject = document.getElementById("Subject");
+    if ((L > 60 && H > 180) || (L > 40 && H <= 180)) Subject.style.color = "black";
+    else Subject.style.color = "White";
 
     if (document.body.getBoundingClientRect().width < 1050) {
         if ((L > 60 && H > 180) || (L > 40 && H <= 180)) document.getElementById("Counter").style.color = "black";

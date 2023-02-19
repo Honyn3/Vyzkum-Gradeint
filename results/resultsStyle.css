@@ -3,8 +3,13 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: #f8fce8;
+    background-color: #f8f8f8;
     font-family: 'Roboto', sans-serif;
+    background-image: url(../img/palette.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    color: #3B5249;
 }
 #page{
     display:grid;
@@ -37,7 +42,7 @@ body{
 }
 
 .btn{
-    background-color: #3B5249;
+    background-color: #222E50;
     color: rgb(234, 234, 234);
     border: 1px solid gray;
     border-radius: 10px;
@@ -46,7 +51,7 @@ body{
 }
 
 .btn:hover{
-    background-color: #4c685d;
+    background-color: #A4243B;
     color: rgb(255, 255, 255);
     cursor: pointer;
 }
@@ -107,10 +112,10 @@ body{
     border: 1px solid black;
     width: 241px;
     position: fixed;
-    background-color: #DD614A;
+    background-color: gray;
     transition: all 0.3s;
     padding: 3px;
-    color: #f8fce8;
+    color: aliceblue;
     padding-top: 10px;
     padding-bottom: 10px;
 
@@ -154,8 +159,9 @@ body{
     border-radius: 3px;
 
     padding: auto;
-    background-color:#3B5249;
-    color: #f8fce8;
+    background-color:#052F5F;
+    color: aliceblue;
+
     cursor: pointer;
     border: 1px solid gray;
 }
