@@ -18,18 +18,18 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 GraphButton(0);
-function GraphButton(index){
+function GraphButton(index) {
     graphButtons[index].style.backgroundColor = "#A4243B";
 
-    if(index == 0){
+    if (index == 0) {
         graphButtons[1].style.backgroundColor = "#222E50";
         graphButtons[2].style.backgroundColor = "#222E50";
     }
-    else if(index == 1){
+    else if (index == 1) {
         graphButtons[0].style.backgroundColor = "#222E50";
         graphButtons[2].style.backgroundColor = "#222E50";
     }
-    else{
+    else {
         graphButtons[1].style.backgroundColor = "#222E50";
         graphButtons[0].style.backgroundColor = "#222E50";
     }
@@ -61,7 +61,7 @@ const GetQuestions = async () => {
 
 function WriteQuestions() {
     ScaleList.innerHTML = "";
-    if (ViewMod == 0 || ViewMod == 2) {
+    if ((ViewMod == 0 || ViewMod == 2) && Questions) {
         let Current = Questions[ScaleIndex];
         for (let i = 0; i < Current.length; i++) {
             ScaleList.innerHTML += "<li style='text-align:center;width:" + 100 / Questions.length + "%'>" + Current[i] + "</li>";
@@ -81,9 +81,9 @@ function WriteResults() {
 
                 let div;
                 if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
-                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px; border: solid 1px gray;" title="id: '+Gradients[index].id+'; '+Gradients[index].timestamp_s+' sek, prováděl: '+(Gradients[index].collector == undefined ? "sám" : Gradients[index].collector)+'"></div>';
+                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px; border: solid 1px gray;" title="id: ' + Gradients[index].id + '; ' + Gradients[index].timestamp_s + ' sek, prováděl: ' + (Gradients[index].collector == undefined ? "sám" : Gradients[index].collector) + '"></div>';
                 } else
-                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px; border: solid 1px gray;" title="id: '+Gradients[index].id+'; '+Gradients[index].timestamp_s+' sek; prováděl: '+(Gradients[index].collector == undefined ? "sám" : Gradients[index].collector)+'"></div>';
+                    div = '<div style="background: linear-gradient(to right, ' + JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ' + JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ' 100%); width: 100%; height: 30px; margin: 5px; border: solid 1px gray;" title="id: ' + Gradients[index].id + '; ' + Gradients[index].timestamp_s + ' sek; prováděl: ' + (Gradients[index].collector == undefined ? "sám" : Gradients[index].collector) + '"></div>';
 
                 scalesPlace.innerHTML += div;
 
@@ -100,19 +100,30 @@ function WriteResults() {
 
         for (let index = 0; index < Gradients.length; index++) {
 
-            if (index == Gradients.length - 1) {
-                div0 += JSON.parse(Gradients[index].colors)[ScaleIndex][0];
-                if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
-                    div1 += JSON.parse(Gradients[index].colors)[ScaleIndex][1];
-                } else div1 += "#A1A1A1";
-                div2 += JSON.parse(Gradients[index].colors)[ScaleIndex][2];
+            if (filterEmptyTickbox.checked && JSON.parse(Gradients[index].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[index].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[ScaleIndex][0] == "#A1A1A1") {
+                badResults++;
+                if (index == Gradients.length - 1) {
+                    div0 = div0.slice(0, div0.length - 2)
+                    div1 = div1.slice(0, div1.length - 2)
+                    div2 = div2.slice(0, div2.length - 2)
+                };
+            }
+            else {
 
-            } else {
-                div0 += JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ';
-                if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
-                    div1 += JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ';
+                if (index == Gradients.length - 1) {
+                    div0 += JSON.parse(Gradients[index].colors)[ScaleIndex][0];
+                    if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
+                        div1 += JSON.parse(Gradients[index].colors)[ScaleIndex][1];
+                    } else div1 += "#A1A1A1";
+                    div2 += JSON.parse(Gradients[index].colors)[ScaleIndex][2];
+
+                } else {
+                    div0 += JSON.parse(Gradients[index].colors)[ScaleIndex][0] + ', ';
+                    if (JSON.parse(Gradients[index].colors)[ScaleIndex][1] != "null") {
+                        div1 += JSON.parse(Gradients[index].colors)[ScaleIndex][1] + ', ';
+                    } else div1 += "#A1A1A1, ";
+                    div2 += JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ', ';
                 }
-                div2 += JSON.parse(Gradients[index].colors)[ScaleIndex][2] + ', ';
             }
         }
 
@@ -146,49 +157,55 @@ function WriteResults() {
 
         for (let i = 0; i < Gradients.length; i++) {
 
-            let col1 = JSON.parse(Gradients[i].colors)[ScaleIndex][0];
-           
-            if(!used1.includes(col1)){
-                div1.push('<td style=" background-color: ' + col1 + '; text-align:center;" title="' + col1 + '" onclick="CopyColor(this)">' + dic1[col1].length)
-                used1.push(col1);
-            }else{
-                // div1.push('<td style=" background-color: white;">')
-
+            if (filterEmptyTickbox.checked && JSON.parse(Gradients[i].colors)[ScaleIndex][1] == "null" && JSON.parse(Gradients[i].colors)[ScaleIndex][2] == "#A1A1A1" && JSON.parse(Gradients[i].colors)[ScaleIndex][0] == "#A1A1A1") {
+                badResults++;
             }
+            else {
+                let col1 = JSON.parse(Gradients[i].colors)[ScaleIndex][0];
 
-            let col2 = JSON.parse(Gradients[i].colors)[ScaleIndex][1];
+                if (!used1.includes(col1)) {
+                    div1.push('<td style=" background-color: ' + col1 + '; text-align:center;" title="' + col1 + '" onclick="CopyColor(this)">' + dic1[col1].length)
+                    used1.push(col1);
+                } else {
+                    // div1.push('<td style=" background-color: white;">')
 
-            if(!used2.includes(col2)){
-                div2.push('<td style=" background-color: ' + col2 + '; text-align:center;" title="' + col2 + '" onclick="CopyColor(this)">' + dic2[col2].length)
-                used2.push(col2);
-            }else{
-                // div2.push('<td style=" background-color: white;">')
+                }
 
-            }
-            
-            let col3 = JSON.parse(Gradients[i].colors)[ScaleIndex][2];
+                let col2 = JSON.parse(Gradients[i].colors)[ScaleIndex][1];
 
-            if(!used3.includes(col3)){
-                div3.push('<td style=" background-color: ' + col3 + '; text-align:center;" title="' + col3 + '" onclick="CopyColor(this)">' + dic3[col3].length)
-                used3.push(col3);
-            }else{
-                // div3.push('<td style=" background-color: white;">')
+                if (!used2.includes(col2)) {
+                    div2.push('<td style=" background-color: ' + col2 + '; text-align:center;" title="' + col2 + '" onclick="CopyColor(this)">' + dic2[col2].length)
+                    used2.push(col2);
+                } else {
+                    // div2.push('<td style=" background-color: white;">')
 
+                }
+
+                let col3 = JSON.parse(Gradients[i].colors)[ScaleIndex][2];
+
+                if (!used3.includes(col3)) {
+                    div3.push('<td style=" background-color: ' + col3 + '; text-align:center;" title="' + col3 + '" onclick="CopyColor(this)">' + dic3[col3].length)
+                    used3.push(col3);
+                } else {
+                    // div3.push('<td style=" background-color: white;">')
+
+                }
             }
 
         }
+
         for (let i = 0; i < Math.max(div1.length, div2.length, div3.length); i++) {
-            div+= "<tr>"
-            if(div1[i] != undefined)
-            div += div1[i];
+            div += "<tr>"
+            if (div1[i] != undefined)
+                div += div1[i];
             else div += '<td style=" background-color: white;">';
-            if(div2[i] != undefined)
-            div += div2[i];
+            if (div2[i] != undefined)
+                div += div2[i];
             else div += '<td style=" background-color: white;">';
-            if(div3[i] != undefined)
-            div += div3[i];
+            if (div3[i] != undefined)
+                div += div3[i];
             else div += '<td style=" background-color: white;">';
-            div+= "</tr>"
+            div += "</tr>"
         }
         div += "</table>";
 
@@ -200,12 +217,12 @@ function WriteResults() {
     document.getElementById("count").innerHTML = "Celkem " + Gradients.length + " výsledků, z toho " + badResults + " neplatných, ukazuje se " + (Gradients.length - badResults);
 }
 
-function CopyColor(element){
+function CopyColor(element) {
     let toCopy = element.style.backgroundColor;
     // navigator.clipboard.writeText(toCopy);
 }
 
-function GetDic(position){
+function GetDic(position) {
     let Colors = [];
     for (let i = 0; i < Gradients.length; i++) {
         Colors[i] = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
