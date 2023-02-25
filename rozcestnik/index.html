@@ -263,8 +263,8 @@
 
                 for (let i = 0; i < basicData.length; i++) {
                     let div = "<tr>"
-                    for (let j = 0; j < basicData[i].length; j++) {
-                        div += '<td class="basicTd"><input type="text" value="' + basicData[i][j] + '" class="width100 QuestionInputBasic"></td>';
+                    for (let j = 0; j < 5; j++) {
+                        div += '<td class="basicTd"><input type="text" value="' + (basicData[i][j] != undefined ? basicData[i][j] : "") + '" class="width100 QuestionInputBasic"></td>';
                     }
                     div += '<td><input type="button" value="-" onclick="RemoveBasic(' + i + ')" class="minusButtonBasic"></td>'
                     div += "</tr>";
@@ -323,11 +323,43 @@
         }
 
         function addNewBasic() {
-            basicData.push(["", "", "", "", ""]);
+            let dataToSave = [,];
+                for (let i = 0; i < basicTable.children.length - 1; i++) {
+                    const element = basicTable.children[i];
+                    let toSave = [];
+
+                    for (let j = 0; j < element.firstChild.children.length; j++) {
+                        let help = element.firstChild.children[j].firstChild.value;
+                        if (help != "-" && help != "" && help != null) {
+
+                            toSave[toSave.length] = help;
+                        }
+                    }
+
+                    dataToSave[i] = toSave;
+                }
+            dataToSave.push(["", "", "", "", ""]);
+            basicData = dataToSave;
             WriteToTableBasic();
         }
 
         function RemoveBasic(index) {
+            let dataToSave = [,];
+                for (let i = 0; i < basicTable.children.length - 1; i++) {
+                    const element = basicTable.children[i];
+                    let toSave = [];
+
+                    for (let j = 0; j < element.firstChild.children.length; j++) {
+                        let help = element.firstChild.children[j].firstChild.value;
+                        if (help != "-" && help != "" && help != null) {
+
+                            toSave[toSave.length] = help;
+                        }
+                    }
+
+                    dataToSave[i] = toSave;
+                }
+            basicData = dataToSave;
             basicData.splice(index, 1);
             WriteToTableBasic();
         }

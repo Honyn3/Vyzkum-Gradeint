@@ -41,10 +41,10 @@ function CreateLogin() {
     login.appendChild(loginBtn);
     loginBtn.addEventListener('click', () => {
         username = document.getElementById("loginText").value;
-        if (username == "") { 
-            username = "sám"; 
+        if (username == "") {
+            username = "sám";
             alert("Prázdné jméno -> uloží se výchozí hodnota");
-        }else alert("Na dotazník dohlíží: " + username);
+        } else alert("Na dotazník dohlíží: " + username);
         login.style.display = "none";
     });
 }
@@ -235,7 +235,7 @@ const GetQuestions = async () => {
     Questions = data.data;
     numOfQuestions = Questions.length;
 
-    if (!localStorage.getItem("odpovedi") || localStorage.getItem("odpovedi") == null || localStorage.getItem("odpovedi") == "[]") {
+    if (!localStorage.getItem("odpovedi") || localStorage.getItem("odpovedi") == null || localStorage.getItem("odpovedi") == "[]" || localStorage.getItem("odpovedi").length != Questions.length) {
         for (let i = 0; i < numOfQuestions; i++) { // vytvori JSON se samými šedými barvami
             odpovedi[i] = barvy;
         }
@@ -247,25 +247,26 @@ const GetQuestions = async () => {
 function start() {
     tutorialBool = false;
     odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
-    console.log(odpovedi[0][1]);
-    if (odpovedi[0][1] == "null") {
-        gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + ", " + odpovedi[0][2] + " 100%)";
-        checked = false;
+    if (odpovedi.length == Questions.length) {
+        if (odpovedi[0][1] == "null") {
+            gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + ", " + odpovedi[0][2] + " 100%)";
+            checked = false;
+        }
+        else {
+            gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + "," + odpovedi[0][1] + "," + odpovedi[0][2] + " 100%)";
+            checked = true;
+        }
+        LeftColor = odpovedi[0][0];
+        MiddleColor = odpovedi[0][1];
+        RightColor = odpovedi[0][2];
+        leftButton.style.backgroundColor = odpovedi[0][0];
+        if (odpovedi[0][1] != "null") {
+            middleButton.style.background = odpovedi[0][1];
+        } else {
+            middleButton.style.background = "#A1A1A100";
+        }
+        rightButton.style.backgroundColor = odpovedi[0][2];
     }
-    else {
-        gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + "," + odpovedi[0][1] + "," + odpovedi[0][2] + " 100%)";
-        checked = true;
-    }
-    LeftColor = odpovedi[0][0];
-    MiddleColor = odpovedi[0][1];
-    RightColor = odpovedi[0][2];
-    leftButton.style.backgroundColor = odpovedi[0][0];
-    if (odpovedi[0][1] != "null") {
-        middleButton.style.background = odpovedi[0][1];
-    } else {
-        middleButton.style.background = "#A1A1A100";
-    }
-    rightButton.style.backgroundColor = odpovedi[0][2];
     document.getElementById("buttonstart").style.display = "none";
     document.getElementById("stranka").style.display = "block";
 
@@ -279,6 +280,14 @@ function start() {
     let timeInc = 500;
     setInterval(TimeIncrement, timeInc);
 }
+
+function ResetGradient() {
+    gradient.style.background = "linear-gradient(to right, #A1A1A1, #A1A1A1 100%)";
+    leftButton.style.backgroundColor = "#A1A1A1";
+    middleButton.style.backgroundColor = "#00000000";
+    rightButton.style.backgroundColor = "#A1A1A1";
+}
+
 function dalsi() {
     if (tutorialBool) {
         ForceEndOfAnim();
@@ -288,10 +297,13 @@ function dalsi() {
 
     } else {
         odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
-        odpovedi[numOfPages - 1][0] = LeftColor;
-        odpovedi[numOfPages - 1][1] = MiddleColor;
-        odpovedi[numOfPages - 1][2] = RightColor;
-        localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
+        if (odpovedi.length == Questions.length) {
+            odpovedi[numOfPages - 1][0] = LeftColor;
+            odpovedi[numOfPages - 1][1] = MiddleColor;
+            odpovedi[numOfPages - 1][2] = RightColor;
+            localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
+        }
+
         if (numOfQuestions == numOfPages)// zápis do online databáze v případě, že jsme na poslední stránce
         {
             document.getElementById("stranka").style.display = "none";
@@ -299,25 +311,26 @@ function dalsi() {
             Save(localStorage.getItem("odpovedi"), timestamp, username); //uloží data do db
             localStorage.setItem("pouzil", "ano");
         } else {
-            LeftColor = odpovedi[numOfPages][0];
-            MiddleColor = odpovedi[numOfPages][1];
-            RightColor = odpovedi[numOfPages][2];
-            if (odpovedi[numOfPages][1] == "null") {
-                gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages][0] + ", " + odpovedi[numOfPages][2] + " 100%)";
-                checked = false;
-            }
-            else {
-                gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages][0] + "," + odpovedi[numOfPages][1] + "," + odpovedi[numOfPages][2] + " 100%)";
-                checked = true;
-            }
-            leftButton.style.backgroundColor = odpovedi[numOfPages][0];
-            if (odpovedi[numOfPages][1] == "null") {
-                middleButton.style.backgroundColor = "#00000000";
+            if (numOfQuestions == numOfPages) {
+                LeftColor = odpovedi[numOfPages][0];
+                MiddleColor = odpovedi[numOfPages][1];
+                RightColor = odpovedi[numOfPages][2];
+                if (odpovedi[numOfPages][1] == "null") {
+                    gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages][0] + ", " + odpovedi[numOfPages][2] + " 100%)";
+                    checked = false;
+                }
+                else {
+                    gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages][0] + "," + odpovedi[numOfPages][1] + "," + odpovedi[numOfPages][2] + " 100%)";
+                    checked = true;
+                }
+                leftButton.style.backgroundColor = odpovedi[numOfPages][0];
+                if (odpovedi[numOfPages][1] == "null") {
+                    middleButton.style.backgroundColor = "#00000000";
 
-            } else
-                middleButton.style.backgroundColor = odpovedi[numOfPages][1];
-            rightButton.style.backgroundColor = odpovedi[numOfPages][2];
-
+                } else
+                    middleButton.style.backgroundColor = odpovedi[numOfPages][1];
+                rightButton.style.backgroundColor = odpovedi[numOfPages][2];
+            } else ResetGradient();
             document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
             for (let i = 0; i < Questions[numOfPages].length; i++) {
                 document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages].length + "%'>" + Questions[numOfPages][i] + "</li>";
