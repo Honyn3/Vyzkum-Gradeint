@@ -1,12 +1,15 @@
 
 let wordsForHeading;
-arrowUp = [true,true,true];
+var arrowUp = [true,true,true];
 let iteration = 0;
 var colors = [];
 var colorsNotFiltred = [];
-var colorsRGB = [];
 var conditionsArray = [];
 var NumOfProp;
+var isModelRGB = 0;
+var letterPosition = 0;
+var rgbModel = ["R","G","B"];
+var hslModel = ["H","S","L"];
 var colModel = ["R","G","B"," "];
 var allColModels = ["R","B","G","H","S","L"];
 window.addEventListener('DOMContentLoaded', () => {
@@ -45,7 +48,7 @@ const GetColors = async () => {
         colors.push(arrayHelp);
     }
     loadColors();
-    colorsNotFiltred = colors.slice();
+    colorsNotFiltred = JSON.parse(JSON.stringify(colors));
     }
     loadPageNum();
 }
@@ -67,11 +70,16 @@ function loadColors() {
     }
     document.getElementById("resultsDiv").innerHTML = "";
     for (let index = 0; index < colors[0].length; index++) {
+        var selColor = colors[iteration][index];
         var ColorDiv = document.createElement("div");
         ColorDiv.className = "colorDiv";
-        ColorDiv.innerHTML = colors[iteration][index][3];
-        ColorDiv.style.backgroundColor = colors[iteration][index][0];
-        ColorDiv.title = colors[iteration][index][0];
+        ColorDiv.innerHTML = selColor[3];
+        ColorDiv.style.backgroundColor = selColor[0];
+        if (colModel[0]=="H") {
+            ColorDiv.title = selColor[0];
+        } else {
+            ColorDiv.title = "rgb("+selColor[2][0]+", "+selColor[2][1]+", "+selColor[2][2]+")";
+        }
         ColorDiv.style.width = divWidth+"%";
         if ((index+1)%numOfDiv==0) {
             ColorDiv.style.marginRight = "0%";
@@ -126,6 +134,8 @@ if (document.getElementById("colorModel").value=="rgb") {
     colModel = ["H","S","L"," "];
     resetPreference();
 }
+colors = JSON.parse(JSON.stringify(colorsNotFiltred));
+loadColors();
 }
 
 function adjustColorModelArray (colMod, iter){
@@ -288,12 +298,11 @@ function loadPageNum(){
 }
 function displayFiltr(){
     document.getElementById("filtrPage").style.display = "block";
-    
 }
 function filtersOff(){
     document.getElementById("filtrPage").style.display = "none";
     document.getElementById("filtrDivs").innerHTML="";
-    colors = colorsNotFiltred.slice();
+    colors = JSON.parse(JSON.stringify(colorsNotFiltred));
     loadColors();
 }
 function addCondition(){
@@ -352,8 +361,9 @@ function filter(){
     var divCollection = document.getElementById("filtrDivs").children;
     if (divCollection.length!=0) {
         if(checkIfNumbers(divCollection)){
+            colors = JSON.parse(JSON.stringify(colorsNotFiltred));
             for (let i = 0; i < divCollection.length; i++) {
-                for (let index = 0; index < (divCollection[i].children.length -1); index++) {
+                for (let index = 0; index < (divCollection[i].children.length-1); index++) {
                     condition[index] = divCollection[i].children[index].value.replace(/\s/g, '');
                 }
                 conditionsArray.push(condition.concat());
@@ -378,15 +388,18 @@ function checkIfNumbers(divCollection){
     }
     return onlyNum;
 }
+
 function filterColors(){
 for (let index = 0; index < conditionsArray.length; index++) {
-    var isRgb = 0;
-    var letterPosition = 0;
-    getPositions(isRgb,letterPosition,conditionsArray[index]);
+    getPositions(conditionsArray[index]);
     for (let i = 0; i < colors[iteration].length; i++) {
-        var condi = "" + colors[iteration][i][isRgb+1][letterPosition] + conditionsArray[index][1] + Number(conditionsArray[index][2]);
+        if ((isModelRGB==0)&&(letterPosition!=0)) {
+            var color = 100*colors[iteration][i][isModelRGB+1][letterPosition];
+        } else{
+            var color = colors[iteration][i][isModelRGB+1][letterPosition];
+        }
+        var condi = "" + color + conditionsArray[index][1] + Number(conditionsArray[index][2]);
         if (!eval(condi)) { //chyba
-            
             colors[iteration].splice(i, 1);
             i--;
             continue;
@@ -395,14 +408,12 @@ for (let index = 0; index < conditionsArray.length; index++) {
    
 }
 }
-function getPositions(isRgb,letterPosition,condition){
-    var rgbModel = [];
-    var hslModel = [];
-    if (["R","B","G"].includes(condition[0])) {
-        isRgb = 1;
+function getPositions(condition){
+    if (rgbModel.includes(condition[0])) {
+        isModelRGB = 1;
         letterPosition = rgbModel.indexOf(condition[0]);
     } else {
-        isRgb = 0;
-        hslModel = hslModel.indexOf(condition[0]);
+        isModelRGB = 0;
+        letterPosition = hslModel.indexOf(condition[0]);
     }
 }

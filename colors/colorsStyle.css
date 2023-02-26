@@ -122,7 +122,7 @@ body {
 }
 
 #Saturation {
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), hsl(192, 2%, 50%));
+    background: linear-gradient(to bottom, hsla(0, 0%, 50%, 0), hsl(0, 0%, 50%));
     cursor: crosshair;
     border: none;
 }
@@ -133,7 +133,7 @@ body {
     border: none;
     background-color: aqua;
     position: relative;
-    background: linear-gradient(to bottom, hsl(var(--H), 100%, 100%), hsl(var(--H), var(--S), 50%), hsl(var(--H), 100%, 0%));
+    background: linear-gradient(to bottom, hsl(var(--H), var(--S), 100%), hsl(var(--H), var(--S), 50%), hsl(var(--H), var(--S), 0%));
     cursor: crosshair;
     left: 650px;
 }
