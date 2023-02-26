@@ -1,6 +1,5 @@
 let Gradients;
 let Questions;
-let numOfGradients;
 let ScaleIndex = 0;
 let scalesPlace = document.getElementById("scalesPlace");
 let GradientID = document.getElementById("GradientID");
@@ -41,9 +40,6 @@ const GetGradients = async () => {
     const data = await wait.json();
 
     Gradients = data;
-
-    numOfGradients = JSON.parse(Gradients[0].colors).length;
-    GradientID.innerHTML = "1/" + numOfGradients;
     Sort(0, 0, 0);
     Sort(1, 1, 1);
     Sort(2, 2, 2);
@@ -55,7 +51,10 @@ const GetQuestions = async () => {
     const wait = await fetch(uri);
     const data = await wait.json();
 
+
     Questions = data.data;
+    GradientID.innerHTML = "1/" + Questions.length;
+
     WriteQuestions();
 }
 
@@ -64,7 +63,7 @@ function WriteQuestions() {
     if ((ViewMod == 0 || ViewMod == 2) && Questions) {
         let Current = Questions[ScaleIndex];
         for (let i = 0; i < Current.length; i++) {
-            ScaleList.innerHTML += "<li style='text-align:center;width:" + 100 / Questions.length + "%'>" + Current[i] + "</li>";
+            ScaleList.innerHTML += "<li style='text-align:center'>" + Current[i] + "</li>";
         }
     }
 }
@@ -258,12 +257,12 @@ function ClearGradients() {
 }
 
 function GradientIDChange() {
-    GradientID.innerHTML = ScaleIndex + 1 + '/' + numOfGradients;
+    GradientID.innerHTML = ScaleIndex + 1 + '/' + Questions.length;
 }
 
 function Previous() {
     if (ScaleIndex - 1 == -1) {
-        ScaleIndex = numOfGradients - 1;
+        ScaleIndex = Questions.length - 1;
     } else ScaleIndex--;
 
     SortButton(3, 1);
@@ -275,7 +274,7 @@ function Previous() {
 }
 
 function Next() {
-    if (ScaleIndex + 1 == numOfGradients) ScaleIndex = 0;
+    if (ScaleIndex + 1 == Questions.length) ScaleIndex = 0;
     else ScaleIndex++;
 
     SortButton(3, 1);

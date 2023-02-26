@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rozcestník - gradienty</title>
     <link rel="stylesheet" href="RozcestnikStyle.css">
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
 </head>
 
 <body>
@@ -324,20 +326,20 @@
 
         function addNewBasic() {
             let dataToSave = [,];
-                for (let i = 0; i < basicTable.children.length - 1; i++) {
-                    const element = basicTable.children[i];
-                    let toSave = [];
+            for (let i = 0; i < basicTable.children.length - 1; i++) {
+                const element = basicTable.children[i];
+                let toSave = [];
 
-                    for (let j = 0; j < element.firstChild.children.length; j++) {
-                        let help = element.firstChild.children[j].firstChild.value;
-                        if (help != "-" && help != "" && help != null) {
+                for (let j = 0; j < element.firstChild.children.length; j++) {
+                    let help = element.firstChild.children[j].firstChild.value;
+                    if (help != "-" && help != "" && help != null) {
 
-                            toSave[toSave.length] = help;
-                        }
+                        toSave[toSave.length] = help;
                     }
-
-                    dataToSave[i] = toSave;
                 }
+
+                dataToSave[i] = toSave;
+            }
             dataToSave.push(["", "", "", "", ""]);
             basicData = dataToSave;
             WriteToTableBasic();
@@ -345,20 +347,20 @@
 
         function RemoveBasic(index) {
             let dataToSave = [,];
-                for (let i = 0; i < basicTable.children.length - 1; i++) {
-                    const element = basicTable.children[i];
-                    let toSave = [];
+            for (let i = 0; i < basicTable.children.length - 1; i++) {
+                const element = basicTable.children[i];
+                let toSave = [];
 
-                    for (let j = 0; j < element.firstChild.children.length; j++) {
-                        let help = element.firstChild.children[j].firstChild.value;
-                        if (help != "-" && help != "" && help != null) {
+                for (let j = 0; j < element.firstChild.children.length; j++) {
+                    let help = element.firstChild.children[j].firstChild.value;
+                    if (help != "-" && help != "" && help != null) {
 
-                            toSave[toSave.length] = help;
-                        }
+                        toSave[toSave.length] = help;
                     }
-
-                    dataToSave[i] = toSave;
                 }
+
+                dataToSave[i] = toSave;
+            }
             basicData = dataToSave;
             basicData.splice(index, 1);
             WriteToTableBasic();
@@ -439,11 +441,37 @@
         }
 
         function addNewColor() {
-            colorData.push("");
+            let dataToSave = [];
+
+            for (let i = 0; i < colorTable.children.length - 1; i++) {
+                const element = colorTable.children[i];
+
+                for (let j = 0; j < element.firstChild.children.length; j++) {
+                    let help = element.firstChild.children[j].firstChild.value;
+                    if (help != "-" && help != "" && help != null) {
+                        dataToSave[dataToSave.length] = help;
+                    }
+                }
+            }
+            dataToSave.push("");
+            colorData = dataToSave;
             WriteToTableColor();
         }
 
         function RemoveColor(index) {
+            let dataToSave = [];
+
+            for (let i = 0; i < colorTable.children.length - 1; i++) {
+                const element = colorTable.children[i];
+
+                for (let j = 0; j < element.firstChild.children.length; j++) {
+                    let help = element.firstChild.children[j].firstChild.value;
+                    if (help != "-" && help != "" && help != null) {
+                        dataToSave[dataToSave.length] = help;
+                    }
+                }
+            }
+            colorData = dataToSave;
             colorData.splice(index, 1);
             WriteToTableColor();
         }

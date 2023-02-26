@@ -73,6 +73,8 @@ body{
     height: 33px;
     align-items: center;
     user-select: none;
+    justify-content: space-around;
+    margin-left: 1%;
 }
 
 #scales {

@@ -6,51 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
     <title>Colors results</title>
 </head>
 
 <body>
-<div >
-<p id="sortingTitle">Řazení</p>
-<div id="sortingDiv">
-<select id="colorModel" onchange="changeOfColorType()">
-    <option value="rgb">RGB</option>
-    <option value="hsl">HSL</option>
-</select>
-<div>1. <input type="button" value="R" id="RGBButton1" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown1" class="switchButton" onclick="SortUpDown(this)"></div>
-<div>2. <input type="button" value="G" id="RGBButton2" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown2" class="switchButton"  onclick="SortUpDown(this)"></div>
-<div>3. <input type="button" value="B" id="RGBButton3" class="switchButton" onclick="ChangeSort(this)"> <input type="button" value="" id="UpDown3" class="switchButton"  onclick="SortUpDown(this)"></div>
-<button id="sortButton" onclick="Sort()">Setřídit</button>
-<select id="numOfDivs" onchange="loadColors()">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-</select>
+    <div>
+        <p id="sortingTitle">Řazení</p>
+        <div id="sortingDiv">
+            <select id="colorModel" onchange="changeOfColorType()">
+                <option value="rgb">RGB</option>
+                <option value="hsl">HSL</option>
+            </select>
+            <div>1. <input type="button" value="R" id="RGBButton1" class="switchButton" onclick="ChangeSort(this)">
+                <input type="button" value="" id="UpDown1" class="switchButton" onclick="SortUpDown(this)"></div>
+            <div>2. <input type="button" value="G" id="RGBButton2" class="switchButton" onclick="ChangeSort(this)">
+                <input type="button" value="" id="UpDown2" class="switchButton" onclick="SortUpDown(this)"></div>
+            <div>3. <input type="button" value="B" id="RGBButton3" class="switchButton" onclick="ChangeSort(this)">
+                <input type="button" value="" id="UpDown3" class="switchButton" onclick="SortUpDown(this)"></div>
+            <button id="sortButton" onclick="Sort()">Setřídit</button>
+            <select id="numOfDivs" onchange="loadColors()">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
 
-</div>
-</div>
-<div>
-<div id="topRow">
-    <p id="filtr" onclick="displayFiltr()">filtr</p>
-    <p id="word"></p>
-    <p id="pageNum"></p>
-</div>
-<div id="resultsDiv">
-</div>
-<button id="backButton" onclick="back()">zpátky</button>
-<button id="forwardButton" onclick="next()">další</button>
-</div>
-<div id="filtrPage">
-<button id="addFiltrButton" onclick="addCondition()">přidat</button>
-<div id="filtrDivs"></div>
-<button id="deleteFiltrsButton" onclick="filtersOff()">vypnout filtry</button>
-<button id="filtrButton" onclick="filter()">filtrovat</button>
-</div>
+        </div>
+    </div>
+    <div>
+        <div id="topRow">
+            <p id="filtr" onclick="displayFiltr()">filtr</p>
+            <p id="word"></p>
+            <p id="pageNum"></p>
+        </div>
+        <div id="resultsDiv">
+        </div>
+        <button id="backButton" onclick="back()">zpátky</button>
+        <button id="forwardButton" onclick="next()">další</button>
+    </div>
+    <div id="filtrPage">
+        <button id="addFiltrButton" onclick="addCondition()">přidat</button>
+        <div id="filtrDivs"></div>
+        <button id="deleteFiltrsButton" onclick="filtersOff()">vypnout filtry</button>
+        <button id="filtrButton" onclick="filter()">filtrovat</button>
+    </div>
 
 </body>
 <script src="colorsresults.js"></script>
