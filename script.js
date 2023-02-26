@@ -22,6 +22,10 @@ let MiddleColor = "null";
 let checked;
 let backgroundClick = false;
 let timestamp = 0;
+let RandomOrderArray = [];
+let RandomCount = 0;
+
+//#region login
 
 document.addEventListener('keypress', (event) => {
     if (event.key == "1") ShowLogin();
@@ -41,21 +45,68 @@ function CreateLogin() {
     login.appendChild(loginBtn);
     loginBtn.addEventListener('click', () => {
         username = document.getElementById("loginText").value;
-        if (username == "") { 
-            username = "sám"; 
+        if (username == "") {
+            username = "sám";
             alert("Prázdné jméno -> uloží se výchozí hodnota");
-        }else alert("Na dotazník dohlíží: " + username);
+        } else alert("Na dotazník dohlíží: " + username);
         login.style.display = "none";
     });
 }
 
 CreateLogin();
 
+//#endregion
+
+//#region Setup
+
+
+function GenerateRandomValues(){
+    while(RandomOrderArray.length < Questions.length){
+        let ranNum = Math.floor(Math.random() * Questions.length);
+        if(!RandomOrderArray.includes(ranNum)) RandomOrderArray.push(ranNum);
+    }
+    console.log(RandomOrderArray);
+}
+
 if (false) { // pokud chci aby vyplnili jen 1x pak dát localStorage.getItem("pouzil") místo false
     document.getElementById("buttonstart").style.display = "none";
     document.getElementById("konec").style.display = "block";
     document.getElementById("konec").innerHTML = "Průzkum jste již vyplnil(a), moc děkujeme.";
 }
+
+const GetQuestions = async () => {
+    //let uri = 'http://localhost:3000/source';
+    let uri = 'http://klara.fit.vutbr.cz:3000/source/0';
+    const wait = await fetch(uri);
+    const data = await wait.json();
+
+    Questions = data.data;
+    numOfQuestions = Questions.length;
+
+    if (!localStorage.getItem("odpovedi") || localStorage.getItem("odpovedi") == null || localStorage.getItem("odpovedi") == "[]" || localStorage.getItem("odpovedi").length != Questions.length) {
+        for (let i = 0; i < numOfQuestions; i++) { // vytvori JSON se samými šedými barvami
+            odpovedi[i] = barvy;
+        }
+        localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
+    }
+GenerateRandomValues();
+
+}
+
+function ResetGradient() {
+    gradient.style.background = "linear-gradient(to right, #A1A1A1, #A1A1A1 100%)";
+    leftButton.style.backgroundColor = "#A1A1A1";
+    middleButton.style.backgroundColor = "#00000000";
+    rightButton.style.backgroundColor = "#A1A1A1";
+}
+
+function TimeIncrement() {
+    timestamp += 500;
+}
+
+//#endregion
+
+//#region colorChange
 
 function hideColor() {
     ChangeActive();
@@ -158,6 +209,8 @@ function ChangeActive() {
     }
 }
 function Barvy(button) {
+    console.log("0: " + LeftColor + " " + MiddleColor + " " + RightColor);
+
     let barva = window.getComputedStyle(button).backgroundColor;
     backgroundClick = true;
     setTransitionDelay1();
@@ -190,6 +243,7 @@ function Barvy(button) {
             break;
 
     }
+    console.log(LeftColor + " " + MiddleColor + " " + RightColor);
     AdjustColorToBackground();
 
     MoveGradient();
@@ -220,65 +274,57 @@ function GradientAdjust(x) {
     return y;
 }
 
+//#endregion
+
 let numOfPages = 1;
 let Questions;
 let numOfQuestions;
 let odpovedi = [];
 let barvy = ["#A1A1A1", "null", "#A1A1A1"]; // zapisuje pouze 3 barvy
 window.addEventListener('DOMContentLoaded', () => GetQuestions())
-const GetQuestions = async () => {
-    //let uri = 'http://localhost:3000/source';
-    let uri = 'http://klara.fit.vutbr.cz:3000/source/0';
-    const wait = await fetch(uri);
-    const data = await wait.json();
 
-    Questions = data.data;
-    numOfQuestions = Questions.length;
-
-    if (!localStorage.getItem("odpovedi") || localStorage.getItem("odpovedi") == null || localStorage.getItem("odpovedi") == "[]") {
-        for (let i = 0; i < numOfQuestions; i++) { // vytvori JSON se samými šedými barvami
-            odpovedi[i] = barvy;
-        }
-        localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
-    }
-}
 
 
 function start() {
     tutorialBool = false;
     odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
-    console.log(odpovedi[0][1]);
-    if (odpovedi[0][1] == "null") {
-        gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + ", " + odpovedi[0][2] + " 100%)";
-        checked = false;
+    if (odpovedi.length == Questions.length) {
+        if (odpovedi[RandomOrderArray[numOfPages-1]][1] == "null") {
+            gradient.style.background = "linear-gradient(to right, " + odpovedi[RandomOrderArray[numOfPages-1]][0] + ", " + odpovedi[RandomOrderArray[numOfPages-1]][2] + " 100%)";
+            checked = false;
+        }
+        else {
+            gradient.style.background = "linear-gradient(to right, " + odpovedi[RandomOrderArray[numOfPages-1]][0] + "," + odpovedi[RandomOrderArray[numOfPages-1]][1] + "," + odpovedi[RandomOrderArray[numOfPages-1]][2] + " 100%)";
+            checked = true;
+        }
+        LeftColor = odpovedi[RandomOrderArray[numOfPages-1]][0];
+        MiddleColor = odpovedi[RandomOrderArray[numOfPages-1]][1];
+        RightColor = odpovedi[RandomOrderArray[numOfPages-1]][2];
+        leftButton.style.backgroundColor = odpovedi[RandomOrderArray[numOfPages-1]][0];
+        if (odpovedi[RandomOrderArray[numOfPages-1]][1] != "null") {
+            middleButton.style.background = odpovedi[RandomOrderArray[numOfPages-1]][1];
+        } else {
+            middleButton.style.background = "#A1A1A100";
+        }
+        rightButton.style.backgroundColor = odpovedi[RandomOrderArray[numOfPages-1]][2];
     }
-    else {
-        gradient.style.background = "linear-gradient(to right, " + odpovedi[0][0] + "," + odpovedi[0][1] + "," + odpovedi[0][2] + " 100%)";
-        checked = true;
-    }
-    LeftColor = odpovedi[0][0];
-    MiddleColor = odpovedi[0][1];
-    RightColor = odpovedi[0][2];
-    leftButton.style.backgroundColor = odpovedi[0][0];
-    if (odpovedi[0][1] != "null") {
-        middleButton.style.background = odpovedi[0][1];
-    } else {
-        middleButton.style.background = "#A1A1A100";
-    }
-    rightButton.style.backgroundColor = odpovedi[0][2];
     document.getElementById("buttonstart").style.display = "none";
     document.getElementById("stranka").style.display = "block";
 
     document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
-    for (let i = 0; i < Questions[0].length; i++) {
-        document.getElementById("scaleLi").innerHTML += "<li style='text-align:center; width:" + 100 / Questions[0].length + "%'>" + Questions[0][i] + "</li>";
+    for (let i = 0; i < Questions[RandomOrderArray[numOfPages-1]].length; i++) {
+        document.getElementById("scaleLi").innerHTML += "<li style='text-align:center; width:" + 100 / Questions[RandomOrderArray[numOfPages-1]].length + "%'>" + Questions[RandomOrderArray[numOfPages-1]][i] + "</li>";
     }
+console.log(Questions[RandomOrderArray[numOfPages-1]]);
 
     document.getElementById("cislostranky").innerHTML = numOfPages + "/" + numOfQuestions;
     AdjustColorToBackground();
     let timeInc = 500;
     setInterval(TimeIncrement, timeInc);
 }
+
+
+
 function dalsi() {
     if (tutorialBool) {
         ForceEndOfAnim();
@@ -288,10 +334,13 @@ function dalsi() {
 
     } else {
         odpovedi = JSON.parse(localStorage.getItem("odpovedi"));
-        odpovedi[numOfPages - 1][0] = LeftColor;
-        odpovedi[numOfPages - 1][1] = MiddleColor;
-        odpovedi[numOfPages - 1][2] = RightColor;
-        localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
+        if (odpovedi.length == Questions.length) {
+            odpovedi[RandomOrderArray[numOfPages-1]][0] = LeftColor;
+            odpovedi[RandomOrderArray[numOfPages-1]][1] = MiddleColor;
+            odpovedi[RandomOrderArray[numOfPages-1]][2] = RightColor;
+            localStorage.setItem("odpovedi", JSON.stringify(odpovedi));
+        }
+
         if (numOfQuestions == numOfPages)// zápis do online databáze v případě, že jsme na poslední stránce
         {
             document.getElementById("stranka").style.display = "none";
@@ -299,28 +348,29 @@ function dalsi() {
             Save(localStorage.getItem("odpovedi"), timestamp, username); //uloží data do db
             localStorage.setItem("pouzil", "ano");
         } else {
-            LeftColor = odpovedi[numOfPages][0];
-            MiddleColor = odpovedi[numOfPages][1];
-            RightColor = odpovedi[numOfPages][2];
-            if (odpovedi[numOfPages][1] == "null") {
-                gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages][0] + ", " + odpovedi[numOfPages][2] + " 100%)";
-                checked = false;
-            }
-            else {
-                gradient.style.background = "linear-gradient(to right, " + odpovedi[numOfPages][0] + "," + odpovedi[numOfPages][1] + "," + odpovedi[numOfPages][2] + " 100%)";
-                checked = true;
-            }
-            leftButton.style.backgroundColor = odpovedi[numOfPages][0];
-            if (odpovedi[numOfPages][1] == "null") {
-                middleButton.style.backgroundColor = "#00000000";
+            if (numOfQuestions != numOfPages) {
+                LeftColor = odpovedi[RandomOrderArray[numOfPages]][0];
+                MiddleColor = odpovedi[RandomOrderArray[numOfPages]][1];
+                RightColor = odpovedi[RandomOrderArray[numOfPages]][2];
+                if (odpovedi[RandomOrderArray[numOfPages]][1] == "null") {
+                    gradient.style.background = "linear-gradient(to right, " + odpovedi[RandomOrderArray[numOfPages]][0] + ", " + odpovedi[RandomOrderArray[numOfPages]][2] + " 100%)";
+                    checked = false;
+                }
+                else {
+                    gradient.style.background = "linear-gradient(to right, " + odpovedi[RandomOrderArray[numOfPages]][0] + "," + odpovedi[RandomOrderArray[numOfPages]][1] + "," + odpovedi[RandomOrderArray[numOfPages]][2] + " 100%)";
+                    checked = true;
+                }
+                leftButton.style.backgroundColor = odpovedi[RandomOrderArray[numOfPages]][0];
+                if (odpovedi[RandomOrderArray[numOfPages]][1] == "null") {
+                    middleButton.style.backgroundColor = "#00000000";
 
-            } else
-                middleButton.style.backgroundColor = odpovedi[numOfPages][1];
-            rightButton.style.backgroundColor = odpovedi[numOfPages][2];
-
+                } else
+                    middleButton.style.backgroundColor = odpovedi[RandomOrderArray[numOfPages]][1];
+                rightButton.style.backgroundColor = odpovedi[RandomOrderArray[numOfPages]][2];
+            } else ResetGradient();
             document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
-            for (let i = 0; i < Questions[numOfPages].length; i++) {
-                document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages].length + "%'>" + Questions[numOfPages][i] + "</li>";
+            for (let i = 0; i < Questions[RandomOrderArray[numOfPages]].length; i++) {
+                document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[RandomOrderArray[numOfPages]].length + "%'>" + Questions[RandomOrderArray[numOfPages]][i] + "</li>";
 
                 // if(Questions[numOfPages-1][i].length < 7)
                 // document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages].length + "%'>" + Questions[numOfPages][i] + "</li>";
@@ -402,6 +452,3 @@ function zpatky() {
     }
 }
 
-function TimeIncrement() {
-    timestamp += 500;
-}

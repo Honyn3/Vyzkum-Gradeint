@@ -7,76 +7,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Výsledky Gradientu</title>
     <link rel="stylesheet" href="resultsStyle.css">
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
 
 </head>
 
 <body onresize="SortTableShow()">
     <div id="page">
-    <div id="SortingTable">
-        <div id="SortButtons" onclick="SortTableClicked()"></div>
-        <div class="toMiddle" style="font-size: large; margin-bottom: 10px;">Řazení & Filtry</div>
+        <div id="SortingTable">
+            <div id="SortButtons" onclick="SortTableClicked()"></div>
+            <div class="toMiddle" style="font-size: large; margin-bottom: 10px;">Řazení & Filtry</div>
 
-        <div class="ColorSort">R:
+            <div class="ColorSort">R:
+                <li class="ColorList">
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn0"
+                            onclick="SortButton(0, 0)"></ul>
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn1"
+                            onclick="SortButton(0, 1)"></ul>
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn2"
+                            onclick="SortButton(0, 2)"></ul>
+                </li>
+            </div>
+
+            <div class="ColorSort">G:
+                <li class="ColorList">
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn3"
+                            onclick="SortButton(1, 0)"></ul>
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn4"
+                            onclick="SortButton(1, 1)"></ul>
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn5"
+                            onclick="SortButton(1, 2)"></ul>
+                </li>
+            </div>
+
+            <div class="ColorSort">B:
+                <li class="ColorList">
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn6"
+                            onclick="SortButton(2, 0)"></ul>
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn7"
+                            onclick="SortButton(2, 1)"></ul>
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn8"
+                            onclick="SortButton(2, 2)"></ul>
+                </li>
+            </div>
+
+            <div class="ColorSort">H:
+                <li class="ColorList">
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn9"
+                            onclick="SortButton(3, 0)"></ul>
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn10"
+                            onclick="SortButton(3, 1)"></ul>
+                    <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn11"
+                            onclick="SortButton(3, 2)"></ul>
+                </li>
+            </div>
+
+            <input type="button" value="Škály" class="GraphButton" onclick="ScaleChange(), GraphButton(0)">
+            <input type="button" value="Grafy" class="GraphButton" onclick="GraphChange(), GraphButton(1)">
+            <input type="button" value="Počty" class="GraphButton" onclick="PercentChange(), GraphButton(2)">
+
+
             <li class="ColorList">
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn0" onclick="SortButton(0, 0)"></ul>
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn1" onclick="SortButton(0, 1)"></ul>
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn2" onclick="SortButton(0, 2)"></ul>
-        </li>
+                <ul style="padding-left: 0px;">
+                    <div class="ColorSort" style="padding-top: 3px;">Filtrovat prázdné: </div>
+                </ul>
+                <ul><input type="checkbox" name="" id="filterEmptyTickbox" checked="true" onclick="WriteResults()"></ul>
+            </li>
+
+
         </div>
 
-        <div class="ColorSort">G:
-            <li class="ColorList">
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn3" onclick="SortButton(1, 0)"></ul>
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn4" onclick="SortButton(1, 1)"></ul>
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn5" onclick="SortButton(1, 2)"></ul>
-        </li>
+        <p id="heading">Výsledky</p>
+        <p id="count">celkem 20</p>
+        <div id="scales">
+            <ul id="scaleLi"></ul>
         </div>
 
-        <div class="ColorSort">B:
-            <li class="ColorList">
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn6" onclick="SortButton(2, 0)"></ul>
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn7" onclick="SortButton(2, 1)"></ul>
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn8" onclick="SortButton(2, 2)"></ul>
-        </li>
+
+        <div id="scalesPlace">
         </div>
 
-        <div class="ColorSort">H:
-            <li class="ColorList">
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn9" onclick="SortButton(3, 0)"></ul>
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn10" onclick="SortButton(3, 1)"></ul>
-            <ul class="ColorUl"><input type="button" value="" class="sortButton sortButtonR" id="btn11" onclick="SortButton(3, 2)"></ul>
-        </li>
+        <div id="buttons">
+            <input type="button" value="Předchozí" class="btn" onclick="Previous()">
+            <div id="GradientID">1/10</div>
+            <input type="button" value="Další" class="btn" onclick="Next()">
         </div>
-
-        <input type="button" value="Škály" class="GraphButton" onclick="ScaleChange(), GraphButton(0)">
-        <input type="button" value="Grafy" class="GraphButton" onclick="GraphChange(), GraphButton(1)">
-        <input type="button" value="Počty" class="GraphButton" onclick="PercentChange(), GraphButton(2)">
-
-
-        <li class="ColorList">
-            <ul style="padding-left: 0px;"><div class="ColorSort" style="padding-top: 3px;">Filtrovat prázdné: </div></ul>
-            <ul><input type="checkbox" name="" id="filterEmptyTickbox" checked="true" onclick="WriteResults()"></ul>
-        </li>
-    
-        
     </div>
-
-    <p id="heading">Výsledky</p>
-    <p id="count">celkem 20</p>
-    <div id="scales">
-        <ul id="scaleLi"></ul>
-    </div>
-
-
-    <div id="scalesPlace">
-    </div>
-
-    <div id="buttons">
-        <input type="button" value="Předchozí" class="btn" onclick="Previous()">
-        <div id="GradientID">1/10</div>
-        <input type="button" value="Další" class="btn" onclick="Next()">
-    </div>
-</div>
 </body>
 <script src="resultScript.js"></script>
 
