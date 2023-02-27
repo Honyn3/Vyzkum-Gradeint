@@ -1,3 +1,4 @@
+
 let Canvas = document.getElementsByClassName("ColorSelect")[0];
 var root = document.querySelector(':root');
 let CanvasWidth = Canvas.offsetWidth;
@@ -14,7 +15,10 @@ let ColorBackgroundLeft = ColorBackground.getBoundingClientRect().left;
 let chosenColor = "hsl(180, 50%, 50%)";
 let wordIteration = 0;
 let wordsForHeading;
+var wordsForHeadingRn = [];
 let arrayOfColors = [];
+var arrayColAndHeadings = [];
+var arrayOfNumOrder = [];
 let H = 0, S = 100, L = 50;
 let Counter = document.getElementById("Counter");
 let username = "sám";
@@ -64,11 +68,34 @@ const GetQuestions = async () => {
     const data = await wait.json();
 
     wordsForHeading = data[0].data;
-    console.log(wordsForHeading);
+    getRnArrayOrder(wordsForHeading);
+    assignRnHeadingsArray();
+    fillColAndHeadingArray();
     nextWord();
 }
-
-
+function assignRnHeadingsArray(){
+arrayOfNumOrder.forEach(element => {
+   wordsForHeadingRn.push(wordsForHeading[element]);
+});
+}
+function getRnArrayOrder(wordsHeading){
+for (let index = 0; index < wordsHeading.length; index++) {
+    var rnNumber;
+    do {
+        rnNumber = getRnInteger(wordsHeading.length);
+    } while (arrayOfNumOrder.includes(rnNumber));
+        arrayOfNumOrder.push(rnNumber);
+}
+}
+function getRnInteger(max) {
+    var min = 0;
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+function fillColAndHeadingArray(){
+    for (let index = 0; index < wordsForHeadingRn.length; index++) {
+        arrayColAndHeadings.push([wordsForHeadingRn[index],"hsl(180, 50%, 50%)"]);
+    }
+}
 function Click(el) {
     console.log(el.clientX - 406);
     console.log(el.clientY - 319);
@@ -205,19 +232,18 @@ function nextWord() {
     SaturationMD = false;
     BrightnessMD = false;
     if (wordIteration == 0) {
-        document.getElementById("Subject").innerHTML = wordsForHeading[wordIteration];
+        document.getElementById("Subject").innerHTML = arrayColAndHeadings[wordIteration][0];
         wordIteration++;
     } else {
-        document.getElementById("Subject").innerHTML = wordsForHeading[wordIteration];
         if (wordIteration == 1) {
-            arrayOfColors.push(chosenColor);
-            const JSONColors = JSON.stringify(arrayOfColors);
+            arrayColAndHeadings[wordIteration-1][1] = chosenColor;
+            const JSONColors = JSON.stringify(arrayColAndHeadings);
             localStorage.setItem("JSONColor", JSONColors);
         } else {
             let oldColors = localStorage.getItem("JSONColor");
-            arrayOfColors = JSON.parse(oldColors);
-            arrayOfColors.push(chosenColor);
-            let JSONColors = JSON.stringify(arrayOfColors);
+            arrayColAndHeadings = JSON.parse(oldColors);
+            arrayColAndHeadings[wordIteration-1][1] = chosenColor;
+            let JSONColors = JSON.stringify(arrayColAndHeadings);
             localStorage.setItem("JSONColor", JSONColors);
         }
         // ColorBackground.style.backgroundColor = "hsl(" + 0 + ", " + 0 + "% , " + 100 + "%)";
@@ -229,18 +255,33 @@ function nextWord() {
             node.id = "endingMessage";
             document.body.innerHTML = "";
             document.body.appendChild(node);
+            setColArrayInRightOrder();
             // code for sending data to server can be added here
-            Save(localStorage.getItem("JSONColor"));
+            alert(setColArrayInRightOrder().length);
+            Save(JSON.stringify(setColArrayInRightOrder()));
+        } else {
+            document.getElementById("Subject").innerHTML = arrayColAndHeadings[wordIteration][0];
         }
         wordIteration++;
     }
     Counter.innerHTML = wordIteration + "/" + wordsForHeading.length;
 }
+function setColArrayInRightOrder(){
+    arrayOfColors=[];
+    wordsForHeading.forEach(el => {
+        for (let index = 0; index < arrayColAndHeadings.length; index++) {
+            if(el==arrayColAndHeadings[index][0]){
+                arrayOfColors.push(arrayColAndHeadings[index][1]);
+                break;
+            }
+        }
+        });
+        return arrayOfColors;
+    }
 
 const Save = async (data) => {
-    //let uri = 'http://localhost:3000/colorsdata';
-
-    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    //let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    let uri = 'http://localhost:3000/colorsdata';
     let saveData = {
         colors: data,
         timestamp_s: timestamp/1000,

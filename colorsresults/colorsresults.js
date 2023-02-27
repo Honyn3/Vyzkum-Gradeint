@@ -3,6 +3,7 @@ let wordsForHeading;
 var arrowUp = [true,true,true];
 let iteration = 0;
 var colors = [];
+var loaded =false;
 var colorsNotFiltred = [];
 var conditionsArray = [];
 var NumOfProp;
@@ -16,10 +17,12 @@ window.addEventListener('DOMContentLoaded', () => {
     GetColors();
     GetWords();
 })
+window.addEventListener("resize", loadColors);
 
 const GetColors = async () => {
     let helparray =[];
-    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    //let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    let uri = 'http://localhost:3000/colorsdata';
     const wait = await fetch(uri);
     const data = await wait.json();
     NumOfProp = NumOfProperties(data);
@@ -47,6 +50,7 @@ const GetColors = async () => {
         }
         colors.push(arrayHelp);
     }
+    loaded = true;
     loadColors();
     colorsNotFiltred = JSON.parse(JSON.stringify(colors));
     }
@@ -62,8 +66,16 @@ const GetWords = async () => {
 }
 
 function loadColors() {
+    if (loaded) {
+        //nutno přidat pro resize přepočet
     var numOfDiv = document.getElementById("numOfDivs").value;
-    var divWidth = (100-(numOfDiv-1))/numOfDiv;
+    var numColDiv = Math.ceil(colors[0].length/numOfDiv);
+    var avgMargin = (document.getElementById("resultsDiv").clientHeight-(colors[0].length*40))/(numColDiv+1);
+    if (avgMargin<5) {
+        avgMargin = 5;
+    }
+    var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5))/numOfDiv; // 5px margin
+    var divHeight = (document.getElementById("resultsDiv").clientHeight-(numColDiv*5+5))/numColDiv;
     var numOfLast = (colors[0].length)%numOfDiv;
     if (numOfLast==0) {
         numOfLast=numOfDiv;
@@ -80,15 +92,31 @@ function loadColors() {
         } else {
             ColorDiv.title = "rgb("+selColor[2][0]+", "+selColor[2][1]+", "+selColor[2][2]+")";
         }
-        ColorDiv.style.width = divWidth+"%";
+        // margin setting
+        if (numOfDiv==1) {
+            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10;
+            ColorDiv.style.width = widthDiv1 + "px";
+            if (index==0) {
+                ColorDiv.style.marginTop = avgMargin + "px";
+            }
+            ColorDiv.style.marginBottom = avgMargin + "px";
+        } else {
+            ColorDiv.style.width = divWidth+"px";
+            if (divHeight<40) {
+                divHeight = 40;
+            }
+            ColorDiv.style.height = divHeight+"px";
         if ((index+1)%numOfDiv==0) {
-            ColorDiv.style.marginRight = "0%";
+            ColorDiv.style.marginRight = "0px";
         }
         if (index >= (colors[0].length-numOfLast)) {
-            ColorDiv.style.marginBottom = "0%";
+            ColorDiv.style.marginBottom = "0px";
+        }
         }
         document.getElementById("resultsDiv").appendChild(ColorDiv);    
     }
+    }
+    
 }
 
 function loadWords() {
