@@ -12,36 +12,55 @@
 </head>
 
 <body>
+    <div id="blurDiv">
     <div>
-        <p id="sortingTitle">Řazení</p>
         <div id="sortingDiv">
-            <select id="colorModel" class="chooseOptions"onchange="changeOfColorType()">
-                <option value="rgb">RGB</option>
-                <option value="hsl">HSL</option>
-            </select>
-            <select id="numOfDivs" class="chooseOptions" onchange="loadColors()">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-            </select>
-            <div>1. <input type="button" value="R" id="RGBButton1" class="switchButton" onclick="ChangeSort(this)">
-                <input type="button" value="" id="UpDown1" class="switchButton" onclick="SortUpDown(this)"></div>
-            <div>2. <input type="button" value="G" id="RGBButton2" class="switchButton" onclick="ChangeSort(this)">
-                <input type="button" value="" id="UpDown2" class="switchButton" onclick="SortUpDown(this)"></div>
-            <div>3. <input type="button" value="B" id="RGBButton3" class="switchButton" onclick="ChangeSort(this)">
-                <input type="button" value="" id="UpDown3" class="switchButton" onclick="SortUpDown(this)"></div>
+            <p id="sortingTitle">Řazení</p>
+            <div class="optionsDiv">
+                <div>Model barev:</div>
+                <select id="colorModel" class="chooseOptions"onchange="changeOfColorType()">
+                    <option value="rgb">RGB</option>
+                    <option value="hsl">HSL</option>
+                </select>
+                </div>
+                <div class="optionsDiv">
+                <div >Počet sloupců:</div>
+                <select id="numOfDivs" class="chooseOptions" onchange="loadColors()">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+            </div>
+            
+            <div class="divButtons" id="firstDivButton">
+                <div class="helpStretchDiv"><div class="switchButton DivSort1">1.</div></div>
+                <div class="helpStretchDiv"><input type="button" value="R" id="RGBButton1" class="switchButton DivSort2" onclick="ChangeSort(this)"></div>
+                <div class="helpStretchDiv"><input type="button" value="" id="UpDown1" class="switchButton DivSort2" onclick="SortUpDown(this)"></div>
+            </div>
+            <div class="divButtons">
+                <div class="helpStretchDiv"><div class="switchButton DivSort1">2.</div></div>
+                <div class="helpStretchDiv"><input type="button" value="G" id="RGBButton2" class="switchButton DivSort2" onclick="ChangeSort(this)"></div>
+                <div class="helpStretchDiv"><input type="button" value="" id="UpDown2" class="switchButton DivSort3" onclick="SortUpDown(this)"></div>
+            </div>
+            <div class="divButtons">
+                <div class="helpStretchDiv"><div class="switchButton DivSort1">3.</div></div>
+                <div class="helpStretchDiv"><input type="button" value="B" id="RGBButton3" class="switchButton DivSort2" onclick="ChangeSort(this)"></div>
+                <div class="helpStretchDiv"><input type="button" value="" id="UpDown3" class="switchButton DivSort3" onclick="SortUpDown(this)"></div>
+            </div>
             <button id="sortButton" onclick="Sort()">Setřídit</button>
         </div>
+        <p id="numOfAnswers"></p>
     </div>
     <div>
         <div id="topRow">
-            <p id="filtr" onclick="displayFiltr()">filtr</p>
+            <p id="filtr" onclick="displayFiltr(),addCondition()"></p>
             <p id="word"></p>
+            <p id="balanceSides"></p>
         </div>
         <div id="resultsDiv">
         </div>
@@ -51,11 +70,15 @@
             <button id="forwardButton" onclick="next()" class="btnNextBack">Další</button>
         </div>
     </div>
+</div>
     <div id="filtrPage">
-        <button id="addFiltrButton" onclick="addCondition()">přidat</button>
         <div id="filtrDivs"></div>
-        <button id="deleteFiltrsButton" onclick="filtersOff()">vypnout filtry</button>
-        <button id="filtrButton" onclick="filter()">filtrovat</button>
+        <div id="filtrButtonsDiv">
+            <div><button id="addFiltrButton" onclick="createConditionDiv()"></button></div>
+            <div><button id="deleteFiltrsButton" onclick="filtersOff()">vypnout filtry</button>
+            <button id="filtrButton" onclick="filter()">filtrovat</button>
+            </div>
+        </div>
     </div>
 
 </body>

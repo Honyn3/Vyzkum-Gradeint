@@ -1,34 +1,41 @@
+:root {
+    --blurDiv: 0px;
+    --darkenDiv: 1;
+  }
 body{
-    display:grid;
-    grid-template-columns: 20% auto;
-    width: 98%;
-    padding:0;
-    margin-left:1%;
-    margin-top: 4%;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color:hsl(0, 0%, 97%);
+    background-color: #f8f8f8;
+    font-family: 'Roboto', sans-serif;
+    background-image: url(../img/palette.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    color: #3B5249;
 }
 #sortingDiv{
+    margin-left:5%;
+    margin-top:30%;
     border-radius: 2px;
     background-color:hsl(0, 0%, 50%);
-    margin-right:1%;
-    height: 400px;
-    width:200px;
+    height: 310px;
+    width:190px;
     border:1px solid black;
     color:white;
     font:1em;
+    padding:0;
 }
 #resultsDiv{
+    scrollbar-color: rebeccapurple green; 
     border-radius: 2px;
-    background-color:hsl(0, 0%, 97%);
+    background-color:hsla(0, 0%, 97%,0%);
     padding:0;
-    height: 60vh;
+    height: 70vh;
     overflow:auto;
     margin:auto;
+    
     /*border: solid rgba(0, 0, 0, 0.5) 1px;*/
-    scrollbar-width: none;
 }
 .colorDiv{
+    vertical-align:baseline;
     width:25%;
     margin:0;
     margin-bottom:5px;
@@ -39,14 +46,17 @@ body{
     text-align: center;
 }
 .colorBlock{
+    background-color:black;
     width:25%;
     margin:0;
     padding:0;
 }
 #sortingTitle{
     text-align: center;
-    margin-right:30%;
     font-size: 1.3em;
+    margin:0;
+    margin-top:18px;
+    margin-bottom: 20px;
 }
 .btnNextBack{
     background-color: #222E50;
@@ -58,34 +68,40 @@ body{
     height:23px;
     font-size: 1.1em;
 }
-.btnNextBack:hover{
+.btnNextBack:hover,#sortButton:hover,#deleteFiltrsButton:hover,#filtrButton:hover{
     background-color: #A4243B;
     color: rgb(255, 255, 255);
     cursor: pointer;
 }
-.btnNextBack:active{
+.btnNextBack:active,#sortButton:active,#deleteFiltrsButton:active,#filtrButton:active{
     background-color: rgb(199, 255, 255);
     color: rgb(47, 79, 79);
     cursor: pointer;
 }
 .switchButton{
-    font-size: 1.5em;
-    width:50px;
-    height:50px;
+    margin: auto;
+    font-size: 1.2em;
+    width: 25px;
+    height:25px;
+    padding:0;
+    margin:0;
     border:none;
-    background-color: hsl(0, 0%, 97%);
+    text-align: center;
 }
 #UpDown1{
     background-color: hsl(0, 0%, 97%);
     background-image: url(/img/arrowUp.png);
+    background-size:contain;
 }
 #UpDown2{
     background-color: hsl(0, 0%, 97%);
     background-image: url(/img/arrowUp.png);
+    background-size:contain;
 }
 #UpDown3{
     background-color: hsl(0, 0%, 97%);
     background-image: url(/img/arrowUp.png);
+    background-size:contain;
 }
 #pageNum{
     font-size: 1.3em;
@@ -97,39 +113,58 @@ body{
     margin:1.5%;
 }
 #filtr{
+    width:50px;
+    height:50px;
+    background-image: url(/img/filter.png);
+    background-size: contain;
+    background-repeat: no-repeat;
     padding: 0;
-    padding-left: 20%;
+}
+#balanceSides{
+    width:50px;
+    height:50px;
+    padding: 0;
 }
 #word{
     padding: 0;
     text-align: center;
-    font-size: 1.3em;
+    font-size: 1.6em;
 }
 #topRow{
     display:grid;
     grid-template-columns: auto auto auto;
 }
 #filtrPage{
-    height:80vh;
-    width: 60%;
-    background-color: rgb(34, 46, 58);
+    padding:1%;
+    height:40vh;
+    width: 50%;
+    background-color: hsl(0, 0%, 50%);
+    border-radius: 14px;
     display:none;
     position: fixed;
-    left: 50%;
-    transform: translate(-50%, 0);
+    left:25%;
+    top:10%;
 }
 #filtrDivs{
-    width:90%;
+    width:100%;
     margin:auto;
     height: 80%;
-    background-color: black;
+    border-bottom:#222E50 solid 1px;
+    background-color: hsl(0, 0%, 50%);
     overflow: auto;
+}
+#filtrButtonsDiv{
+    margin-top:100px;
+    width:100%;
+    margin:auto;
+    display:grid;
+    grid-template-columns: 40% 60%;
 }
 .conDiv{
     display:grid;
     grid-template-columns: auto auto auto auto;
     width:100%;
-    height:10%;
+    height:23%;
     background-color: lightblue;
     padding: 0;
 }
@@ -148,5 +183,104 @@ body{
     font-size: 1.5em;
 }
 .chooseOptions{
-    width:40%;
+    width:100%;
+}
+.divButtons{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    margin-top:30px;
+    margin:2.5%;
+    display: inline-grid;
+    width:95%;
+   
+    
+}
+.helpStretchDiv{
+margin:0;
+padding:0;
+text-align: center;
+}
+.optionsDiv{
+    margin-top:25px;
+    margin:2.5%;
+    display: inline-grid;
+    width:95%;
+    height:1.2em;
+    grid-template-columns: 70% 30%;
+}
+#sortButton{
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+    width:80%;
+    text-align:center;
+    background-color: #222E50;
+    color: rgb(234, 234, 234);
+    border: 1px solid gray;
+    border-radius: 3px;
+    transition: all 0.3s;
+    width: 160px;
+    height:20px;
+    font-size: 1em;
+}
+#deleteFiltrsButton,#filtrButton{
+    float:right;
+    text-align:center;
+    background-color: #222E50;
+    color: rgb(234, 234, 234);
+    border: 1px solid gray;
+    border-radius: 3px;
+    transition: all 0.3s;
+    width: 140px;
+    height:26px;
+    font-size: 1em;
+    margin:4px;
+    margin-top:15px;
+}
+#addFiltrButton{
+    margin:2px;
+    margin-top:4px;
+    background-color: hsl(124, 22%, 59%);
+    border-radius: 5px;
+    background-image: url(/img/add.png);
+    background-size:contain;
+    width:40px;
+    height:40px;
+    border:black 0.6px solid;
+    transition: all 0.6s;
+}
+#addFiltrButton:hover{
+    background-color: hsl(128, 40%, 37%);
+}
+#addFiltrButton:active{
+    background-color: white;
+}
+#numOfAnswers{
+margin:20px;
+margin-top:50px;
+}
+#blurDiv{
+    /*filter: blur(6px) brightness(0.5);*/
+    display:grid;
+    grid-template-columns: 20% auto;
+    margin: 0;
+    padding: 0;
+}
+body > *:not(#filtrPage) {
+    filter: blur(var(--blurDiv)) brightness(var(--darkenDiv));
+  }
+.DivSort1{
+    background-color: hsla(0, 0%, 97%,0%);
+    color:white;
+}
+.DivSort2{
+    background-color: hsla(0, 0%, 97%);
+    color:black;
+}
+.DivSort3{
+    background-color: hsla(0, 0%, 97%);
+    color:black;
+}
+#firstDivButton{
+    margin-top: 30px;
 }

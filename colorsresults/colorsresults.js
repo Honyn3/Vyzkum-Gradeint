@@ -55,6 +55,7 @@ const GetColors = async () => {
     colorsNotFiltred = JSON.parse(JSON.stringify(colors));
     }
     loadPageNum();
+    Sort();
 }
 const GetWords = async () => {
     let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource';
@@ -64,28 +65,65 @@ const GetWords = async () => {
     numOfWords = wordsForHeading.length;
     loadWords();
 }
-
+function getScrollBarWidth() {
+    let element = document.createElement("div");
+    element.style.cssText = "overflow:scroll; visibility:hidden; position:absolute;";
+    document.body.appendChild(element);
+    let scrollbarWidth = element.offsetWidth - element.clientWidth;
+    element.remove();
+    return scrollbarWidth;
+  }
 function loadColors() {
     if (loaded) {
         //nutno přidat pro resize přepočet
     var numOfDiv = document.getElementById("numOfDivs").value;
-    var numColDiv = Math.ceil(colors[0].length/numOfDiv);
-    var avgMargin = (document.getElementById("resultsDiv").clientHeight-(colors[0].length*40))/(numColDiv+1);
+    var numRowDiv = Math.ceil(colors[iteration].length/numOfDiv);
+    var avgMargin = (document.getElementById("resultsDiv").clientHeight-(colors[iteration].length*40))/(numRowDiv+1);
     if (avgMargin<5) {
         avgMargin = 5;
     }
-    var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5))/numOfDiv; // 5px margin
-    var divHeight = (document.getElementById("resultsDiv").clientHeight-(numColDiv*5+5))/numColDiv;
-    var numOfLast = (colors[0].length)%numOfDiv;
+    var scrollbarWidth = getScrollBarWidth();
+    var divHeight = (document.getElementById("resultsDiv").clientHeight-(numRowDiv*5+5))/numRowDiv;
+    if (divHeight<40) {
+        divHeight = 40;
+    }
+    var hasVerticalScrollbar = document.getElementById("resultsDiv").scrollHeight > document.getElementById("resultsDiv").clientHeight;
+    if (document.getElementById("resultsDiv").clientHeight<=((divHeight*numRowDiv)+(numRowDiv*5))) {
+        if (hasVerticalScrollbar) {
+            alert(document.getElementById("resultsDiv").clientHeight);
+            alert("yes scrollbar yes overflow");
+            var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5))/numOfDiv; // 5px margin
+            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10 - scrollbarWidth;
+        } else {
+            alert(document.getElementById("resultsDiv").clientHeight);
+            alert("no scrollbar yes overflow");
+            var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5)-scrollbarWidth)/numOfDiv; // 5px margin
+            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10;
+        }
+    } else {
+        if (!hasVerticalScrollbar) {
+            //alert(document.getElementById("resultsDiv").clientHeight);
+            //alert("no scrollbar no overflow");
+            var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5))/numOfDiv; // 5px margin
+            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10 - scrollbarWidth;
+        } else {
+            //alert(document.getElementById("resultsDiv").clientHeight);
+            //alert("yes scrollbar no overflow");
+            var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5)+scrollbarWidth)/numOfDiv; // 5px margin
+            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10;
+        }
+    }
+    var numOfLast = (colors[iteration].length)%numOfDiv;
     if (numOfLast==0) {
         numOfLast=numOfDiv;
     }
     document.getElementById("resultsDiv").innerHTML = "";
-    for (let index = 0; index < colors[0].length; index++) {
+    for (let index = 0; index < colors[iteration].length; index++) {
         var selColor = colors[iteration][index];
         var ColorDiv = document.createElement("div");
         ColorDiv.className = "colorDiv";
-        ColorDiv.innerHTML = selColor[3];
+        ColorDiv.style.display = "flex";
+        ColorDiv.innerHTML = "<span style='margin:auto;'>"+selColor[3]+"</span>";
         ColorDiv.style.backgroundColor = selColor[0];
         if (colModel[0]=="H") {
             ColorDiv.title = selColor[0];
@@ -94,7 +132,6 @@ function loadColors() {
         }
         // margin setting
         if (numOfDiv==1) {
-            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10;
             ColorDiv.style.width = widthDiv1 + "px";
             if (index==0) {
                 ColorDiv.style.marginTop = avgMargin + "px";
@@ -102,21 +139,18 @@ function loadColors() {
             ColorDiv.style.marginBottom = avgMargin + "px";
         } else {
             ColorDiv.style.width = divWidth+"px";
-            if (divHeight<40) {
-                divHeight = 40;
-            }
             ColorDiv.style.height = divHeight+"px";
         if ((index+1)%numOfDiv==0) {
             ColorDiv.style.marginRight = "0px";
         }
-        if (index >= (colors[0].length-numOfLast)) {
+        if (index >= (colors[iteration].length-numOfLast)) {
             ColorDiv.style.marginBottom = "0px";
         }
         }
         document.getElementById("resultsDiv").appendChild(ColorDiv);    
     }
     }
-    
+   document.getElementById("numOfAnswers").innerHTML="Počet barev: " + colors[iteration].length;
 }
 
 function loadWords() {
@@ -240,10 +274,10 @@ if (elm == document.getElementById("UpDown1")) {
 function SortUpDownHelp(i,elm){
     if (arrowUp[i]) {
         arrowUp[i] = false;
-        elm.style.backgroundImage = "url(/img/arrowDown.png)";
+        elm.style.backgroundImage = "url(/img/arrowUp.png)";
     }else{
         arrowUp[i] = true;
-        elm.style.backgroundImage = "url(/img/arrowUp.png)";
+        elm.style.backgroundImage = "url(/img/arrowDown.png)";
     }
 }
 function extractNumFromHsl(element, numPosition){
@@ -326,18 +360,22 @@ function loadPageNum(){
 }
 function displayFiltr(){
     document.getElementById("filtrPage").style.display = "block";
+    setDarkBackground();
 }
 function filtersOff(){
+    setWhiteBackground();
     document.getElementById("filtrPage").style.display = "none";
     document.getElementById("filtrDivs").innerHTML="";
     colors = JSON.parse(JSON.stringify(colorsNotFiltred));
     loadColors();
 }
 function addCondition(){
-    createConditionDiv();
+    if(!document.getElementById("filtrDivs").hasChildNodes()){
+        createConditionDiv();
+    }
 }
 function createConditionDiv(){
-    var arrayOfSymbols = ["=",">","<","<=",">="];
+    var arrayOfSymbols = ["==",">","<","<=",">="];
     var conDiv = document.createElement("div");
     var letterInput = document.createElement("input");
     var selectSymbol = document.createElement("select");
@@ -383,6 +421,18 @@ function circleColModels(el){
         }
     }
 }
+function setDarkBackground(){
+    document.body.backgroundImage = "none";
+    var r = document.querySelector(':root');
+    r.style.setProperty('--blurDiv', '6px');
+    r.style.setProperty('--darkenDiv', '0.99');
+}
+function setWhiteBackground(){
+    document.body.backgroundImage = "url(../img/palette.svg)";
+    var r = document.querySelector(':root');
+    r.style.setProperty('--blurDiv', '0px');
+    r.style.setProperty('--darkenDiv', '1');
+}
 function filter(){
     conditionsArray =[];
     var condition = [];
@@ -397,6 +447,7 @@ function filter(){
                 conditionsArray.push(condition.concat());
             }
             document.getElementById("filtrPage").style.display = "none";
+            setWhiteBackground();
             filterColors();
             loadColors();
         }

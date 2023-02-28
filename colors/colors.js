@@ -257,7 +257,6 @@ function nextWord() {
             document.body.appendChild(node);
             setColArrayInRightOrder();
             // code for sending data to server can be added here
-            alert(setColArrayInRightOrder().length);
             Save(JSON.stringify(setColArrayInRightOrder()));
         } else {
             document.getElementById("Subject").innerHTML = arrayColAndHeadings[wordIteration][0];
