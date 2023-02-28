@@ -237,14 +237,14 @@ function EndOfAnim() {
 }
 function tutorialclick() {
     if (!tutorialBool) return;
-    const ripple = document.createElement("div");
-    ripple.className = "ripple";
-    document.body.appendChild(ripple);
-    ripple.style.top = cursorTut.getBoundingClientRect().top.toFixed() + "px";
-    ripple.style.left = cursorTut.getBoundingClientRect().left.toFixed() + "px";
-    ripple.style.animation = "ripple-effect .4s  linear";
-    ripple.onanimationend = () => {
-        document.body.removeChild(ripple);
+    const clickEffect = document.createElement("div");
+    clickEffect.className = "clickEffect";
+    clickEffect.style.top = cursorTut.getBoundingClientRect().top.toFixed() + "px";
+    clickEffect.style.left = cursorTut.getBoundingClientRect().left.toFixed() + "px";
+    clickEffect.style.animation = "clickEff 0.5s  linear";
+    document.body.appendChild(clickEffect);
+    clickEffect.onanimationend = function() {
+        document.body.removeChild(clickEffect);
     }
     if (move == 1) {
         LeftButtonPressed();

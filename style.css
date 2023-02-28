@@ -281,23 +281,20 @@ body {
         top: var(--secondtop);
     }
 }
-
-.ripple {
-    width: 1px;
-    height: 1px;
-    background-color: transparent;
-    position: fixed;
-    border-radius: 50%;
-    border: 1px solid #ffffff59;
-}
-
-@keyframes ripple-effect {
+@keyframes clickEff {
     to {
+        opacity: 0.012;
         transform: scale(30);
-        opacity: 0.01;
     }
 }
-
+.clickEffect {
+    width: 0.8px;
+    height: 0.8px;
+    position: fixed;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid hsla(0, 0%, 100%, 0.585);
+}
 #tutorialtext {
     position: fixed;
     top: 40%;
