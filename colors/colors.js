@@ -279,8 +279,8 @@ function setColArrayInRightOrder(){
     }
 
 const Save = async (data) => {
-    //let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
-    let uri = 'http://localhost:3000/colorsdata';
+    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    //let uri = 'http://localhost:3000/colorsdata';
     let saveData = {
         colors: data,
         timestamp_s: timestamp/1000,
