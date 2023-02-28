@@ -76,6 +76,7 @@ function getScrollBarWidth() {
 function loadColors() {
     if (loaded) {
         //nutno přidat pro resize přepočet
+    document.getElementById("resultsDiv").innerHTML = "";
     var numOfDiv = document.getElementById("numOfDivs").value;
     var numRowDiv = Math.ceil(colors[iteration].length/numOfDiv);
     var avgMargin = (document.getElementById("resultsDiv").clientHeight-(colors[iteration].length*40))/(numRowDiv+1);
@@ -87,37 +88,21 @@ function loadColors() {
     if (divHeight<40) {
         divHeight = 40;
     }
-    var hasVerticalScrollbar = document.getElementById("resultsDiv").scrollHeight > document.getElementById("resultsDiv").clientHeight;
-    if (document.getElementById("resultsDiv").clientHeight<=((divHeight*numRowDiv)+(numRowDiv*5))) {
-        if (hasVerticalScrollbar) {
-            alert(document.getElementById("resultsDiv").clientHeight);
-            alert("yes scrollbar yes overflow");
-            var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5))/numOfDiv; // 5px margin
-            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10 - scrollbarWidth;
-        } else {
-            alert(document.getElementById("resultsDiv").clientHeight);
-            alert("no scrollbar yes overflow");
+    if (document.getElementById("resultsDiv").clientHeight<=((divHeight*numRowDiv)+(numRowDiv*5+5))) {
+            //alert(document.getElementById("resultsDiv").clientHeight);
+            //alert("no scrollbar yes overflow");
             var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5)-scrollbarWidth)/numOfDiv; // 5px margin
-            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10;
-        }
+            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10 - scrollbarWidth;
     } else {
-        if (!hasVerticalScrollbar) {
             //alert(document.getElementById("resultsDiv").clientHeight);
             //alert("no scrollbar no overflow");
             var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5))/numOfDiv; // 5px margin
-            var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10 - scrollbarWidth;
-        } else {
-            //alert(document.getElementById("resultsDiv").clientHeight);
-            //alert("yes scrollbar no overflow");
-            var divWidth = (document.getElementById("resultsDiv").clientWidth-(numOfDiv*5+5)+scrollbarWidth)/numOfDiv; // 5px margin
             var widthDiv1 = document.getElementById("resultsDiv").clientWidth - 10;
-        }
     }
     var numOfLast = (colors[iteration].length)%numOfDiv;
     if (numOfLast==0) {
         numOfLast=numOfDiv;
     }
-    document.getElementById("resultsDiv").innerHTML = "";
     for (let index = 0; index < colors[iteration].length; index++) {
         var selColor = colors[iteration][index];
         var ColorDiv = document.createElement("div");
@@ -125,6 +110,9 @@ function loadColors() {
         ColorDiv.style.display = "flex";
         ColorDiv.innerHTML = "<span style='margin:auto;'>"+selColor[3]+"</span>";
         ColorDiv.style.backgroundColor = selColor[0];
+        if ((index<numOfDiv)&&(numOfDiv!=1)) {
+            ColorDiv.style.marginTop="5px";
+        }
         if (colModel[0]=="H") {
             ColorDiv.title = selColor[0];
         } else {
