@@ -370,7 +370,7 @@ function dalsi() {
             } else ResetGradient();
             document.getElementById("scaleLi").innerHTML = ''; //vypis slov nad sliderem
             for (let i = 0; i < Questions[RandomOrderArray[numOfPages]].length; i++) {
-                document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[RandomOrderArray[numOfPages]].length + "%'>" + Questions[RandomOrderArray[numOfPages]][i] + "</li>";
+                document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;"+(Questions[RandomOrderArray[numOfPages]][i].length > 16 ? "font-size:14px;" : "")+"width:" + 100 / Questions[RandomOrderArray[numOfPages]].length + "%'>" + Questions[RandomOrderArray[numOfPages]][i] + "</li>";
 
                 // if(Questions[numOfPages-1][i].length < 7)
                 // document.getElementById("scaleLi").innerHTML += "<li style='text-align:center;width:" + 100 / Questions[numOfPages].length + "%'>" + Questions[numOfPages][i] + "</li>";
