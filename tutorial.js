@@ -1,4 +1,4 @@
-let tutorialwords = ["horké", "vlažné", "studené"];
+let tutorialwords = ["Horké", "Vlažné", "Studené"];
 const tutorialtext = document.createElement("div");
 tutorialtext.setAttribute("id", "tutorialtext");
 

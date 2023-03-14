@@ -73,6 +73,10 @@ function getScrollBarWidth() {
     element.remove();
     return scrollbarWidth;
 }
+function copy(color) {
+    navigator.clipboard.writeText(color);
+    console.log(color);
+}
 function loadColors() {
     if (loaded) {
         //nutno přidat pro resize přepočet
@@ -108,7 +112,7 @@ function loadColors() {
             var ColorDiv = document.createElement("div");
             ColorDiv.className = "colorDiv";
             ColorDiv.style.display = "flex";
-            ColorDiv.innerHTML = "<span style='margin:auto;'>" + selColor[3] + "</span>";
+            ColorDiv.innerHTML = "<span style='margin:auto;' >" + selColor[3] + "</span>";
             ColorDiv.style.backgroundColor = selColor[0];
             if ((index < numOfDiv) && (numOfDiv != 1)) {
                 ColorDiv.style.marginTop = "5px";
@@ -135,6 +139,9 @@ function loadColors() {
                     ColorDiv.style.marginBottom = "0px";
                 }
             }
+            
+            ColorDiv.onclick = copy(selColor[0]);
+            ColorDiv.style.cursor = "pointer";
             document.getElementById("resultsDiv").appendChild(ColorDiv);
         }
     }
