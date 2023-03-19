@@ -73,10 +73,6 @@ function getScrollBarWidth() {
     element.remove();
     return scrollbarWidth;
 }
-function copy(color) {
-    navigator.clipboard.writeText(color);
-    console.log(color);
-}
 function loadColors() {
     if (loaded) {
         //nutno přidat pro resize přepočet
@@ -140,7 +136,6 @@ function loadColors() {
                 }
             }
             
-            ColorDiv.onclick = copy(selColor[0]);
             ColorDiv.style.cursor = "pointer";
             document.getElementById("resultsDiv").appendChild(ColorDiv);
         }
