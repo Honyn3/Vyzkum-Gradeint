@@ -133,8 +133,8 @@ function WriteResults() {
         div2 += '); width: ' + GraphWidth + 'px; height: ' + GraphWidth + 'px; margin: 5px;"></div>';
 
         scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][0] + ' ' + div0 + '</div>';
-        scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][2] + ' ' + div1 + '</div>';
-        scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][4] + ' ' + div2 + '</div>';
+        scalesPlace.innerHTML += '<div style="text-align: center"> ' + (Questions[ScaleIndex][(Questions[ScaleIndex].length - 1)/2] != undefined ? Questions[ScaleIndex][(Questions[ScaleIndex].length - 1)/2] : "Neutrální") + ' ' + div1 + '</div>';
+        scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][Questions[ScaleIndex].length - 1] + ' ' + div2 + '</div>';
 
         scalesPlace.style.display = "inline-flex";
         WriteQuestions();
@@ -163,7 +163,7 @@ function WriteResults() {
                 let col1 = JSON.parse(Gradients[i].colors)[ScaleIndex][0];
 
                 if (!used1.includes(col1)) {
-                    div1.push('<td style=" background-color: ' + col1 + '; text-align:center;" title="' + col1 + '" onclick="CopyColor(this)">' + dic1[col1].length)
+                    div1.push('<td style=" background-color: ' + (col1 == null ? "transparent" : col1) + '; text-align:center;width: 33%;" title="' + col1 + '" onclick="CopyColor(this)">' + dic1[col1].length)
                     used1.push(col1);
                 } else {
                     // div1.push('<td style=" background-color: white;">')
@@ -173,7 +173,7 @@ function WriteResults() {
                 let col2 = JSON.parse(Gradients[i].colors)[ScaleIndex][1];
 
                 if (!used2.includes(col2)) {
-                    div2.push('<td style=" background-color: ' + col2 + '; text-align:center;" title="' + col2 + '" onclick="CopyColor(this)">' + dic2[col2].length)
+                    div2.push('<td style=" background-color: ' + (col2 == null ? "transparent" : col2) + '; text-align:center;width: 33%;" title="' + col2 + '" onclick="CopyColor(this)">' + dic2[col2].length)
                     used2.push(col2);
                 } else {
                     // div2.push('<td style=" background-color: white;">')
@@ -183,7 +183,7 @@ function WriteResults() {
                 let col3 = JSON.parse(Gradients[i].colors)[ScaleIndex][2];
 
                 if (!used3.includes(col3)) {
-                    div3.push('<td style=" background-color: ' + col3 + '; text-align:center;" title="' + col3 + '" onclick="CopyColor(this)">' + dic3[col3].length)
+                    div3.push('<td style=" background-color: ' + (col3 == null ? "transparent" : col3) + '; text-align:center;width: 33%;" title="' + col3 + '" onclick="CopyColor(this)">' + dic3[col3].length)
                     used3.push(col3);
                 } else {
                     // div3.push('<td style=" background-color: white;">')
@@ -340,13 +340,19 @@ function SortHue(position, idNum) {
     for (let i = 0; i < Gradients.length; i++) {
         let colorFromGradient = JSON.parse(Gradients[i].colors)[ScaleIndex][position];
 
-        if (colorFromGradient[0] == "#") Colors[i] = "1"; //Musí být jedna, aby se to nepletlo s cervenou, ktera ma 0
-        else if (colorFromGradient[0] == "r") Colors[i] = rgb2hsv(RGBToRgb(colorFromGradient))[0];
+        if (colorFromGradient[0] == "#") {
+            Colors[i] = rgb2hsv(hexToRgb(colorFromGradient))[0];
+        }
+        else if (colorFromGradient[0] == "r") {
+            let hsl = rgb2hsv(RGBToRgb(colorFromGradient));
+            //Colors[i] = (hsl[2] == 0 ? -1 : (hsl[2] == 100 ? -2 : hsl[0]));
+            Colors[i] = hsl[0] + hsl[1]/10 + hsl[2]/10;
+        }
         else {
             Colors[i] = "1";
         }
-
     }
+
 
     // Presort(color, position);
 
@@ -613,10 +619,24 @@ function rgb2hsv(col) {
     g = col[1];
     b = col[2];
 
-    let v = Math.max(r, g, b), c = v - Math.min(r, g, b);
-    let h = c && ((v == r) ? (g - b) / c : ((v == g) ? 2 + (b - r) / c : 4 + (r - g) / c));
-    return [60 * (h < 0 ? h + 6 : h), v && c / v, v];
-}
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const l = Math.max(r, g, b);
+    const s = l - Math.min(r, g, b);
+    const h = s
+        ? l === r
+            ? (g - b) / s
+            : l === g
+                ? 2 + (b - r) / s
+                : 4 + (r - g) / s
+        : 0;
+    return [
+        60 * h < 0 ? 60 * h + 360 : 60 * h,
+        100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
+        (100 * (2 * l - s)) / 2,
+    ];
+};
 
 function GraphChange() {
     ViewMod = 1;
