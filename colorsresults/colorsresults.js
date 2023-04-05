@@ -31,6 +31,7 @@ const GetColors = async () => {
             let arrayHelp = [];
             for (let index = 0; index < NumOfProp; index++) {
                 let hslText = JSON.parse(data[index].colors)[s];
+                if(hslText[0] == "r") hslText = RGBToHSL(hslText);
                 var itContains = false;
                 var sameColPosition = 0;
                 for (var x = 0; x < arrayHelp.length; x++) {
@@ -56,6 +57,55 @@ const GetColors = async () => {
     }
     loadPageNum();
     Sort();
+}
+function RGBToHSL(barva) {
+    R = 0;
+    G = 0;
+    B = 0;
+    let RGB = [R, G, B];
+    let index = 0;
+    for (let i = 4; i < barva.length-1; i++) {
+        if(barva[i] == ",") index++;
+        else if(barva[i] != " " && barva[i] != "("){
+        RGB[index] = RGB[index]*10 + Number(barva[i]);
+        }
+    }
+    R = RGB[0];
+    G = RGB[1];
+    B = RGB[2];
+
+    var_R = (R / 255)
+    var_G = (G / 255)
+    var_B = (B / 255)
+
+    var_Min = Math.min(var_R, var_G, var_B)    //Min. value of RGB
+    var_Max = Math.max(var_R, var_G, var_B)    //Max. value of RGB
+    del_Max = var_Max - var_Min             //Delta RGB value
+
+    L = (var_Max + var_Min) / 2
+
+    if (del_Max == 0)                     //This is a gray, no chroma...
+    {
+        H = 0
+        S = 0
+    }
+    else                                    //Chromatic data...
+    {
+        if (L < 0.5) S = del_Max / (var_Max + var_Min)
+        else S = del_Max / (2 - var_Max - var_Min)
+
+        del_R = (((var_Max - var_R) / 6) + (del_Max / 2)) / del_Max
+        del_G = (((var_Max - var_G) / 6) + (del_Max / 2)) / del_Max
+        del_B = (((var_Max - var_B) / 6) + (del_Max / 2)) / del_Max
+
+        if (var_R == var_Max) H = del_B - del_G
+        else if (var_G == var_Max) H = (1 / 3) + del_R - del_B
+        else if (var_B == var_Max) H = (2 / 3) + del_G - del_R
+
+        if (H < 0) H += 1
+        if (H > 1) H -= 1
+    }
+    return "hsl(" + H*360 + ", " + S*100 + "% , " + L * 100 + "%)"
 }
 const GetWords = async () => {
     let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource';
@@ -135,7 +185,7 @@ function loadColors() {
                     ColorDiv.style.marginBottom = "0px";
                 }
             }
-            
+
             ColorDiv.style.cursor = "pointer";
             document.getElementById("resultsDiv").appendChild(ColorDiv);
         }

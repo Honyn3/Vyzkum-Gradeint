@@ -5,6 +5,9 @@ let scalesPlace = document.getElementById("scalesPlace");
 let GradientID = document.getElementById("GradientID");
 let ScaleList = document.getElementById("scaleLi");
 let SortingTable = document.getElementById("SortingTable");
+let Page = document.getElementById("page");
+let AllScalePage = document.getElementById("AllScales");
+let ScalePickTable = document.getElementById("ScalePickTable");
 let SortArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let ViewMod = 0;
 let GraphWidth;
@@ -15,6 +18,79 @@ window.addEventListener('DOMContentLoaded', () => {
     GetGradients();
     GetQuestions();
 })
+
+function ScaleDown() {
+    Page.style.display = "none";
+    AllScalePage.style.display = "inherit";
+    if (ScalePickTable.childElementCount == 0)
+        FillScalePickTable();
+}
+
+
+function ScaleUp() {
+    Page.style.display = "inherit";
+    AllScalePage.style.display = "none";
+}
+
+function FillScalePickTable() {
+    for (let i = 0; i < (Questions.length / 4) + 1; i++) {
+        let add = document.createElement("tr");
+        add.className = "trScalePick";
+        for (let j = 0; j < 4; j++) {
+            if (Questions[i * 4 + j] != undefined) {
+                let child = document.createElement("td");
+                let cone = GetCone(i * 4 + j, 0);
+                child.innerHTML += cone;
+                child.innerHTML += Questions[i * 4 + j][0];
+                child.onclick = function () { SelectColor(i * 4 + j, 0) };
+                child.className = "ScalePickSingle";
+                child.id = Number(String(i * 4 + j) + "0");
+                add.appendChild(child);
+
+                let child2 = document.createElement("td");
+                cone = GetCone(i * 4 + j, 2);
+                child2.innerHTML += cone;
+                child2.innerHTML += Questions[i * 4 + j][Questions[i * 4 + j].length - 1];
+                child2.onclick = function () { SelectColor(i * 4 + j, 1) };
+                child2.className = "ScalePickSingle";
+                child2.id = Number(String(i * 4 + j) + "1");
+                add.appendChild(child2);
+
+            }
+        }
+        ScalePickTable.appendChild(add);
+    }
+}
+function SelectColor(id, side) {
+    console.log(id + "  " + side);
+}
+
+function GetCone(id, place) {
+    SortHueWithSpecifiedScale(id, place, 1);
+    let div0 = '<div style="background: conic-gradient(';
+
+    for (let index = 0; index < Gradients.length; index++) {
+
+        if (filterEmptyTickbox.checked && JSON.parse(Gradients[index].colors)[id][1] == "null" && JSON.parse(Gradients[index].colors)[id][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[id][0] == "#A1A1A1") {
+            if (index == Gradients.length - 1) {
+                div0 = div0.slice(0, div0.length - 2)
+            };
+        }
+        else {
+
+            if (index == Gradients.length - 1) {
+                div0 += JSON.parse(Gradients[index].colors)[id][place];
+            } else {
+                div0 += JSON.parse(Gradients[index].colors)[id][place] + ', ';
+            }
+        }
+    }
+
+    GraphWidth = document.body.offsetWidth / 5;
+
+    div0 += '); width: 100px; height: 100px; margin: 5px; margin: auto; margin-bottom: 5px"></div>';
+    return div0;
+}
 
 GraphButton(0);
 function GraphButton(index) {
@@ -133,7 +209,7 @@ function WriteResults() {
         div2 += '); width: ' + GraphWidth + 'px; height: ' + GraphWidth + 'px; margin: 5px;"></div>';
 
         scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][0] + ' ' + div0 + '</div>';
-        scalesPlace.innerHTML += '<div style="text-align: center"> ' + (Questions[ScaleIndex][(Questions[ScaleIndex].length - 1)/2] != undefined ? Questions[ScaleIndex][(Questions[ScaleIndex].length - 1)/2] : "Neutrální") + ' ' + div1 + '</div>';
+        scalesPlace.innerHTML += '<div style="text-align: center"> ' + (Questions[ScaleIndex][(Questions[ScaleIndex].length - 1) / 2] != undefined ? Questions[ScaleIndex][(Questions[ScaleIndex].length - 1) / 2] : "Neutrální") + ' ' + div1 + '</div>';
         scalesPlace.innerHTML += '<div style="text-align: center"> ' + Questions[ScaleIndex][Questions[ScaleIndex].length - 1] + ' ' + div2 + '</div>';
 
         scalesPlace.style.display = "inline-flex";
@@ -346,7 +422,67 @@ function SortHue(position, idNum) {
         else if (colorFromGradient[0] == "r") {
             let hsl = rgb2hsv(RGBToRgb(colorFromGradient));
             //Colors[i] = (hsl[2] == 0 ? -1 : (hsl[2] == 100 ? -2 : hsl[0]));
-            Colors[i] = hsl[0] + hsl[1]/10 + hsl[2]/10;
+            Colors[i] = hsl[0] + hsl[1] / 10 + hsl[2] / 10;
+        }
+        else {
+            Colors[i] = "1";
+        }
+    }
+
+
+    // Presort(color, position);
+
+    let cont = true;
+    if (SortArray[idNum] == 1) {
+        while (cont) {
+            cont = false;
+            for (let SortIndex = 0; SortIndex < Gradients.length - 1; SortIndex++) {
+                if (Colors[SortIndex] < Colors[SortIndex + 1]) {
+                    let help = Colors[SortIndex];
+                    Colors[SortIndex] = Colors[SortIndex + 1];
+                    Colors[SortIndex + 1] = help;
+
+                    help = Gradients[SortIndex];
+                    Gradients[SortIndex] = Gradients[SortIndex + 1];
+                    Gradients[SortIndex + 1] = help;
+                    cont = true;
+                }
+            }
+        }
+    } else {
+        while (cont) {
+            cont = false;
+            for (let SortIndex = 0; SortIndex < Gradients.length - 1; SortIndex++) {
+                if (Colors[SortIndex] > Colors[SortIndex + 1]) {
+                    let help = Colors[SortIndex];
+                    Colors[SortIndex] = Colors[SortIndex + 1];
+                    Colors[SortIndex + 1] = help;
+
+                    help = Gradients[SortIndex];
+                    Gradients[SortIndex] = Gradients[SortIndex + 1];
+                    Gradients[SortIndex + 1] = help;
+                    cont = true;
+                }
+            }
+        }
+    }
+
+
+    WriteResults();
+}
+
+function SortHueWithSpecifiedScale(scale, position, idNum) {
+    let Colors = [];
+    for (let i = 0; i < Gradients.length; i++) {
+        let colorFromGradient = JSON.parse(Gradients[i].colors)[scale][position];
+
+        if (colorFromGradient[0] == "#") {
+            Colors[i] = rgb2hsv(hexToRgb(colorFromGradient))[0];
+        }
+        else if (colorFromGradient[0] == "r") {
+            let hsl = rgb2hsv(RGBToRgb(colorFromGradient));
+            //Colors[i] = (hsl[2] == 0 ? -1 : (hsl[2] == 100 ? -2 : hsl[0]));
+            Colors[i] = hsl[0] + hsl[1] / 10 + hsl[2] / 10;
         }
         else {
             Colors[i] = "1";

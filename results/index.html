@@ -74,6 +74,10 @@
                 <ul><input type="checkbox" name="" id="filterEmptyTickbox" checked="true" onclick="WriteResults()"></ul>
             </li>
 
+            <li class="ColorList">
+                <input type="button" class="GraphButton" value="Porovnat" onclick="ScaleDown()">    
+            </li>
+
 
         </div>
 
@@ -92,6 +96,15 @@
             <div id="GradientID">1/10</div>
             <input type="button" value="Další" class="btn" onclick="Next()">
         </div>
+    </div>
+    <div id="AllScales">
+        <div id="ScalePickPlace">
+            <table id="ScalePickTable">
+
+            </table>
+        </div>
+        <input type="button" class="GraphButton" value="Zpět" onclick="ScaleUp()">    
+
     </div>
 </body>
 <script src="resultScript.js"></script>

@@ -1,0 +1,310 @@
+.button {
+    border-radius: 50%;
+    padding: 11px;
+    margin: 1px;
+    border-width: 0;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-color: #c3c3c3;
+    border-width: 1px;
+
+}
+
+.button:hover {
+    box-shadow: 2px 2px rgba(41, 41, 41, 0.547)
+}
+
+#preset{
+    list-style-type: none;
+    padding: 0;
+}
+
+
+.mid{
+    text-align: center;
+}
+
+.button0{
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    background-color: rgb(231, 231, 231);
+    border: none;
+    width: 210px;
+    height: 23px;
+    text-align: center;
+    margin: 0px;
+    cursor:pointer;
+    border-radius: 4px;
+    border: rgb(41, 41, 41) solid 1px;
+    margin-top: 5px;
+    margin-bottom: 1px;
+    background-image: url(img/format\ color\ reset.png);
+    background-repeat: no-repeat;
+    background-size: 8%;
+    background-position: center;
+    background-position-x: 24%;
+}
+
+/* 1 */
+.button0:hover{
+    background-color: #c9c9c9;
+}
+.button1 {
+    background-color: #ff0000;
+
+}
+.button2 {
+    background-color: #ef5f26;
+    
+}
+.button3 {
+    background-color: #ffff00;
+
+}
+.button4 {
+    background-color: #00ff00;
+
+}
+.button5 {
+    background-color: #00fff7;
+
+}
+.button6 {
+    background-color: #0b21e3;
+
+}
+.button7 {
+    background-color: #800080;
+
+}
+
+/* 2 */
+.button8 {
+    background-color: #e81737;
+}
+.button9 {
+    background-color: #FF8C00;
+
+}
+.button10 {
+    background-color: #fff94b;
+
+}
+.button11{
+    background-color: #15e50c;
+
+}
+.button12{
+    background-color: #8cfeeb;
+
+}
+.button13{
+    background-color: #0b21e3;
+}
+.button14{
+    background-color: #a740a7;
+
+}
+
+/* 3 */
+.button15 {
+    background-color: #f33e1c;
+}
+.button16 {
+    background-color: #ffa500;
+
+}
+.button17{
+    background-color: #dff816;
+
+}
+.button18{
+    background-color: #75f649;
+
+}
+.button19{
+    background-color: #cdfef7;
+}
+.button20{
+    background-color: #4973dc;
+
+}
+.button21{
+    background-color: #8067d4;
+
+}
+
+/* 4 */
+.button22 {
+    background-color: #ff5555;
+}
+.button23 {
+    background-color: #f6c30b;
+
+}
+.button24{
+    background-color: #fffd9d;
+}
+.button25{
+    background-color: #53b031;
+
+}
+.button26{
+    background-color: #4fe3e6;
+}
+.button27{
+    background-color: #0886f5;
+}
+.button28{
+    background-color: #e02ed1;
+}
+
+/* 5 */
+.button29 {
+    background-color: #a3061b;
+}
+.button30 {
+    background-color: #f9c49b;
+    
+}
+.button31{
+    background-color: #fffebf;
+}
+.button32{
+    background-color: rgb(29, 95, 35);
+}
+.button33{
+    background-color: #4ebecb;
+}
+.button34{
+    background-color: #0784f4;
+}
+.button35{
+    background-color: #e42a96;
+}
+
+/* 6 */
+.button36 {
+    background-color: #4e1d06;
+}
+.button37 {
+    background-color: #7e5105;
+}
+.button38{
+    background-color: #a46536;
+}
+.button39{
+    background-color: #859764;
+
+}
+.button40{
+    background-color: #9abd34;
+
+}
+.button41{
+    background-color: #ced24c;
+
+}
+.button42{
+    background-color: #939509;
+
+
+}
+
+/* 7 */
+.button43 {
+    background-color: #000000;
+}
+.button44 {
+    background-color: #3d3d3d;
+}
+.button45 {
+    background-color: #838383;
+}
+.button46 {
+    background-color: #9e9e9e;
+}
+.button47 {
+    background-color: #c5c5c5;
+    border-width: 1px;
+}
+.button48 {
+    background-color: #e7e7e7;
+    border-width: 1px;
+}
+.button49 {
+    background-color: #ffffff;
+    border-width: 1px;
+}
+
+#colorButtonRight {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    border-style: solid;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+}
+
+#colorButtonRight:hover {
+    border-color: black;
+}
+
+#colorButtonRight:active {
+    border-color: rgb(169, 169, 169);
+}
+#colorButtonMiddle {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    border-style: solid;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin: auto;
+}
+
+#colorButtonMiddle:hover {
+    border-color: black;
+}
+
+#colorButtonMiddle:active {
+    border-color: rgb(169, 169, 169);
+}
+
+#colorButtonLeft {
+    background-color: #A1A1A1;
+    border-color: #ffffff;
+    border-radius: 1000px;
+    height: 40px;
+    width: 42px;
+    border-width: 2px;
+    cursor: pointer;
+    border-style: solid;
+    transition: 0.3s ease;
+}
+
+#colorButtonLeft:hover {
+    border-color: black;
+}
+
+#colorButtonLeft:active {
+    border-color: rgb(169, 169, 169);
+}
+
+#buttons {
+    display: flex;
+    height: 50px;
+    width: 90%;
+    margin: auto;
+    align-items: center;
+    background-color: #ffffff00;
+
+}

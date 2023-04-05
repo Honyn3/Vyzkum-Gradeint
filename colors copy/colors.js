@@ -1,19 +1,16 @@
 
-/* let Canvas = document.getElementsByClassName("ColorSelect")[0]; */
+let Canvas = document.getElementsByClassName("ColorSelect")[0];
 var root = document.querySelector(':root');
-/* let CanvasWidth = Canvas.offsetWidth;
-let CanvasHeight = Canvas.offsetHeight; */
-/* let CanvasLeft = Canvas.getBoundingClientRect().left;
-let CanvasTop = Canvas.getBoundingClientRect().top; */
-/* let ColorPicker = document.getElementById("ColorPicker"); */
-/* let ColorPickerWidth = ColorPicker.offsetWidth / 2;
-let ColorPickerHeight = ColorPicker.offsetHeight; */
+let CanvasWidth = Canvas.offsetWidth;
+let CanvasHeight = Canvas.offsetHeight;
+let CanvasLeft = Canvas.getBoundingClientRect().left;
+let CanvasTop = Canvas.getBoundingClientRect().top;
+let ColorPicker = document.getElementById("ColorPicker");
+let ColorPickerWidth = ColorPicker.offsetWidth / 2;
+let ColorPickerHeight = ColorPicker.offsetHeight;
 let BrightnessSelect = document.getElementById("BrightnessSelect");
 let BrightnessPicker = document.getElementById("BrightnessPicker");
 let ColorBackground = document.getElementById("ColorBackground");
-let Main = document.getElementById("Main");
-let Copy = document.getElementById("Copy");
-
 let ColorBackgroundLeft = ColorBackground.getBoundingClientRect().left;
 let chosenColor = "hsl(180, 50%, 50%)";
 let wordIteration = 0;
@@ -23,94 +20,10 @@ let arrayOfColors = [];
 var arrayColAndHeadings = [];
 var arrayOfNumOrder = [];
 let H = 0, S = 100, L = 50;
-let R = 255, G = 255, B = 255;
 let Counter = document.getElementById("Counter");
-let CCounter = document.getElementById("CCounter");
 let username = "sám";
 let timestamp = 0;
-/* root.style.setProperty('--BrightPickerLeft', document.getElementById("BrightnessPicker").offsetLeft + "px"); */
-let touchStartY, touchEndY;
-let ableToMove = true;
-
-function Barvy(btn) {
-    let barva = window.getComputedStyle(btn).backgroundColor;
-    GetRGB(barva);
-    SetBackground();
-}
-
-Main.addEventListener('touchstart', function (e) {
-    touchStartY = e.touches[0].clientY;
-    touchEndY = e.touches[0].clientY;
-});
-
-Main.addEventListener('touchmove', function (e) {
-    touchEndY = e.touches[0].clientY;
-    if(ableToMove)
-    TouchMove();
-});
-
-Main.addEventListener('touchend', function (e) {
-    if(ableToMove)
-    TouchCalc();
-    touchStartY = 0;
-    touchEndY = 0;
-});
-
-function TouchMove() {
-    let moveY = touchStartY - touchEndY;
-    Copy.style.transitionDuration = "0.1s";
-
-    Copy.style.paddingTop = 200 - moveY / 2 + "%";
-
-}
-function TouchCalc() {
-    if (touchStartY - touchEndY > 130) TikTokNext();
-    else {
-        Copy.style.transitionDuration = "1.1s";
-        Copy.style.paddingTop = "200%";
-    }
-}
-
-function TikTokNext() {
-    ableToMove = false;
-    Copy.style.transitionDuration = "1.1s";
-    Copy.style.paddingTop = "0";
-    R = 255;
-    G = 255;
-    B = 255;
-    ColorBackground.style.transitionDuration = "1000ms";
-    SetBackground();
-
-    setTimeout(() => {
-
-        nextWord();
-        Copy.style.transitionDuration = "0s";
-        Copy.style.paddingTop = "200%";
-
-        setTimeout(() => {
-            Copy.style.transitionDuration = "1.1s";
-            ColorBackground.style.transitionDuration = "0.2s";
-            ableToMove = true;
-        }, 100);
-    }, 1100);
-}
-
-function GetRGB(barva) {
-    R = 0;
-    G = 0;
-    B = 0;
-    let RGB = [R, G, B];
-    let index = 0;
-    for (let i = 4; i < barva.length - 1; i++) {
-        if (barva[i] == ",") index++;
-        else if (barva[i] != " " && barva[i] != "(") {
-            RGB[index] = RGB[index] * 10 + Number(barva[i]);
-        }
-    }
-    R = RGB[0];
-    G = RGB[1];
-    B = RGB[2];
-}
+root.style.setProperty('--BrightPickerLeft', document.getElementById("BrightnessPicker").offsetLeft + "px");
 
 window.addEventListener('DOMContentLoaded', () => {
     GetQuestions();
@@ -139,10 +52,10 @@ function CreateLogin() {
     login.appendChild(loginBtn);
     loginBtn.addEventListener('click', () => {
         username = document.getElementById("loginText").value;
-        if (username == "") {
-            username = "sám";
+        if (username == "") { 
+            username = "sám"; 
             alert("Prázdné jméno -> uloží se výchozí hodnota");
-        } else alert("Na dotazník dohlíží: " + username);
+        }else alert("Na dotazník dohlíží: " + username);
         login.style.display = "none";
     });
 }
@@ -160,27 +73,27 @@ const GetQuestions = async () => {
     fillColAndHeadingArray();
     nextWord();
 }
-function assignRnHeadingsArray() {
-    arrayOfNumOrder.forEach(element => {
-        wordsForHeadingRn.push(wordsForHeading[element]);
-    });
+function assignRnHeadingsArray(){
+arrayOfNumOrder.forEach(element => {
+   wordsForHeadingRn.push(wordsForHeading[element]);
+});
 }
-function getRnArrayOrder(wordsHeading) {
-    for (let index = 0; index < wordsHeading.length; index++) {
-        var rnNumber;
-        do {
-            rnNumber = getRnInteger(wordsHeading.length);
-        } while (arrayOfNumOrder.includes(rnNumber));
+function getRnArrayOrder(wordsHeading){
+for (let index = 0; index < wordsHeading.length; index++) {
+    var rnNumber;
+    do {
+        rnNumber = getRnInteger(wordsHeading.length);
+    } while (arrayOfNumOrder.includes(rnNumber));
         arrayOfNumOrder.push(rnNumber);
-    }
+}
 }
 function getRnInteger(max) {
     var min = 0;
     return Math.floor(Math.random() * (max - min)) + min;
 }
-function fillColAndHeadingArray() {
+function fillColAndHeadingArray(){
     for (let index = 0; index < wordsForHeadingRn.length; index++) {
-        arrayColAndHeadings.push([wordsForHeadingRn[index], "hsl(180, 50%, 50%)"]);
+        arrayColAndHeadings.push([wordsForHeadingRn[index],"hsl(180, 50%, 50%)"]);
     }
 }
 function Click(el) {
@@ -221,7 +134,7 @@ function SaturaionClick(e) {
     SetBackground();
 }
 
-/* document.body.onmousemove = function Click(e) {
+document.body.onmousemove = function Click(e) {
     if(document.body.offsetWidth > 1050){
         if (SaturationMD) {
             SaturaionClick(e);
@@ -231,7 +144,7 @@ function SaturaionClick(e) {
         }
     }
     
-} */
+}
 
 function BrightnessClick(e) {
     let y = e.clientY - CanvasTop;
@@ -249,21 +162,21 @@ function BrightnessClick(e) {
 }
 
 function SetBackground() {
-    ColorBackground.style.backgroundColor = "rgb(" + R + ", " + G + ", " + B + ")";
-    chosenColor = "rgb(" + R + ", " + G + ", " + B + ")";
+    ColorBackground.style.backgroundColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
+    chosenColor = "hsl(" + H + ", " + S + "% , " + L + "%)";
 
     let Subject = document.getElementById("Subject");
-    if ((R + G + B) / 3 > 128) Subject.style.color = "black";
+    if ((L > 60 && H > 180) || (L > 40 && H <= 180)) Subject.style.color = "black";
     else Subject.style.color = "White";
 
     if (document.body.getBoundingClientRect().width < 1050) {
-        if ((R + G + B) / 3 > 128) document.getElementById("Counter").style.color = "black";
+        if ((L > 60 && H > 180) || (L > 40 && H <= 180)) document.getElementById("Counter").style.color = "black";
         else document.getElementById("Counter").style.color = "White";
     } else document.getElementById("Counter").style.color = "White";
 }
 
 var SaturationMD = false;
-/* document.body.onmouseup = function () {
+document.body.onmouseup = function () {
     BrightnessMD = false;
     SaturationMD = false;
 }
@@ -283,10 +196,10 @@ document.getElementById("Saturation").onmouseup = function () {
 }
 document.getElementById("Saturation").ontouchcancel = function () {
     SaturationMD = false;
-} */
+}
 
 var BrightnessMD = false;
-/* BrightnessSelect.ontouchmove = function (e) {
+BrightnessSelect.ontouchmove = function (e) {
     BrightnessMD = true;
     SaturationMD = false;
     BrightnessTap(e);
@@ -302,7 +215,7 @@ BrightnessSelect.onmouseup = function () {
 }
 BrightnessSelect.ontouchcancel = function () {
     BrightnessMD = false;
-} */
+}
 
 function ResetBoundries() {
     CanvasWidth = Canvas.offsetWidth;
@@ -316,24 +229,20 @@ function ResetBoundries() {
     ColorBackgroundLeft = ColorBackground.getBoundingClientRect().left;
 }
 function nextWord() {
-
-
     SaturationMD = false;
     BrightnessMD = false;
     if (wordIteration == 0) {
         document.getElementById("Subject").innerHTML = arrayColAndHeadings[wordIteration][0];
-        document.getElementById("CSubject").innerHTML = arrayColAndHeadings[wordIteration + 1][0];
-
         wordIteration++;
     } else {
         if (wordIteration == 1) {
-            arrayColAndHeadings[wordIteration - 1][1] = chosenColor;
+            arrayColAndHeadings[wordIteration-1][1] = chosenColor;
             const JSONColors = JSON.stringify(arrayColAndHeadings);
             localStorage.setItem("JSONColor", JSONColors);
         } else {
             let oldColors = localStorage.getItem("JSONColor");
             arrayColAndHeadings = JSON.parse(oldColors);
-            arrayColAndHeadings[wordIteration - 1][1] = chosenColor;
+            arrayColAndHeadings[wordIteration-1][1] = chosenColor;
             let JSONColors = JSON.stringify(arrayColAndHeadings);
             localStorage.setItem("JSONColor", JSONColors);
         }
@@ -351,44 +260,30 @@ function nextWord() {
             Save(JSON.stringify(setColArrayInRightOrder()));
         } else {
             document.getElementById("Subject").innerHTML = arrayColAndHeadings[wordIteration][0];
-            if (wordIteration + 1 < arrayColAndHeadings.length)
-                document.getElementById("CSubject").innerHTML = arrayColAndHeadings[wordIteration + 1][0];
-            else {
-                document.getElementById("CColorBackground").style.backgroundColor = "hsl(" + 200 + ", " + 58 + "% , " + 0 + "%)";
-                const node = document.createElement("p");
-                const textnode = document.createTextNode("Děkujeme za vyplnění.");
-                node.appendChild(textnode);
-                node.id = "endingMessage";
-                document.getElementById("CColorBackground").innerHTML = "";
-                Copy.appendChild(node);
-                Counter.innerHTML = "";
-            }
         }
         wordIteration++;
     }
     Counter.innerHTML = wordIteration + "/" + wordsForHeading.length;
-    /* CCounter.innerHTML = wordIteration + 1 + "/" + wordsForHeading.length; */
-
 }
-function setColArrayInRightOrder() {
-    arrayOfColors = [];
+function setColArrayInRightOrder(){
+    arrayOfColors=[];
     wordsForHeading.forEach(el => {
         for (let index = 0; index < arrayColAndHeadings.length; index++) {
-            if (el == arrayColAndHeadings[index][0]) {
+            if(el==arrayColAndHeadings[index][0]){
                 arrayOfColors.push(arrayColAndHeadings[index][1]);
                 break;
             }
         }
-    });
-    return arrayOfColors;
-}
+        });
+        return arrayOfColors;
+    }
 
 const Save = async (data) => {
     let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
     //let uri = 'http://localhost:3000/colorsdata';
     let saveData = {
         colors: data,
-        timestamp_s: timestamp / 1000,
+        timestamp_s: timestamp/1000,
         collector: username
     };
 

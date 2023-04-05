@@ -1,0 +1,96 @@
+
+#CColorBackground {
+    left: 15%;
+    padding: 0;
+    margin: 0;
+    width: 70%;
+    background-color: hsl(0, 0%, 100%);
+    height: 100%;
+    padding: auto;
+    position: absolute;
+    transition: 0.2s ease;
+
+}
+
+#Cpreset{
+    list-style-type: none;
+    padding: 0;
+}
+
+#CColorPicker {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url(/img/color_picker.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: var(--PickerX);
+    top: var(--PickerY);
+    pointer-events: none;
+}
+
+#CColorSelectDiv {
+    width: 330px;
+    height: 340px;
+    padding: 12px;
+    padding-top: 20px;
+    margin: auto;
+
+    background-color: rgb(238, 246, 254);
+    border-radius: 14px;
+    margin-top: 13%;
+    /* position: absolute;
+    bottom: 5%;
+    left: 50% - 350px; */
+}
+
+#CSubject {
+    margin-top: 14%;
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 44px;
+    transition: all 0.3s;
+}
+
+
+#CCounter {
+    position: relative;
+    right: 50px;
+    top: 50px;
+    padding-left: 93%;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+@media only screen and (max-width: 1050px) {
+
+
+    #CColorBackground {
+        width: 100%;
+        left: 0%;
+        background-image: url(..//img/arrowDown.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: 40%;
+    }
+
+    #CCounter {
+        right: 20px;
+    }
+
+
+    #CColorSelectDiv {
+        width: 320px;
+        height: auto;
+        padding: 10px;
+        padding-bottom: 0;
+        border-radius: 5px;
+        bottom: 2%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        position: absolute;
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient - barvy</title>
+    <link rel="stylesheet" href="colorsStyle.css">
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+</head>
+
+<body onresize="ResetBoundries()">
+    <div id="ColorBackground">
+        <h1 id="Subject">Tmavá</h1>
+        <div id="ColorSelectDiv">
+            <p
+                style="user-select: none; margin-bottom: 17px; margin-top: 5px; font-family: Arial, Helvetica, sans-serif; color: #535353;">
+                Vyberte barvu</p>
+            <div>
+                <div class="ColorSelect" id="Hue" style="user-select: none;"></div>
+                <div class="ColorSelect" id="Saturation" onclick=""></div>
+
+                <div id="BrightnessSelect">
+                    <div id="BrightnessPicker"></div>
+
+                </div>
+            </div>
+        </div>
+        <div id="ColorPicker"></div>
+    </div>
+    <button id="nextButton" onclick="nextWord()">
+        <div id="nextButtonImg"></div>Další
+    </button>
+    <div id="Counter">1/10</div>
+
+    <div id="login" style="font-family: Arial, Helvetica, sans-serif;">
+        <h2>Dohlíží: </h2>
+        <input type="text" id="loginText" placeholder="sám">
+    </div>
+    <script src="colors.js"></script>
+</body>
+
+</html>
