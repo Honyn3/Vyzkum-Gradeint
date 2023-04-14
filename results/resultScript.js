@@ -13,6 +13,8 @@ let ViewMod = 0;
 let GraphWidth;
 let filterEmptyTickbox = document.getElementById("filterEmptyTickbox");
 let graphButtons = document.getElementsByClassName("GraphButton");
+let StarZeros = [];
+let PrimeZeros = [];
 
 window.addEventListener('DOMContentLoaded', () => {
     GetGradients();
@@ -32,65 +34,7 @@ function ScaleUp() {
     AllScalePage.style.display = "none";
 }
 
-function FillScalePickTable() {
-    for (let i = 0; i < (Questions.length / 4) + 1; i++) {
-        let add = document.createElement("tr");
-        add.className = "trScalePick";
-        for (let j = 0; j < 4; j++) {
-            if (Questions[i * 4 + j] != undefined) {
-                let child = document.createElement("td");
-                let cone = GetCone(i * 4 + j, 0);
-                child.innerHTML += cone;
-                child.innerHTML += Questions[i * 4 + j][0];
-                child.onclick = function () { SelectColor(i * 4 + j, 0) };
-                child.className = "ScalePickSingle";
-                child.id = Number(String(i * 4 + j) + "0");
-                add.appendChild(child);
 
-                let child2 = document.createElement("td");
-                cone = GetCone(i * 4 + j, 2);
-                child2.innerHTML += cone;
-                child2.innerHTML += Questions[i * 4 + j][Questions[i * 4 + j].length - 1];
-                child2.onclick = function () { SelectColor(i * 4 + j, 1) };
-                child2.className = "ScalePickSingle";
-                child2.id = Number(String(i * 4 + j) + "1");
-                add.appendChild(child2);
-
-            }
-        }
-        ScalePickTable.appendChild(add);
-    }
-}
-function SelectColor(id, side) {
-    console.log(id + "  " + side);
-}
-
-function GetCone(id, place) {
-    SortHueWithSpecifiedScale(id, place, 1);
-    let div0 = '<div style="background: conic-gradient(';
-
-    for (let index = 0; index < Gradients.length; index++) {
-
-        if (filterEmptyTickbox.checked && JSON.parse(Gradients[index].colors)[id][1] == "null" && JSON.parse(Gradients[index].colors)[id][2] == "#A1A1A1" && JSON.parse(Gradients[index].colors)[id][0] == "#A1A1A1") {
-            if (index == Gradients.length - 1) {
-                div0 = div0.slice(0, div0.length - 2)
-            };
-        }
-        else {
-
-            if (index == Gradients.length - 1) {
-                div0 += JSON.parse(Gradients[index].colors)[id][place];
-            } else {
-                div0 += JSON.parse(Gradients[index].colors)[id][place] + ', ';
-            }
-        }
-    }
-
-    GraphWidth = document.body.offsetWidth / 5;
-
-    div0 += '); width: 100px; height: 100px; margin: 5px; margin: auto; margin-bottom: 5px"></div>';
-    return div0;
-}
 
 GraphButton(0);
 function GraphButton(index) {
@@ -737,16 +681,18 @@ function ConvertHexToNum(hex) {
     return hex;
 }
 function RGBToRgb(color) {
+    if (color == "null") return [0, 0, 0];
     let col = ["", "", ""];
     let colorIndex = 0;
     for (let i = 3; i < color.length; i++) {
         if (color[i] == ',') colorIndex++;
-        else if (color[i] != ' ' && color[i] != ')' && color[i] != '(') { col[colorIndex] += color[i]; }
+        else if (color[i] != ' ' && color[i] != ')' && color[i] != '(' && color[i] != 'b') { col[colorIndex] += color[i]; }
     }
 
     col[0] = Number(col[0]);
     col[1] = Number(col[1]);
     col[2] = Number(col[2]);
+    if (col[0] == "") col[0] = 0;
     return col;
 }
 

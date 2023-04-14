@@ -98,15 +98,28 @@
         </div>
     </div>
     <div id="AllScales">
+        <h1 class="center">Vyberte dva grafy</h1>
         <div id="ScalePickPlace">
             <table id="ScalePickTable">
 
             </table>
+            <hr>
+            <ul id="ComparassionPlace">
+                <div id="CompOne" class="Compare">
+                    <p id="CompTextOne" class="CompText"></p>
+                </div>
+                <p id="Result">Percentil</p>
+                <div id="CompTwo" class="Compare">
+                    <p id="CompTextTwo" class="CompText"></p>
+                </div>
+
+            </ul>
         </div>
         <input type="button" class="GraphButton" value="Zpět" onclick="ScaleUp()">    
 
     </div>
 </body>
 <script src="resultScript.js"></script>
-
+<script src="Munkres.js"></script>
+<script src="ScaleSimmilarity.js"></script>
 </html>
