@@ -3,18 +3,23 @@ let CompTwo = document.getElementById("CompTwo");
 let CompTextOne = document.getElementById("CompTextOne");
 let CompTextTwo = document.getElementById("CompTextTwo");
 let ResultText = document.getElementById("Result");
+let GradientsOther;
 
 function FillScalePickTable() {
+    GradientsOther = ProcessOtherGradient(GradientsOt);
+    console.log(GradientsOther);
     let rows;
-    rows = (document.body.offsetWidth-200) / 100 - 2;
+    rows = (document.body.offsetWidth - 200) / 100 - 2;
     console.log(rows);
-    if(document.body.offsetWidth > 1000) rows = (Questions.length / 4) + 1;
+    if (document.body.offsetWidth > 1000) rows = (Questions.length / 4) + 1;
     else rows = (Questions.length / 8) + 1;
     //TODO: MOBIL
 
     console.log(rows);
 
-    for (let i = 0; i < rows; i++) {
+    CreateLabel(0);
+
+    for (let i = 0; i < (Questions.length / 4) + 1; i++) {
         let add = document.createElement("tr");
 
         add.className = "trScalePick";
@@ -54,10 +59,118 @@ function FillScalePickTable() {
         }
         ScalePickTable.appendChild(add);
     }
+
+    CreateLabel(1);
+    for (let i = 0; i < (QuestionsOther.length / 4) + 1; i++) {
+        let add = document.createElement("tr");
+        add.className = "trScalePick";
+        for (let j = 0; j < 8; j++) {
+            if (QuestionsOther[i * 8 + j] != undefined) {
+                let child = document.createElement("td");
+                child.style.background = GetConeOther(i * 8 + j, 0);
+
+                let word = document.createElement("p");
+                word.innerHTML = QuestionsOther[i * 8 + j];
+                word.style.margin = "1px";
+                word.style.color = "white";
+                word.style.textShadow = "1px 1px 2px black";
+                child.appendChild(word);
+
+                child.onclick = function () { SelectColorOther(i * 8 + j, 0) };
+                child.className = "ScalePickSingle";
+                child.id = "O" + Number(String(i * 8 + j) + "0");
+                add.appendChild(child);
+            }
+        }
+        ScalePickTable.appendChild(add);
+    }
+
+
+}
+
+function CreateLabel(num) {
+    if (num == 0) {
+        let tr = document.createElement("tr");
+        let td = document.createElement("td");
+        let line = document.createElement("p");
+        line.innerHTML = "Scales";
+        td.innerHTML += "<h2>" + line.innerHTML + "</h2>";
+        tr.appendChild(td);
+        ScalePickTable.appendChild(tr);
+    } else {
+        let tr2 = document.createElement("tr");
+        let td2 = document.createElement("td");
+        let line2 = document.createElement("p");
+        line2.innerHTML = "Colors";
+        td2.innerHTML += "<h2>" + line2.innerHTML + "</h2>";
+        tr2.appendChild(td2);
+        ScalePickTable.appendChild(tr2);
+    }
 }
 
 let left = true;
 let CompareCones = [];
+function SelectColorOther(id, side) {
+
+    let ConeId = "O" + String(id) + String(side);
+    if (ConeId == "O00") ConeId = "O0";
+    if (ConeId == "O01") ConeId = "O1";
+
+    let cone = document.getElementById(ConeId);
+    ChangeSelectedConeStyle(cone);
+
+    if (left) {
+        CompOne.style.background = cone.style.background;
+        CompTextOne.innerHTML = cone.children[0].innerHTML;
+        let pushToCone = [];
+        for (let i = 0; i < GradientsOther.length; i++) {
+            const element = Handle(GradientsOther[i][id]);
+            console.log(element);
+            if (!element.includes(undefined))
+                pushToCone.push(element);
+        }
+        CompareCones[0] = pushToCone;
+    }
+    else {
+        CompTwo.style.background = cone.style.background;
+        CompTextTwo.innerHTML = cone.children[0].innerHTML;
+
+        let pushToCone = [];
+        for (let i = 0; i < GradientsOther.length; i++) {
+            const element = Handle(GradientsOther[i][id]);
+            if (!element.includes(undefined))
+                pushToCone.push(element);
+        }
+        CompareCones[1] = pushToCone;
+        CompareConesIntoArray();
+    }
+    left = !left;
+}
+
+function Handle(color) {
+
+    if (color[0] = "h") {
+        let col = ["", "", ""];
+        let colIndex = 0;
+        for (let i = 4; i < color.length; i++) {
+            if (color[i] == ",") colIndex++;
+            else if (color[i] != ")" && color[i] != "%") col[colIndex] += color[i];
+        }
+
+        return HSLToRGB(Math.round(Number(col[0])), Math.round(Number(col[1])), Math.round(Number(col[2])));
+    } else return RGBToRgb(color);
+}
+
+const HSLToRGB = (h, s, l) => {
+    s /= 100;
+    l /= 100;
+    const k = n => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = n =>
+        l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    return [255 * f(0), 255 * f(8), 255 * f(4)];
+};
+
 function SelectColor(id, side) {
 
     let ConeId = String(id) + String(side);
@@ -96,7 +209,7 @@ function SelectColor(id, side) {
 }
 
 let coneStyles = [];
-function ChangeSelectedConeStyle(cone){
+function ChangeSelectedConeStyle(cone) {
     let otherCones = document.getElementsByClassName("ScalePickSingle");
     for (let i = 0; i < otherCones.length; i++) {
         otherCones[i].style.filter = "";
@@ -117,7 +230,7 @@ function CompareConesIntoArray() {
     for (let i = 0; i < CompareCones[0].length; i++) {
         let DistLow = [];
         for (let j = 0; j < CompareCones[1].length; j++) {
-            let dst = Math.sqrt(Math.abs((CompareCones[1][i][0] - CompareCones[0][j][0]) * (CompareCones[1][i][0] - CompareCones[0][j][0]) + (CompareCones[1][i][1] - CompareCones[0][j][1]) * (CompareCones[1][i][1] - CompareCones[0][j][1]) + (CompareCones[1][i][2] - CompareCones[0][j][2]) * (CompareCones[1][i][2] - CompareCones[0][j][2])));
+            let dst = Math.sqrt(Math.abs((CompareCones[0][i][0] - CompareCones[1][j][0]) * (CompareCones[0][i][0] - CompareCones[1][j][0]) + (CompareCones[0][i][1] - CompareCones[1][j][1]) * (CompareCones[0][i][1] - CompareCones[1][j][1]) + (CompareCones[0][i][2] - CompareCones[1][j][2]) * (CompareCones[0][i][2] - CompareCones[1][j][2])));
             DistLow.push(dst);
         }
         Distances.push(DistLow);
@@ -479,6 +592,24 @@ function GetCone(id, place) {
             } else {
                 div0 += JSON.parse(Gradients[index].colors)[id][place] + ', ';
             }
+        }
+    }
+
+    GraphWidth = document.body.offsetWidth / 5;
+
+    div0 += ')';
+    return div0;
+}
+
+function GetConeOther(id) {
+    SortHueWithSpecifiedScaleOther(id, 1);
+    let div0 = 'conic-gradient(';
+    for (let index = 0; index < GradientsOther.length; index++) {
+
+        if (index == GradientsOther.length - 1) {
+            div0 += GradientsOther[index][id];
+        } else {
+            div0 += GradientsOther[index][id] + ', ';
         }
     }
 

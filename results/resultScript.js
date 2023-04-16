@@ -1,5 +1,7 @@
 let Gradients;
+let GradientsOt;
 let Questions;
+let QuestionsOther;
 let ScaleIndex = 0;
 let scalesPlace = document.getElementById("scalesPlace");
 let GradientID = document.getElementById("GradientID");
@@ -19,8 +21,10 @@ let PrimeZeros = [];
 window.addEventListener('DOMContentLoaded', () => {
     GetGradients();
     GetQuestions();
-})
 
+    GetGradientsOther();
+    GetQuestionsOther();
+})
 function ScaleDown() {
     Page.style.display = "none";
     AllScalePage.style.display = "inherit";
@@ -54,6 +58,50 @@ function GraphButton(index) {
     }
 }
 
+const GetGradientsOther = async () => {
+    let uri = 'http://klara.fit.vutbr.cz:3000/colorsdata';
+    const wait = await fetch(uri);
+    const data = await wait.json();
+
+    GradientsOt = data;
+}
+
+function ProcessOtherGradient(data){
+    let helpArray = [];
+    for (let i = 0; i < data.length; i++) {
+        let PushArray = [];
+        let commas = 0;
+        let colorIndex = -1;
+        let colorString = data[i].colors;
+        if (colorString[2] == "r") {
+            for (let j = 1; j < colorString.length - 1; j++) {
+                if (colorString[j] == "r") {
+                    colorIndex++;
+                    commas = 0;
+                    PushArray[colorIndex] = "rgb(";
+                }
+                else if (colorString[j] != "g" && colorString[j] != "b" && colorString[j] != "(" && colorString[j] != '"' && colorString[j] != ',') PushArray[colorIndex] += colorString[j];
+                if (colorString[j] == "," && commas < 2) { commas++; PushArray[colorIndex] += colorString[j]; }
+
+
+            }
+        } else {
+            for (let j = 1; j < colorString.length - 1; j++) {
+                if (colorString[j] == "h") {
+                    colorIndex++;
+                    commas = 0;
+                    PushArray[colorIndex] = "hsl(";
+                }
+                else if (colorString[j] != "s" && colorString[j] != "l" && colorString[j] != "(" && colorString[j] != '"' && colorString[j] != ',') PushArray[colorIndex] += colorString[j];
+                if (colorString[j] == "," && commas < 2) { commas++; PushArray[colorIndex] += colorString[j]; }
+            }
+        }
+        helpArray.push(PushArray);
+    }
+    return helpArray;
+
+}
+
 const GetGradients = async () => {
     let uri = 'http://klara.fit.vutbr.cz:3000/data';
     const wait = await fetch(uri);
@@ -76,6 +124,14 @@ const GetQuestions = async () => {
     GradientID.innerHTML = "1/" + Questions.length;
 
     WriteQuestions();
+}
+
+const GetQuestionsOther = async () => {
+    let uri = 'http://klara.fit.vutbr.cz:3000/ColorsSource';
+    const wait = await fetch(uri);
+    const data = await wait.json();
+
+    QuestionsOther = data[0].data;
 }
 
 function WriteQuestions() {
@@ -473,6 +529,69 @@ function SortHueWithSpecifiedScale(scale, position, idNum) {
 
 
     WriteResults();
+}
+
+function SortHueWithSpecifiedScaleOther(scale, idNum) {
+    let Colors = [];
+    for (let i = 0; i < GradientsOther.length; i++) {
+        let colorFromGradient = GradientsOther[i][scale];
+        if (colorFromGradient[0] == "#") {
+            Colors[i] = rgb2hsv(hexToRgb(colorFromGradient))[0];
+        }
+        else if (colorFromGradient[0] == "r") {
+            let hsl = rgb2hsv(RGBToRgb(colorFromGradient));
+            //Colors[i] = (hsl[2] == 0 ? -1 : (hsl[2] == 100 ? -2 : hsl[0]));
+            Colors[i] = hsl[0] + hsl[1] / 10 + hsl[2] / 10;
+        } else if (colorFromGradient[0] == "h") {
+            Colors[i] = Number(colorFromGradient[4]);
+            if (colorFromGradient[5] != '.') {
+                Colors[i] *= 10;
+                Colors[i] += Number(colorFromGradient[5]);
+                if (colorFromGradient[6] != '.') {
+                    Colors[i] *= 10;
+                    Colors[i] += Number(colorFromGradient[6]);
+                }
+            }
+        }
+        else {
+            Colors[i] = "1";
+        }
+    }
+
+    let cont = true;
+    if (SortArray[idNum] == 1) {
+        while (cont) {
+            cont = false;
+            for (let SortIndex = 0; SortIndex < GradientsOther.length - 1; SortIndex++) {
+                if (Colors[SortIndex] < Colors[SortIndex + 1]) {
+                    let help = Colors[SortIndex];
+                    Colors[SortIndex] = Colors[SortIndex + 1];
+                    Colors[SortIndex + 1] = help;
+
+                    help = GradientsOther[SortIndex];
+                    GradientsOther[SortIndex] = GradientsOther[SortIndex + 1];
+                    GradientsOther[SortIndex + 1] = help;
+                    cont = true;
+                }
+            }
+        }
+    } else {
+        while (cont) {
+            cont = false;
+            for (let SortIndex = 0; SortIndex < GradientsOther.length - 1; SortIndex++) {
+                if (Colors[SortIndex] > Colors[SortIndex + 1]) {
+                    let help = Colors[SortIndex];
+                    Colors[SortIndex] = Colors[SortIndex + 1];
+                    Colors[SortIndex + 1] = help;
+
+                    help = GradientsOther[SortIndex];
+                    GradientsOther[SortIndex] = GradientsOther[SortIndex + 1];
+                    GradientsOther[SortIndex + 1] = help;
+                    cont = true;
+                }
+            }
+        }
+    }
 }
 
 function SortElement(element, color, position) {
